@@ -1,0 +1,15 @@
+node_modules
+# Yarn Lock files
+yarn.lock
+
+# NPM lock files
+package-lock.json
+
+# Visual Studio code
+.vscode
+
+# Build file
+build
+
+# MacOS files
+.DS_Store

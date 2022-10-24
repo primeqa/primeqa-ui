@@ -1,0 +1,124 @@
+/**
+*
+* Copyright 2022 PrimeQA Team
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/colors" as *;
+
+.container__application {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding-left: $spacing-09;
+  height: 100%;
+}
+
+.container__application__header {
+  padding: $spacing-03 $spacing-05;
+  margin-top: $spacing-09;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .cds--skeleton__text {
+    max-width: 40% !important;
+  }
+}
+
+.container__application__tools {
+  align-items: center;
+  display: flex;
+  flex: 5;
+  flex-direction: row;
+  justify-content: flex-end;
+  overflow: visible;
+}
+
+.container__application__tools .cds--btn .cds--btn__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.container__application__tools-divider {
+  align-self: stretch;
+  background-color: #e0e0e0;
+  height: auto;
+  margin: 0.75rem 0;
+  width: 1px;
+}
+
+.application {
+  display: flex;
+  align-items: stretch;
+  flex-grow: 1;
+  overflow-y: auto;
+
+  &__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 70%;
+    overflow-y: auto;
+  }
+
+  &__description {
+    padding-top: $spacing-03;
+    margin-left: $spacing-05;
+  }
+
+  &__content {
+    margin-top: $spacing-05;
+    margin-left: $spacing-05;
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+      font-weight: bold;
+    }
+  }
+
+  &__error {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__settings {
+    display: flex;
+    flex-direction: column;
+    min-width: 25%;
+    max-width: 30%;
+    overflow-y: auto;
+    background-color: $gray-80;
+  }
+}
+
+.notification__helper-text {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+}
+
+.notification__helper-text {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+}

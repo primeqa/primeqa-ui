@@ -1,0 +1,71 @@
+/**
+*
+* Copyright 2022 PrimeQA Team
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+
+@use "@carbon/react/scss/colors" as *;
+@use "@carbon/react/scss/spacing" as *;
+
+.qa__input {
+  padding-top: $spacing-05;
+  padding-bottom: $spacing-05;
+  display: flex;
+  max-width: 80%;
+
+  &--box {
+    min-width: 80%;
+    margin-right: $spacing-07;
+  }
+
+  .qa__suggested-questions {
+    background-color: $gray-20;
+    position: relative;
+    opacity: 0.95;
+    z-index: 10;
+    cursor: pointer;
+
+    .qa__suggested-questions__item {
+      p {
+        padding: 1% 0;
+        margin: 0 1%;
+        border-bottom: solid 1px $gray-60;
+      }
+
+      &:hover {
+        border: solid 2px $gray-80;
+      }
+    }
+  }
+}
+
+.qa__question--submit-btn {
+  padding-left: $spacing-03;
+  height: 3rem;
+}
+
+.cds--search--md .cds--search-close,
+.cds--search--md ~ .cds--search-button,
+.cds--search--md.cds--search--expandable,
+.cds--search--md.cds--search--expandable .cds--search-magnifier {
+  height: 100% !important;
+}
+
+.cds--search--md .cds--search-input,
+.cds--search--md.cds--search--expandable.cds--search--expanded
+  .cds--search-input {
+  height: 3rem !important;
+  background-color: white;
+}
