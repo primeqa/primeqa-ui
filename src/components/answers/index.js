@@ -1,20 +1,20 @@
 /**
-*
-* Copyright 2022 PrimeQA Team
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ *
+ * Copyright 2022 PrimeQA Team
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -252,14 +252,16 @@ async function postFeedback(
   }
 }
 
-function Answers({ question, answers, loading }) {
+function Answers({ question, answers, loading, source }) {
   const [answersWithFeedback, setAnswersWithFeedback] = useState([]);
 
   // Redux connectivity
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!_.isNil(answers) && !_.isEmpty(answers)) {
+    if (_.isNil(answers) || _.isEmpty(answers)) {
+      setAnswersWithFeedback([]);
+    } else {
       buildAnswersWithFeedback(
         question,
         answers,
@@ -383,6 +385,7 @@ function Answers({ question, answers, loading }) {
                                     answerWithFeedback.startCharOffset,
                                   end_char_offset:
                                     answerWithFeedback.endCharOffset,
+                                  application: source,
                                 },
                                 answersWithFeedback,
                                 setAnswersWithFeedback,
@@ -431,6 +434,7 @@ function Answers({ question, answers, loading }) {
                                     answerWithFeedback.startCharOffset,
                                   end_char_offset:
                                     answerWithFeedback.endCharOffset,
+                                  application: source,
                                 },
                                 answersWithFeedback,
                                 setAnswersWithFeedback,
@@ -480,6 +484,7 @@ Answers.propTypes = {
   question: PropTypes.string,
   answers: PropTypes.array,
   loading: PropTypes.bool,
+  source: PropTypes.string,
 };
 
 export default Answers;

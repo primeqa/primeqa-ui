@@ -1,20 +1,20 @@
 /**
-*
-* Copyright 2022 PrimeQA Team
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ *
+ * Copyright 2022 PrimeQA Team
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -241,14 +241,16 @@ async function postFeedback(
   }
 }
 
-function Documents({ question, documents, loading }) {
+function Documents({ question, documents, loading, source }) {
   const [documentsWithFeedback, setDocumentsWithFeedback] = useState([]);
 
   // Redux connectivity
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!_.isNil(documents) && !_.isEmpty(documents)) {
+    if (_.isNil(documents) || _.isEmpty(documents)) {
+      setDocumentsWithFeedback([]);
+    } else {
       buildDocumentsWithFeedback(
         question,
         documents,
@@ -342,6 +344,7 @@ function Documents({ question, documents, loading }) {
                                   answer: documentWithFeedback.text,
                                   thumbs_up: true,
                                   thumbs_down: false,
+                                  application: source,
                                 },
                                 documentsWithFeedback,
                                 setDocumentsWithFeedback,
@@ -390,6 +393,7 @@ function Documents({ question, documents, loading }) {
                                   answer: documentWithFeedback.text,
                                   thumbs_up: false,
                                   thumbs_down: true,
+                                  application: source,
                                 },
                                 documentsWithFeedback,
                                 setDocumentsWithFeedback,
@@ -439,6 +443,7 @@ Documents.propTypes = {
   question: PropTypes.string,
   documents: PropTypes.array,
   loading: PropTypes.bool,
+  source: PropTypes.string,
 };
 
 export default Documents;

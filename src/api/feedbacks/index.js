@@ -1,20 +1,20 @@
 /**
-*
-* Copyright 2022 PrimeQA Team
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ *
+ * Copyright 2022 PrimeQA Team
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 import axios from "axios";
 import _ from "lodash";
@@ -34,10 +34,17 @@ export async function getFeedbacks(feedbackIDs = null) {
     headers: { Accept: "application/json", "Content-Type": "application/json" },
   };
 
+  // Step 2: Build request URL
   let url = feedbacksEndpoint();
+
+  // Step 2.a: Add feedback Ids to query parameter if provided
   if (!_.isNil(feedbackIDs) && !_.isEmpty(feedbackIDs)) {
     url = url + "?feedback_id=" + feedbackIDs.join("&feedback_id=");
   }
+
+  // Step 2.b: Identify user id
+  const user_id = await getUserID();
+  url = url + "?user_id=" + user_id;
 
   return axios
     .get(encodeURI(url), config)
@@ -77,7 +84,7 @@ export async function updateFeedback(feedbackId, update) {
 
   // Step 1: Add user id information
   update.user_id = await getUserID();
-  
+
   // Step 2: Trigger [PATCH] /feedbacks/{feedback_id} API call
   return axios
     .patch(feedbacksEndpoint() + "/" + feedbackId, update, config)
