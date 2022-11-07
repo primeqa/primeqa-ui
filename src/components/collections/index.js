@@ -1,20 +1,20 @@
 /**
-*
-* Copyright 2022 PrimeQA Team
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ *
+ * Copyright 2022 PrimeQA Team
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
@@ -37,6 +37,7 @@ function Collections({
 }) {
   const [state, setState] = useState({
     loading: false,
+    retrieverId: null,
     collections: [],
     lastFetched: null,
   });
@@ -48,9 +49,11 @@ function Collections({
     async function listCollectionsIfRequired() {
       if (
         !state.loading &&
+        retriever &&
         (!state.lastFetched ||
-          Date.now() - state.lastFetched > DEFAULT_CACHE) &&
-        retriever
+          Date.now() - state.lastFetched > DEFAULT_CACHE ||
+          _.isNil(state.retrieverId) ||
+          retriever.retriever_id !== state.retrieverId)
       ) {
         // Step 1: Dispatch state update with loading set to true
         setState({ ...state, loading: true });
@@ -66,6 +69,7 @@ function Collections({
           setState({
             ...state,
             loading: false,
+            retrieverId: retriever.retriever_id,
             collections: fetchedCollections,
             lastFetched: Date.now(),
           });
@@ -148,7 +152,11 @@ function Collections({
                 : "placeholder-item"
             }
             onChange={(event) => {
-              setSelectedCollection(event.target.value);
+              setSelectedCollection(
+                _.find(state.collections, {
+                  collection_id: event.target.value,
+                })
+              );
             }}
           >
             <SelectItem
