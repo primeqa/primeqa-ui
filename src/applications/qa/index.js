@@ -17,7 +17,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 
@@ -25,9 +25,7 @@ import { Search, Button } from "@carbon/react";
 
 import Collections from "../../components/collections";
 import Retrievers from "../../components/retrievers";
-import { unselectRetriever } from "../../components/retrievers/retrieversSlice";
 import Readers from "../../components/readers";
-import { unselectReader } from "../../components/readers/readersSlice";
 import Answers from "../../components/answers";
 
 import { askQuestion as askQuestionAPI } from "../../api/ask";
@@ -126,18 +124,6 @@ function QuestionAnswering({ application, showSettings }) {
   const retrievers = useSelector((state) => state.retrievers);
   const readers = useSelector((state) => state.readers);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    localStorage.setItem("category", "QuestionAnswering");
-
-    return () => {
-      // Dispatch unselectRetriever event
-      dispatch(unselectRetriever());
-
-      // Dispatch unselectReader event
-      dispatch(unselectReader());
-    };
-  }, [dispatch]);
 
   return (
     <div className="application">

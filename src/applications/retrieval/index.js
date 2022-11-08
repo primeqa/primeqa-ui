@@ -17,15 +17,13 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Search, Button } from "@carbon/react";
 
 import Collections from "../../components/collections";
 import Retrievers from "../../components/retrievers";
-import { unselectRetriever } from "../../components/retrievers/retrieversSlice";
-import { unselectReader } from "../../components/readers/readersSlice";
 import Documents from "../../components/documents";
 
 import { getDocuments as getDocumentsAPI } from "../../api/documents";
@@ -104,18 +102,6 @@ function Retrieval({ application, showSettings }) {
   // Redux connectivity
   const retrievers = useSelector((state) => state.retrievers);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    localStorage.setItem("category", "Retrieval");
-
-    return () => {
-      // Dispatch unselectRetriever event
-      dispatch(unselectRetriever());
-
-      // Dispatch unselectReader event
-      dispatch(unselectReader());
-    };
-  }, [dispatch]);
 
   return (
     <div className="application">

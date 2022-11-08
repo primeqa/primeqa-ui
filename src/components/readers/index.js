@@ -38,7 +38,6 @@ import {
   updateParameterValue,
 } from "./readersSlice";
 import { addNotification } from "../notifications/notificationsSlice";
-import { DEFAULT_CACHE } from "../../store/config";
 
 import "./styles.scss";
 
@@ -50,11 +49,7 @@ function Readers({ disableParent }) {
   // Load readers
   useEffect(() => {
     async function loadReadersIfRequired() {
-      if (
-        !readers.loading &&
-        (!readers.lastFetched ||
-          Date.now() - readers.lastFetched > DEFAULT_CACHE)
-      ) {
+      if (!readers.loading && !readers.lastFetched) {
         // Step 1: Dispatch listReadersStart event
         dispatch(loadReadersStart());
 
@@ -120,6 +115,7 @@ function Readers({ disableParent }) {
       }
     }
 
+    // On mount
     loadReadersIfRequired();
   }, [readers, disableParent, dispatch]);
 
@@ -130,6 +126,7 @@ function Readers({ disableParent }) {
       dispatch(selectReader({ reader_id: readers.readers[0].reader_id }));
     }
   }, [readers.readers, dispatch]);
+
   return (
     <React.Fragment>
       <div className="settings__item">

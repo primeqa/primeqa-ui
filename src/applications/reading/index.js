@@ -17,14 +17,13 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 
 import { TextArea, TextInput, Button } from "@carbon/react";
 
 import Readers from "../../components/readers";
-import { unselectReader } from "../../components/readers/readersSlice";
 import Answers from "../../components/answers";
 
 import { getAnswers as getAnswersAPI } from "../../api/answers";
@@ -117,15 +116,6 @@ function Reading({ application, showSettings }) {
   // Redux connectivity
   const readers = useSelector((state) => state.readers);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    localStorage.setItem("category", "Reading");
-
-    return () => {
-      // Dispatch unselectReader event
-      dispatch(unselectReader());
-    };
-  }, [dispatch]);
 
   return (
     <div className="application">
