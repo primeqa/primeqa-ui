@@ -1,20 +1,20 @@
 /**
-*
-* Copyright 2022 PrimeQA Team
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ *
+ * Copyright 2022 PrimeQA Team
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -33,16 +33,11 @@ import {
   listApplicationsSuccess,
 } from "./applicationsSlice";
 import { addNotification } from "../notifications/notificationsSlice";
-import { DEFAULT_CACHE } from "../../store/config";
 
 import "./styles.scss";
 
 export async function listApplicationsIfRequired(applications, dispatch) {
-  if (
-    !applications.loading &&
-    (!applications.lastFetched ||
-      Date.now() - applications.lastFetched > DEFAULT_CACHE)
-  ) {
+  if (!applications.loading && !applications.lastFetched) {
     //Step 1: Fetch applications
     try {
       // Step 1: Dispatch listApplicationsStart event
@@ -56,6 +51,8 @@ export async function listApplicationsIfRequired(applications, dispatch) {
         {
           applicationId: "retrieval",
           name: "Retrieval",
+          description:
+            "Search a document collection using dense and sparse information retrieval techniques",
           githubLink: "https://github.com/primeqa/primeqa",
           feedbackLink: "https://github.com/primeqa/primeqa/issues/new",
           settings: settings,
@@ -63,6 +60,7 @@ export async function listApplicationsIfRequired(applications, dispatch) {
         {
           applicationId: "reading",
           name: "Reading",
+          description: "Find answer to questions based on a given context",
           githubLink: "https://github.com/primeqa/primeqa",
           feedbackLink: "https://github.com/primeqa/primeqa/issues/new",
           settings: settings,
@@ -70,6 +68,8 @@ export async function listApplicationsIfRequired(applications, dispatch) {
         {
           applicationId: "qa",
           name: "Question Answering",
+          description:
+            "Find answers to question from retrieved evidence blocks",
           githubLink: "https://github.com/primeqa/primeqa",
           feedbackLink: "https://github.com/primeqa/primeqa/issues/new",
           settings: settings,
@@ -164,11 +164,11 @@ function Applications() {
                   <ApplicationCard
                     application={application}
                     renderIcon={
-                      application.application_id === "retrieval"
+                      application.applicationId === "retrieval"
                         ? Search
-                        : application.application_id === "reading"
+                        : application.applicationId === "reading"
                         ? Book
-                        : application.application_id === "qa"
+                        : application.applicationId === "qa"
                         ? SearchLocate
                         : Application
                     }

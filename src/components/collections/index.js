@@ -25,7 +25,6 @@ import { SelectSkeleton, Select, SelectItem } from "@carbon/react";
 
 import { listCollectionsForRetriever } from "../../api/retrievers";
 import { addNotification } from "../notifications/notificationsSlice";
-import { DEFAULT_CACHE } from "../../store/config";
 
 import "./styles.scss";
 
@@ -51,7 +50,6 @@ function Collections({
         !state.loading &&
         retriever &&
         (!state.lastFetched ||
-          Date.now() - state.lastFetched > DEFAULT_CACHE ||
           _.isNil(state.retrieverId) ||
           retriever.retriever_id !== state.retrieverId)
       ) {
