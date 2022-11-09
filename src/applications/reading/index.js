@@ -129,7 +129,9 @@ function Reading({ application, showSettings }) {
             <TextArea
               labelText="Context"
               cols={50}
-              rows={4}
+              rows={10}
+              enableCounter={true}
+              maxCount={1000}
               id="reading__context"
               onChange={(event) => {
                 setContext(event.target.value);

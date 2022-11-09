@@ -137,7 +137,7 @@ function Readers({ disableParent }) {
             id="select-reader"
             labelText="Reader"
             helperText="Select a reader"
-            defaultValue={
+            value={
               readers.selectedReader && readers.selectedReader.reader_id
                 ? readers.selectedReader.reader_id
                 : "placeholder-item"
@@ -193,33 +193,12 @@ function Readers({ disableParent }) {
                 </div>
               );
             } else if (parameter.type === "Numeric") {
-              if (_.isEmpty(parameter.range)) {
-                return (
-                  <div
-                    key={"reader_parameter" + index}
-                    className="reader_parameter"
-                  >
-                    <TextInput
-                      id={"parameter-" + parameter.parameter_id}
-                      labelText={parameter.name}
-                      value={parameter.value || "Optional"}
-                      onChange={(target) => {
-                        dispatch(
-                          updateParameterValue({
-                            parameter_id: parameter.parameter_id,
-                            value: target.value,
-                          })
-                        );
-                      }}
-                    ></TextInput>
-                  </div>
-                );
-              } else {
-                return (
-                  <div
-                    key={"reader_parameter" + index}
-                    className="reader_parameter"
-                  >
+              return (
+                <div
+                  key={"reader_parameter" + index}
+                  className="reader_parameter"
+                >
+                  {!_.isNil(parameter.range) && !_.isEmpty(parameter.range) ? (
                     <Slider
                       id={"parameter-" + parameter.parameter_id}
                       labelText={parameter.name}
@@ -236,20 +215,12 @@ function Readers({ disableParent }) {
                         );
                       }}
                     />
-                  </div>
-                );
-              }
-            } else if (parameter.type === "String") {
-              return (
-                <div
-                  key={"reader_parameter" + index}
-                  className="reader_parameter"
-                >
-                  {!_.isEmpty(parameter.range) ? (
+                  ) : !_.isNil(parameter.options) &&
+                    !_.isEmpty(parameter.options) ? (
                     <Select
                       id={"parameter-" + parameter.parameter_id}
                       labelText={parameter.name}
-                      defaultValue={parameter.value}
+                      value={parameter.value || "placeholder-item"}
                       onChange={(event) => {
                         dispatch(
                           updateParameterValue({
@@ -259,7 +230,72 @@ function Readers({ disableParent }) {
                         );
                       }}
                     >
-                      {parameter.range.map((value, index) => {
+                      <SelectItem
+                        disabled
+                        hidden
+                        value="placeholder-item"
+                        text="Choose an option"
+                      />
+                      {parameter.options.map((option, index) => {
+                        return (
+                          <SelectItem
+                            key={
+                              "parameter-" +
+                              parameter.parameter_id +
+                              "__option-" +
+                              index
+                            }
+                            value={option}
+                            text={option}
+                          />
+                        );
+                      })}
+                    </Select>
+                  ) : (
+                    <TextInput
+                      id={"parameter-" + parameter.parameter_id}
+                      labelText={parameter.name}
+                      value={parameter.value || "Optional"}
+                      onChange={(target) => {
+                        dispatch(
+                          updateParameterValue({
+                            parameter_id: parameter.parameter_id,
+                            value: target.value,
+                          })
+                        );
+                      }}
+                    ></TextInput>
+                  )}
+                </div>
+              );
+            } else if (parameter.type === "String") {
+              return (
+                <div
+                  key={"reader_parameter" + index}
+                  className="reader_parameter"
+                >
+                  {!_.isNil(parameter.options) &&
+                  !_.isEmpty(parameter.options) ? (
+                    <Select
+                      id={"parameter-" + parameter.parameter_id}
+                      labelText={parameter.name}
+                      value={parameter.value || "placeholder-item"}
+                      onChange={(event) => {
+                        dispatch(
+                          updateParameterValue({
+                            parameter_id: parameter.parameter_id,
+                            value: event.target.value,
+                          })
+                        );
+                      }}
+                    >
+                      <SelectItem
+                        disabled
+                        hidden
+                        value="placeholder-item"
+                        text="Choose an option"
+                      />
+                      {parameter.options.map((value, index) => {
                         return (
                           <SelectItem
                             key={

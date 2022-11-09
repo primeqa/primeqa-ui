@@ -144,7 +144,7 @@ function Collections({
             id="select-corpus"
             labelText="Corpus"
             helperText="Select a corpus"
-            defaultValue={
+            value={
               selectedCollection
                 ? selectedCollection.collection_id
                 : "placeholder-item"

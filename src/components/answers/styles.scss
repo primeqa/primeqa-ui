@@ -106,6 +106,7 @@
     &__source {
       display: flex;
       align-items: center;
+      column-gap: $spacing-03;
 
       a {
         padding: 2%;

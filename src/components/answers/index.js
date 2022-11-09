@@ -276,7 +276,9 @@ function Answers({ question, answers, loading, source }) {
       {!loading && !_.isEmpty(answersWithFeedback) ? (
         <React.Fragment>
           <div className="answers--details">
-            <h6>{answersWithFeedback.length} answers from articles</h6>
+            <h6>
+              Found {answersWithFeedback.length} answers matching your question.
+            </h6>
           </div>
           <div className="answers--items">
             {answersWithFeedback.map((answerWithFeedback, index) => {
@@ -331,16 +333,18 @@ function Answers({ question, answers, loading, source }) {
                       ) : null}
                       <div className="answers--item__source">
                         {answerWithFeedback.title ? (
-                          <span>
-                            Source Document:
-                            {answerWithFeedback.url ? (
-                              <Link href={answerWithFeedback.url}>
-                                {answerWithFeedback.title}
-                              </Link>
-                            ) : (
-                              answerWithFeedback.title
-                            )}
-                          </span>
+                          <React.Fragment>
+                            <span>Source Document:</span>
+                            <span>
+                              {answerWithFeedback.url ? (
+                                <Link href={answerWithFeedback.url}>
+                                  {answerWithFeedback.title}
+                                </Link>
+                              ) : (
+                                answerWithFeedback.title
+                              )}
+                            </span>
+                          </React.Fragment>
                         ) : null}
                       </div>
                       <div className="answers--item__feedback">

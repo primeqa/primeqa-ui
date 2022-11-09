@@ -141,7 +141,7 @@ function Retrievers({ disableParent }) {
             id="select-retriever"
             labelText="Retriever"
             helperText="Select a retriever"
-            defaultValue={
+            value={
               retrievers.selectedRetriever &&
               retrievers.selectedRetriever.retriever_id
                 ? retrievers.selectedRetriever.retriever_id
@@ -198,33 +198,12 @@ function Retrievers({ disableParent }) {
                 </div>
               );
             } else if (parameter.type === "Numeric") {
-              if (_.isEmpty(parameter.range)) {
-                return (
-                  <div
-                    key={"retriever_parameter" + index}
-                    className="retriever_parameter"
-                  >
-                    <TextInput
-                      id={"parameter-" + parameter.parameter_id}
-                      labelText={parameter.name}
-                      value={parameter.value || "Optional"}
-                      onChange={(target) => {
-                        dispatch(
-                          updateParameterValue({
-                            parameter_id: parameter.parameter_id,
-                            value: target.value,
-                          })
-                        );
-                      }}
-                    ></TextInput>
-                  </div>
-                );
-              } else {
-                return (
-                  <div
-                    key={"retriever_parameter" + index}
-                    className="retriever_parameter"
-                  >
+              return (
+                <div
+                  key={"retriever_parameter" + index}
+                  className="retriever_parameter"
+                >
+                  {!_.isNil(parameter.range) && !_.isEmpty(parameter.range) ? (
                     <Slider
                       id={"parameter-" + parameter.parameter_id}
                       labelText={parameter.name}
@@ -241,9 +220,59 @@ function Retrievers({ disableParent }) {
                         );
                       }}
                     />
-                  </div>
-                );
-              }
+                  ) : !_.isNil(parameter.options) &&
+                    !_.isEmpty(parameter.options) ? (
+                    <Select
+                      id={"parameter-" + parameter.parameter_id}
+                      labelText={parameter.name}
+                      value={parameter.value || "placeholder-item"}
+                      onChange={(event) => {
+                        dispatch(
+                          updateParameterValue({
+                            parameter_id: parameter.parameter_id,
+                            value: event.target.value,
+                          })
+                        );
+                      }}
+                    >
+                      <SelectItem
+                        disabled
+                        hidden
+                        value="placeholder-item"
+                        text="Choose an option"
+                      />
+                      {parameter.options.map((option, index) => {
+                        return (
+                          <SelectItem
+                            key={
+                              "parameter-" +
+                              parameter.parameter_id +
+                              "__option-" +
+                              index
+                            }
+                            value={option}
+                            text={option}
+                          />
+                        );
+                      })}
+                    </Select>
+                  ) : (
+                    <TextInput
+                      id={"parameter-" + parameter.parameter_id}
+                      labelText={parameter.name}
+                      value={parameter.value || "Optional"}
+                      onChange={(target) => {
+                        dispatch(
+                          updateParameterValue({
+                            parameter_id: parameter.parameter_id,
+                            value: target.value,
+                          })
+                        );
+                      }}
+                    ></TextInput>
+                  )}
+                </div>
+              );
             } else if (parameter.type === "String") {
               return (
                 <div
