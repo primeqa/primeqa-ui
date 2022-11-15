@@ -5,7 +5,7 @@
 
 # ==== SET ENV APP =====
 # Image with build folder
-FROM node:16-alpine as builder
+FROM node:18-alpine as builder
 ENV NODE_ENV production
 # Set the working directory to /app inside the container
 WORKDIR /app
