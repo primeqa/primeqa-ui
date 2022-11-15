@@ -1,6 +1,6 @@
 {
   "name": "primeqa-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The user interface for interacting with PrimeQA retrievers and readers.",
   "author": "PrimeQA Team",
   "license": "Apache 2.0",
