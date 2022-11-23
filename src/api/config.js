@@ -20,3 +20,20 @@ export const BASE_URL =
   process.env.NODE_ENV === "production"
     ? window.env.API_URL
     : process.env.REACT_APP_API_URL;
+
+export const DESCRIPTION_RETRIEVAL =
+  process.env.NODE_ENV === "production"
+    ? window.env.DESCRIPTION_RETRIEVAL
+    : process.env.REACT_APP_DESCRIPTION_RETRIEVAL;
+
+export const DESCRIPTION_READING =
+  process.env.NODE_ENV === "production"
+    ? window.env.DESCRIPTION_READING
+    : process.env.REACT_APP_DESCRIPTION_READING;
+
+export const DESCRIPTION_QA =
+  process.env.NODE_ENV === "production"
+    ? window.env.DESCRIPTION_QA
+    : process.env.REACT_APP_DESCRIPTION_QA;
+
+
