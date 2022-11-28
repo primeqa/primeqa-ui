@@ -308,6 +308,42 @@ function Retrievers({ disableParent }) {
                         );
                       })}
                     </Select>
+                  ) : !_.isNil(parameter.options) &&
+                    !_.isEmpty(parameter.options) ? (
+                    <Select
+                      id={"parameter-" + parameter.parameter_id}
+                      labelText={parameter.name}
+                      value={parameter.value || "placeholder-item"}
+                      onChange={(event) => {
+                        dispatch(
+                          updateParameterValue({
+                            parameter_id: parameter.parameter_id,
+                            value: event.target.value,
+                          })
+                        );
+                      }}
+                    >
+                      <SelectItem
+                        disabled
+                        hidden
+                        value="placeholder-item"
+                        text="Choose an option"
+                      />
+                      {parameter.options.map((option, index) => {
+                        return (
+                          <SelectItem
+                            key={
+                              "parameter-" +
+                              parameter.parameter_id +
+                              "__option-" +
+                              index
+                            }
+                            value={option}
+                            text={option}
+                          />
+                        );
+                      })}
+                    </Select>
                   ) : (
                     <TextInput
                       id={"parameter-" + parameter.parameter_id}
