@@ -41,7 +41,7 @@ import { addNotification } from "../notifications/notificationsSlice";
 
 import "./styles.scss";
 
-function Retrievers({ disableParent }) {
+function Retrievers({ disableParent, defaultCheckpoint }) {
   // Redux connectivity
   const retrievers = useSelector((state) => state.retrievers);
   const dispatch = useDispatch();
@@ -313,7 +313,7 @@ function Retrievers({ disableParent }) {
                     <Select
                       id={"parameter-" + parameter.parameter_id}
                       labelText={parameter.name}
-                      value={parameter.value || "placeholder-item"}
+                      value={parameter.value || defaultCheckpoint || "placeholder-item"}
                       onChange={(event) => {
                         dispatch(
                           updateParameterValue({
@@ -374,6 +374,7 @@ function Retrievers({ disableParent }) {
 
 Retrievers.propTypes = {
   disableParent: PropTypes.func,
+  defaultCheckpoint: PropTypes.string,
 };
 
 export default Retrievers;

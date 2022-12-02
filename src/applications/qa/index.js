@@ -274,7 +274,10 @@ function QuestionAnswering({ application, showSettings }) {
 
       {showSettings ? (
         <div className="application__settings">
-          <Retrievers disableParent={setDisabled}></Retrievers>
+          <Retrievers
+            disableParent={setDisabled}
+            defaultCheckpoint={selectedCollection?.checkpoint}
+          ></Retrievers>
           <Collections
             retriever={retrievers.selectedRetriever}
             selectedCollection={selectedCollection}
