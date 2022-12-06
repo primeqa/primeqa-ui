@@ -131,6 +131,51 @@ function Retrievers({ disableParent, defaultCheckpoint }) {
     }
   }, [retrievers.retrievers, dispatch]);
 
+  // Determines if defaultCheckpoint is present as an option in the checkpoint parameter in the selected retriever, if any
+  const isDefaultCheckpointOptionPresent = () => {
+    let ret = !!defaultCheckpoint;
+    ret &&= Array.isArray(retrievers?.selectedRetriever?.parameters);
+    if (ret) {
+      let parameter = retrievers.selectedRetriever.parameters.find(parameter => parameter.parameter_id === 'checkpoint')
+      ret = !!parameter;
+      ret &&= Array.isArray(parameter.options);
+      ret &&= parameter.options.includes(defaultCheckpoint);
+    }
+    return ret;
+  };
+
+  const isCheckpointParamSet = () => {
+    let ret = Array.isArray(retrievers?.selectedRetriever?.parameters);
+    if (ret) {
+      let parameter = retrievers.selectedRetriever.parameters.find(parameter => parameter.parameter_id === 'checkpoint');
+      ret = !!parameter;
+      ret &&= parameter.value !== null;
+    }
+    return ret;
+  };
+
+  // Set defaultCheckpoint as default selected checkpoint, if available
+  useEffect(() => {
+    // Dispatch updateParameterValue event
+    if (isDefaultCheckpointOptionPresent() && !isCheckpointParamSet()) {
+      dispatch(
+        updateParameterValue({
+          parameter_id: 'checkpoint',
+          value: defaultCheckpoint,
+        })
+      );
+    }
+  }, [retrievers.retrievers, dispatch, defaultCheckpoint]);
+
+  const getParameterDefaultOption = (parameter, placeholderId) => {
+    let option = parameter.value || placeholderId;
+    if (parameter.parameter_id === 'checkpoint' && isDefaultCheckpointOptionPresent()) {
+      // Custom behavior on default checkpoint
+      option = defaultCheckpoint;
+    }
+    return option;
+  }
+
   return (
     <React.Fragment>
       <div className="settings__item">
@@ -313,7 +358,7 @@ function Retrievers({ disableParent, defaultCheckpoint }) {
                     <Select
                       id={"parameter-" + parameter.parameter_id}
                       labelText={parameter.name}
-                      value={parameter.value || defaultCheckpoint || "placeholder-item"}
+                      value={getParameterDefaultOption(parameter, "placeholder-item")}
                       onChange={(event) => {
                         dispatch(
                           updateParameterValue({
