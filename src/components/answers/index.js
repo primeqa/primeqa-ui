@@ -322,7 +322,7 @@ function Answers({ question, answers, loading, source }) {
                     <div className="answers--item__content--right">
                       {!_.isNil(answerWithFeedback.confidenceScore) ? (
                         <div className="answers--item__confidence">
-                          Confidence:
+                          Score:
                           <span>
                             {Math.round(
                               answerWithFeedback.confidenceScore * 100
