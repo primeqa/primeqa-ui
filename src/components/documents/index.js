@@ -291,9 +291,9 @@ function Documents({ question, documents, loading, source }) {
                     <div className="documents--item__content--right">
                       {!_.isNil(documentWithFeedback.confidence) ? (
                         <div className="documents--item__confidence">
-                          Confidence:
+                          Score (out of 100):
                           <span>
-                            {Math.round(documentWithFeedback.confidence * 100)}%
+                            {Math.round(documentWithFeedback.confidence * 100)}
                           </span>
                         </div>
                       ) : null}
