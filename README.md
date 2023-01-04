@@ -41,6 +41,15 @@ limitations under the License.
 - Open `.env` files and set `REACT_APP_API_URL` to point to services:        
     - local: [http://localhost:{PORT}](http://localhost:{PORT})      
 
+<h3>💻 UI Customization</h3>
+
+The default description on each of the three main application pages can be customized by setting the following environment variables:
+
+- `DESCRIPTION_RETRIEVAL`
+- `DESCRIPTION_READING`
+- `DESCRIPTION_QA`
+
+
 <h3>💻 Run Locally</h3>
 
 - Run the app in the _*development mode*_: `yarn start`        
