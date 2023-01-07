@@ -278,6 +278,14 @@ function Answers({ question, answers, loading, source }) {
           <div className="answers--details">
             <h6>
               Found {answersWithFeedback.length} answers matching your question.
+              Your question is a 
+              <b className="answers--item__context--highlight">
+                {answersWithFeedback[0].question_type_prediction}
+              </b>   question.
+              The answer is 
+              <b className="answers--item__context--highlight">
+                {answersWithFeedback[0].boolean_answer_prediction}
+              </b>.
             </h6>
           </div>
           <div className="answers--items">
