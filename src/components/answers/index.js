@@ -252,6 +252,59 @@ async function postFeedback(
   }
 }
 
+/* allows us to control the highlighting of yes/no in both reading and qa
+   note that no_answer will be highlighted like no if it occurs */
+function YesNoAnswer({boolean_answer_prediction}) {
+  return (
+    <React.Fragment>
+      {boolean_answer_prediction.toLowerCase()=="yes" ? 
+        <b className="answers--item__context--yesanswer">
+          {boolean_answer_prediction}
+        </b> 
+        :
+        <b className="answers--item__context--noanswer">
+          {boolean_answer_prediction}
+        </b>
+      }
+    </React.Fragment> 
+  )
+}
+
+function AnswersSummary({answersWithFeedback}) {
+  return (
+    <React.Fragment>
+      <div className="answers--details">
+        <h6>
+        {answersWithFeedback[0].question_type_prediction==null && 
+          <p>Found {answersWithFeedback.length} answers matching your question..</p>                  
+        }
+        {answersWithFeedback[0].question_type_prediction!=null && 
+          <div>
+            <p> Your question is a <b className="answers--item__context--highlight">
+              {answersWithFeedback[0].question_type_prediction}
+              </b> question
+            </p>
+            {answersWithFeedback[0].question_type_prediction!='boolean' &&
+              <p>Found {answersWithFeedback.length} answers matching your question..</p>
+            }                
+            {answersWithFeedback[0].question_type_prediction=='boolean' &&
+              <div>
+                <p>Found {answersWithFeedback.length} evidence spans answering your question..</p>
+                <p>The best answer is {" "} 
+                  {(<YesNoAnswer boolean_answer_prediction={answersWithFeedback[0].boolean_answer_prediction}> 
+                  </YesNoAnswer>
+                  )} .
+                </p>
+              </div>               
+            }
+          </div>
+        }
+        </h6>
+      </div>
+    </React.Fragment>
+  )
+}
+
 function Answers({ question, answers, loading, source }) {
   const [answersWithFeedback, setAnswersWithFeedback] = useState([]);
 
@@ -275,32 +328,10 @@ function Answers({ question, answers, loading, source }) {
     <React.Fragment>
       {!loading && !_.isEmpty(answersWithFeedback) ? (
         <React.Fragment>
-          <div className="answers--details">
-            <h6>
-            {answersWithFeedback[0].question_type_prediction==null && 
-              <p>Found {answersWithFeedback.length} answers matching your question.</p>                  
-            }
-            {answersWithFeedback[0].question_type_prediction!=null && 
-              <div>
-                <p> Your question is a <b className="answers--item__context--highlight">
-                  {answersWithFeedback[0].question_type_prediction}
-                  </b> question
-                </p>
-                {answersWithFeedback[0].question_type_prediction!='boolean' &&
-                  <p>Found {answersWithFeedback.length} answers matching your question.</p>
-                }                
-                {answersWithFeedback[0].question_type_prediction=='boolean' &&
-                  <div>
-                    <p>Found {answersWithFeedback.length} evidence spans answering your question.</p>
-                    <p>The best answer is <b className="answers--item__context--highlight">
-                      {answersWithFeedback[0].boolean_answer_prediction}</b>.
-                    </p>
-                  </div>               
-                }
-              </div>
-            }
-            </h6>
-          </div>
+          {/* found 3 answers, your question is boolean etc */}
+          {(<AnswersSummary answersWithFeedback={answersWithFeedback}>
+          </AnswersSummary>
+          )}
           <div className="answers--items">
             {answersWithFeedback.map((answerWithFeedback, index) => {
               return (
@@ -312,9 +343,10 @@ function Answers({ question, answers, loading, source }) {
                 <h6>
                   {answersWithFeedback[0].question_type_prediction=="boolean" && 
                   <div>
-                    <p>Evidence span {answerWithFeedback.display_each_boolean_answer && 
-                      <div>
-                        {answerWithFeedback.boolean_answer_prediction}
+                    <p>Evidence span: {answerWithFeedback.display_each_boolean_answer && 
+                    <div>{(<YesNoAnswer boolean_answer_prediction={answerWithFeedback.boolean_answer_prediction}> 
+                          </YesNoAnswer>
+                        )}
                       </div>
                     }</p>
                   </div>
@@ -356,11 +388,11 @@ function Answers({ question, answers, loading, source }) {
                     <div className="answers--item__content--right">
                       {!_.isNil(answerWithFeedback.confidenceScore) ? (
                         <div className="answers--item__confidence">
-                          Score (out of 100):
+                          Score:
                           <span>
                             {Math.round(
                               answerWithFeedback.confidenceScore * 100
-                            )}
+                            )} / 100
                           </span>
                         </div>
                       ) : null}
