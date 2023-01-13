@@ -143,7 +143,7 @@ function Readers({ disableParent }) {
                 : "placeholder-item"
             }
             onChange={(event) => {
-              dispatch({ reader_id: event.target.value });
+              dispatch(selectReader({ reader_id: event.target.value }));
             }}
           >
             <SelectItem

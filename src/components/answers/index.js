@@ -277,15 +277,28 @@ function Answers({ question, answers, loading, source }) {
         <React.Fragment>
           <div className="answers--details">
             <h6>
-              Found {answersWithFeedback.length} answers matching your question.
-              Your question is a 
-              <b className="answers--item__context--highlight">
-                {answersWithFeedback[0].question_type_prediction}
-              </b>   question.
-              The answer is 
-              <b className="answers--item__context--highlight">
-                {answersWithFeedback[0].boolean_answer_prediction}
-              </b>.
+            {answersWithFeedback[0].question_type_prediction==null && 
+              <p>Found {answersWithFeedback.length} answers matching your question.</p>                  
+            }
+            {answersWithFeedback[0].question_type_prediction!=null && 
+              <div>
+                <p> Your question is a <b className="answers--item__context--highlight">
+                  {answersWithFeedback[0].question_type_prediction}
+                  </b> question
+                </p>
+                {answersWithFeedback[0].question_type_prediction!='boolean' &&
+                  <p>Found {answersWithFeedback.length} answers matching your question.</p>
+                }                
+                {answersWithFeedback[0].question_type_prediction=='boolean' &&
+                  <div>
+                    <p>Found {answersWithFeedback.length} evidence spans answering your question.</p>
+                    <p>The best answer is <b className="answers--item__context--highlight">
+                      {answersWithFeedback[0].boolean_answer_prediction}</b>.
+                    </p>
+                  </div>               
+                }
+              </div>
+            }
             </h6>
           </div>
           <div className="answers--items">
@@ -296,7 +309,20 @@ function Answers({ question, answers, loading, source }) {
                   key={"answer--item-" + index}
                   className="answers--item"
                 >
-                  <h6>Answer</h6>
+                <h6>
+                  {answersWithFeedback[0].question_type_prediction=="boolean" && 
+                  <div>
+                    <p>Evidence span {answerWithFeedback.display_each_boolean_answer && 
+                      <div>
+                        {answerWithFeedback.boolean_answer_prediction}
+                      </div>
+                    }</p>
+                  </div>
+                  }
+                  {answersWithFeedback[0].question_type_prediction!="boolean" && <div><p>Answer</p></div>}
+                </h6>
+                  
+
                   <div className="answers--item__content">
                     <div className="answers--item__content--left">
                       <span>{answerWithFeedback.text}</span>

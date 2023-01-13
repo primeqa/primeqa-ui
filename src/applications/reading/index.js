@@ -32,7 +32,7 @@ import { addNotification } from "../../components/notifications/notificationsSli
 import "./styles.scss";
 
 const strings = {
-  PLACEHOLDER_QUESTION: "What would you like to know (placeholder)?",
+  PLACEHOLDER_QUESTION: "What would you like to know?",
 };
 
 async function read(
@@ -58,7 +58,8 @@ async function read(
           endCharOffset: answer.end_char_offset,
           confidenceScore: answer.confidence_score,
           question_type_prediction: answer.question_type_prediction,
-          boolean_answer_prediction: answer.boolean_answer_prediction
+          boolean_answer_prediction: answer.boolean_answer_prediction,
+          display_each_boolean_answer: false
         });
       });
     }
@@ -126,7 +127,7 @@ function Reading({ application, showSettings }) {
           {application.description}
         </div>
         <div className="application__content">
-          <h4>What would you like to know (h4)?</h4>
+          <h4>What would you like to know? (boolean or factoid question)</h4>
           <div className="reading__input">
             <TextArea
               labelText="Context"
