@@ -16,5 +16,20 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import { Tutorial } from "../tutorial"
+import infoStep from "./steps/info";
+import step1 from "./steps/step1";
+
+// Steps of the Reading tutorial
+
+
+/**
+ * Information and tutorial for the Reading comprehension model
+ */
+class ReadingTutorial extends Tutorial{
+    constructor(){
+        super("Reading Comprehension", "Reading", [infoStep, step1])
+    }
+}
+
+export default ReadingTutorial;

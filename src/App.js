@@ -16,19 +16,20 @@
 *
 */
 
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Application from "./components/application";
-import Applications from "./components/applications";
-
 import "./scss/styles.scss";
 
+import { Route, Routes } from "react-router-dom";
+
+import Application from "./components/application";
+import Applications from "./components/applications";
+import LandingPage from "./pages/LandingPage";
+import React from "react";
 
 function App() {
   return (
     <Routes>
-      <Route exact path="/" element={<Applications />} />
-      <Route exact path="/:applicationID" element={<Application />} />
+      <Route exact path="/" element={<LandingPage />} />
+      {/* <Route exact path="/:applicationID" element={<Application />} /> */}
     </Routes>
   );
 }

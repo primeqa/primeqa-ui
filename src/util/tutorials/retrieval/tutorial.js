@@ -16,5 +16,16 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import { Tutorial, TutorialStep } from "../tutorial"
+/**
+ * Information and tutorial for the retrieval model
+ */
+class RetrievalTutorial extends Tutorial{
+    constructor(){
+        let dialog = <p>TODO: Information about the retrieval tutorial here.</p>
+        let content = <div></div>
+        let infoStep = new TutorialStep(dialog, content)
+        super("Retreival", "Retrieval", [infoStep])
+    }
+}
+export default RetrievalTutorial;

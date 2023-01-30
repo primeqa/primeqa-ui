@@ -16,15 +16,14 @@
 *
 */
 
-import React from "react";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-
-import App from "./App";
+import React from "react";
+import { Theme } from "@carbon/react";
 import { createRoot } from "react-dom/client";
 import store from "./store/index";
-import { Theme } from "@carbon/react";
 
 const container = document.getElementById("app");
 const root = createRoot(container);

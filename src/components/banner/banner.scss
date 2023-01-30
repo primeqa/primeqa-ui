@@ -1,0 +1,52 @@
+/**
+*
+* Copyright 2022 PrimeQA Team
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+
+@use '@carbon/type';
+@use '@carbon/motion';
+@import 'carbon-components/scss/globals/scss/typography.scss';
+
+.primeQA-text{
+    @include motion.motion(standard, productive);
+    transition: opacity motion.motion(standard, productive);
+    transition: opacity motion.$duration-slow-01;
+    align-items: baseline;
+    margin-top: $fluid-spacing-04;
+    margin-bottom: $fluid-spacing-04;
+    text-align: left;
+}
+
+.primeqa-text-title{
+    @include carbon--type-style('display-03', true);
+    font-weight: bold;
+}
+
+.primeqa-text-description{
+    @include carbon--type-style('expressive-heading-03', true);
+}
+
+.banner-img-container{
+    padding-top: $fluid-spacing-03;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.banner-img{
+    max-width:100%;
+    max-height:100%;
+}

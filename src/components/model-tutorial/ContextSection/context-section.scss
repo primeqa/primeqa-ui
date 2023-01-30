@@ -16,14 +16,32 @@
 *
 */
 
-@use "@carbon/react";
-@use "@carbon/react/scss/breakpoint" as *;
 @use "@carbon/react/scss/spacing" as *;
-
 @use '@carbon/type';
-@use '@carbon/styles';
-@use '@carbon/grid';
-@use '@carbon/layout';
+@use '@carbon/motion';
+@use '@carbon/themes/scss/themes' as *;
+@use '@carbon/themes';
+@import 'carbon-components/scss/globals/scss/typography.scss';
+  
+.context-section{
+    padding: $fluid-spacing-02;
+}
 
-// Emit the flex-grid styles
-@include grid.flex-grid();
+.context-heading{
+    @include carbon--type-style('productive-heading-01', true);
+    padding-bottom: $spacing-03;
+}
+
+.context{
+    text-align: justify;
+    max-height: 236px;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    @include carbon--type-style('body-short-01', true);
+    color: $text-secondary;
+}
+
+.horizontal-padding{
+    padding-right: $fluid-spacing-02;
+    padding-left: $fluid-spacing-02;
+}

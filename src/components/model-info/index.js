@@ -16,5 +16,5 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import ModelInfo from "./ModelInfo";
+export default ModelInfo;

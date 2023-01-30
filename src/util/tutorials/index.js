@@ -16,5 +16,12 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import QATutorial from "./qa/tutorial"
+import ReadingTutorial from "./reading/tutorial";
+import RetrievalTutorial from "./retrieval/tutorial";
+
+export {
+    QATutorial, 
+    ReadingTutorial, 
+    RetrievalTutorial
+};

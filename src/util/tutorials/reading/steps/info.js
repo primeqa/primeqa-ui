@@ -16,5 +16,14 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import { TutorialStep } from "../../tutorial";
+
+let info = <p>The Reading Comprehension model intelligently extracts answers from documents and text.</p>
+
+/**
+ * Information for the Reading model. Describes an overview of the model.
+ */
+let infoStep = new TutorialStep(info, <div></div>, <div></div>)
+export default infoStep;
+
+

@@ -16,5 +16,5 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import ModelTutorial from "./ModelTutorial";
+export default ModelTutorial;

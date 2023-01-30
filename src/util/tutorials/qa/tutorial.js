@@ -16,5 +16,17 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import { Tutorial, TutorialStep } from "../tutorial"
+
+/**
+ * Information and tutorial for the QA model.
+ */
+class QATutorial extends Tutorial{
+    constructor(){
+        let dialog = <p>TODO: Information about the QA tutorial here.</p>
+        let content = <div></div>
+        let infoStep = new TutorialStep(dialog, content)
+        super("Question Answering", "QA", [infoStep])
+    }
+}
+export default QATutorial;

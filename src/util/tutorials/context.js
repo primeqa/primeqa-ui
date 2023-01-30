@@ -16,5 +16,13 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+/**
+ * A piece of text to be used with a model.
+ */
+export class Context{
+    constructor(title, text, id){
+        this.title = title;
+        this.text = text;
+        this.id = id;
+    }
+}

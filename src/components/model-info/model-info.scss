@@ -16,5 +16,24 @@
 *
 */
 
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+@use '@carbon/type';
+@use '@carbon/motion';
+@use '@carbon/themes/scss/themes' as *;
+@use '@carbon/themes';
+@import 'carbon-components/scss/globals/scss/typography.scss';
+  
+.bx--tabs__nav-link {
+    width: auto;
+}
+
+.model-title{
+    @include carbon--type-style('expressive-heading-04', true);
+}
+
+.model-description{
+    @include carbon--type-style('body-long-02');
+}
+
+.tab-panel-no-pad{
+    padding: 0;
+}

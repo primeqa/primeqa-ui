@@ -15,6 +15,5 @@
 * limitations under the License.
 *
 */
-
-import SiteHeader from "./SiteHeader";
-export default SiteHeader;
+import Banner from "./Banner";
+export default Banner;
