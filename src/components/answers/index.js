@@ -58,17 +58,24 @@ async function buildAnswersWithFeedback(
   // Step 1.a: Iterate over each answer
   answers.forEach((answer, answerIndex) => {
     // Step 1.a.i: Generate feedback_id
-    const feedback_id = generateUUID(
-      question +
-        "::" +
-        answer.context.replace(/\s/g, "") +
-        "::" +
-        answer.text.replace(/\s/g, "") +
-        "::" +
-        answer.startCharOffset +
-        "::" +
-        answer.endCharOffset
-    );
+    let feedback_id = null;
+    if (answer.context && answer.startCharOffset && answer.endCharOffset) {
+      feedback_id = generateUUID(
+        question +
+          "::" +
+          answer.context.replace(/\s/g, "") +
+          "::" +
+          answer.text.replace(/\s/g, "") +
+          "::" +
+          answer.startCharOffset +
+          "::" +
+          answer.endCharOffset
+      );
+    } else {
+      feedback_id = generateUUID(
+        question + "::" + answer.text.replace(/\s/g, "")
+      );
+    }
 
     // Step 1.a.ii: Update feedbackIdToAnswerIndexMap
     feedbackIdToAnswerIndexMap.set(feedback_id, answerIndex);

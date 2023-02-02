@@ -55,15 +55,28 @@ async function ask(
     if (resp && !_.isEmpty(resp)) {
       // Step 2.a: Iterate over each entry in response to build answer's object
       resp.forEach((entry) => {
-        answers.push({
+        // Step 2.a.i: Mandator fields
+        let answer = {
           text: entry.answer.text,
-          context: entry.document.text,
-          startCharOffset: entry.answer.start_char_offset,
-          endCharOffset: entry.answer.end_char_offset,
-          title: entry.document.title,
-          url: entry.document.url,
           confidenceScore: entry.answer.confidence_score,
-        });
+        };
+
+        // Step 2.a.ii: Optional fields
+        if (entry.document) {
+          answer.context = entry.document.text;
+          answer.title = entry.document.title;
+          answer.url = entry.document.url;
+        }
+
+        if (entry.answer.start_char_offset) {
+          answer.startCharOffset = entry.answer.start_char_offset;
+        }
+
+        if (entry.answer.end_char_offset) {
+          answer.endCharOffset = entry.answer.end_char_offset;
+        }
+
+        answers.push(answer);
       });
     }
 
