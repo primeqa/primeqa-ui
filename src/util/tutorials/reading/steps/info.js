@@ -23,7 +23,7 @@ let info = <p>The Reading Comprehension model intelligently extracts answers fro
 /**
  * Information for the Reading model. Describes an overview of the model.
  */
-let infoStep = new TutorialStep(info, <div></div>, <div></div>)
+let infoStep = new TutorialStep("Modlel", info)
 export default infoStep;
 
 

@@ -4,15 +4,24 @@ import ContextSection from "./ContextSection/ContextSection";
 import QuestionSection from "./QuestionSection/QuestionSection";
 
 class QASection extends Component{
+    /**
+     * 
+     * @param {Context} props.context The context that is being used.
+     * @param {string} props.question The question that has been asked. Default null.
+     * @param {boolean} props.showAnswers Whether to show the answers section. Default false
+     * @param {boolean} props.loading Whether the answers are being loaded. Default false
+     * @param {string} props.selectedAnswer The answer that has currently been selected. Default null.
+
+     */
     constructor(props){
         super(props);
+        this.context = this.props.context
         this.state = {
             askedQuestion: props.question || null,
             showAnswers: props.showAnswers || false,
             loading: props.loading || false,
-            selectedAnswerString: props.selectedAnswerString || null
+            selectedAnswerString: props.selectedAnswer || null
         }
-        this.context = this.props.context
         this.askQuestion = this.askQuestion.bind(this);
         this.resetState = this.resetState.bind(this);
     }

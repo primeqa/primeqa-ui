@@ -26,12 +26,11 @@ import contexts from "../../sample-contexts";
 let context = new Context(contexts[0].title, contexts[0].text, 0)
 
 
-const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a <DefinitionTooltip definition={"A context is a document or text. more explanation needed"}>context</DefinitionTooltip>. <br></br><br></br>To find some information about XYZ from the sample context, try selecting one of the provided questions or write your own in the text box, then click Ask.</p>
-
+const dialog = <p>The same Reading Comprehension model works across a broad range of contexts without requiring extra training.<br></br> Try selecting one of the following contexts to explore.</p>
 
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */
-let step1 = new TutorialStep("Asking Questions", dialog, <QASection context={contexts[0]}/>)
+let diverse_contexts = new TutorialStep("Diverse contexts", dialog, <QASection context={contexts[0]}/>)
 
-export default step1;
+export default diverse_contexts;

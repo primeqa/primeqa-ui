@@ -61,13 +61,15 @@ class ModelTutorial extends Component{
         return(
         <>
         <Theme theme="g90">
-            <div className="cds--row demo-height">
+            <div className="cds--row">
                 {/* Dialog */}
                 <div className="cds--col-lg-5 cds--col-md-8 ">
                     <div className='dialog-section'>
                         <div>
                             <div className="demo-heading">
-                                <p>{this.state.tutorial.title} Demo</p>
+                                <p>{this.state.tutorial.title}</p>
+                                <p>{this.state.tutorial.currentStep.title}</p>
+
                                 <ProgressBar label="" value={this.state.tutorial.percentComplete}/>
                             </div>
                             {this.state.tutorial.currentStep.dialog}
