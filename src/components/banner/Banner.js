@@ -36,25 +36,24 @@ class Banner extends Component{
 
     render(){
         return(
-            <>
-            <div className="cds--row ">
-                {/* Left column - Title and blurb */}
-                <div className="cds--col-lg-6 cds--col-md-4 primeQA-text">
-                        <div className="cds--row">
-                            <img src={logoImage} alt={"PrimeQA Logo"} />
+            <div className="cds--grid"> 
+                <div className="cds--row ">
+                    {/* Left column - Title and blurb */}
+                    <div className="cds--col-lg-6 cds--col-md-4 primeQA-text">
+                            <div className="cds--row">
+                                <img src={logoImage} alt={"PrimeQA Logo"} />
+                            </div>
+                            <div className="cds--row  primeqa-text-title">{this.state.title}</div>
+                            <div className="cds--row primeqa-text-description">{this.state.blurb}</div> 
                         </div>
-                        <div className="cds--row  primeqa-text-title">{this.state.title}</div>
-                        <div className="cds--row primeqa-text-description">{this.state.blurb}</div> 
-                    </div>
-                {/* Right column - banner image */}
-                <div className="cds--col-lg-10 cds--col-md-4">
-                    <div className="banner-img-container">
-                        <img src={bannerImage} alt={"Banner"} className="banner-img"/>
+                    {/* Right column - banner image */}
+                    <div className="cds--col-lg-10 cds--col-md-4">
+                        <div className="banner-img-container">
+                            {/* <img src={bannerImage} alt={"Banner"} className="banner-img"/> */}
+                        </div>
                     </div>
                 </div>
-            </div>
-                
-            </> 
+            </div> 
         );   
     }  
 }

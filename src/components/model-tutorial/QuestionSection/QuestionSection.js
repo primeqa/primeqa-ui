@@ -29,6 +29,8 @@ class QuestionSection extends React.Component {
     /**
      * 
      * @param {[string]} props.samples A list of sample questions that can be selected from.
+     * @param {fn} props.ask A function that is called when a question is asked
+
      */
   constructor(props) {
     super(props);
@@ -71,6 +73,8 @@ class QuestionSection extends React.Component {
     if (event.target.title){
       this.setQuestionText(event.target.title);
     }
+    // Ask the question
+    this.props.ask(this.state.questionText);
   }
 
 
@@ -87,12 +91,12 @@ class QuestionSection extends React.Component {
   }
 
   askQuestionButton(){
-    // TODO: here handle if they can ask a question.
-
-    // like if the text is empty, then it should be greyed out
-    // also put in an onclick funcion
+    // TODO: validate that the user can ask a question.
+      // if text empty, grey out
     return <div>
-       <Button kind="ghost" label="">
+       <Button kind="primary"  size="md" label="" onClick={() => {
+          this.props.ask(this.state.questionText)
+       }}>
           Ask
        </Button>
     </div>
@@ -102,15 +106,15 @@ class QuestionSection extends React.Component {
     let sampleQuestionsHeader = this.state.sampleQuestions.length > 0 ?  <p className="sample-question-label">Sample Questions</p> : <></>
 
     return (
-        <div className="cds--col-lg-8 cds--col-md-8 questions-section accent-color-section">
-            <div className="question-heading questions-left-pad">Questions</div>
+        <div className="cds--col-lg-8 cds--col-md-8">
+            <div className="question-heading ">Question</div>
             
-            <div className="question-text-box questions-left-pad">
-                <TextInput id="text-input-1" type="text" labelText="Ask a question" value={this.state.questionText} onChange={this.handleTextInputChange} />
-              {this.askQuestionButton()}
+            <div className="ask-question-container">
+                <TextInput className="" id="text-input-1" placeholder="Ask a question" type="text"  value={this.state.questionText} onChange={this.handleTextInputChange} />
+                {this.askQuestionButton()}
             </div>
-            <div className=" preset-questions-container questions-left-pad">
-                {sampleQuestionsHeader}
+           
+            <div className=" preset-questions-container">
                 {this.state.sampleQuestions.map(this.sampleQuestionButton)}
             </div>
         </div>

@@ -19,7 +19,7 @@
 import './model-tutorial.scss';
 
 import { ArrowLeft, ArrowRight } from '@carbon/react/icons';
-import { Button, ProgressBar } from "@carbon/react";
+import { Button, ProgressBar, Theme } from "@carbon/react";
 
 import { Component } from "react";
 
@@ -60,13 +60,14 @@ class ModelTutorial extends Component{
         let nextButton = this.state.tutorial.isLastStep ? <div></div> :  <Button  renderIcon={ArrowRight} kind="ghost" onClick={() => { this.updateStep(true) }}>Next</Button>
         return(
         <>
-            <div className="cds--row ">
+        <Theme theme="g90">
+            <div className="cds--row demo-height">
                 {/* Dialog */}
-                <div className="cds--col-lg-5 cds--col-md-8  ">
-                    <div className='dialog-section demo-height'>
+                <div className="cds--col-lg-5 cds--col-md-8 ">
+                    <div className='dialog-section'>
                         <div>
                             <div className="demo-heading">
-                                <h3>{this.state.tutorial.title}</h3>
+                                <p>{this.state.tutorial.title} Demo</p>
                                 <ProgressBar label="" value={this.state.tutorial.percentComplete}/>
                             </div>
                             {this.state.tutorial.currentStep.dialog}
@@ -78,14 +79,14 @@ class ModelTutorial extends Component{
                     </div>
                 </div>
                 {/* Content */}
-                <div className="cds--col-lg-11 cds--col-md-8">
-                    <div className='cds--row'>
+                <div className="cds--col-lg-11 cds--col-md-8 tutorial-col2">
+                    <Theme theme="g100" className="tutorial-col2 tutorial-pad">
                         {this.state.tutorial.currentStep.col1Content}
-                        {this.state.tutorial.currentStep.col2Content}
-                    </div>
-                
-                </div>
+                    </Theme>
+                </div>                
             </div>
+            </Theme>
+
         </> 
         );
     }

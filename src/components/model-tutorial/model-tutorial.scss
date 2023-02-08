@@ -33,8 +33,7 @@
 }
 
 .dialog-section{
-    padding-top: $fluid-spacing-02;
-    padding-right: $fluid-spacing-02;  
+    padding: $fluid-spacing-02;
     display: flex;
     flex-direction:column;
     justify-content:space-between;
@@ -57,3 +56,12 @@
     justify-content: space-between;
 }
 
+.tutorial-col2{
+    padding-left: 0;
+    @include themes.theme($g100);
+    background-color: themes.$background;
+}
+
+.tutorial-pad{
+    padding: $fluid-spacing-02;
+}

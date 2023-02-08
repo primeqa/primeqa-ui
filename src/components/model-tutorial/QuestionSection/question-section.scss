@@ -23,10 +23,6 @@
 @use '@carbon/themes';
 @import 'carbon-components/scss/globals/scss/typography.scss';
   
-.questions-section{
-    padding-top: $fluid-spacing-02;
-    padding-bottom: $fluid-spacing-02;
-}
 
 .question-heading{
     @include carbon--type-style('expressive-heading-03', true);
@@ -43,11 +39,11 @@
     overflow: auto;
     align-items: flex-start;
     margin-bottom: $fluid-spacing-02;
+    margin-top: $fluid-spacing-02;
+
 }
 
 .preset-question{
-    background-color: var(--cds-tag-background-cyan, #bae6ff);;
-    color: var(--cds-tag-color-cyan, #003a6d);
     cursor: pointer;
  }
 
@@ -57,14 +53,12 @@
    cursor: pointer;
 }
 
-.question-text-box{
+.ask-question-container{
     display:flex;
     flex-direction: row;
     align-items:flex-end;
-}
-
-.questions-left-pad{
-    padding-left: $fluid-spacing-02;
+    border-bottom: 0.5px solid #6f6f6f;
+    // padding-bottom: $fluid-spacing-02;
 }
 
 .horizontal-padding{

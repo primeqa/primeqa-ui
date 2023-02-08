@@ -16,36 +16,40 @@
 *
 */
 
-import './context-section.scss';
+import './answers-section.scss';
 
-import { Component } from "react";
+import { Button, Tag, TextInput } from '@carbon/react';
+
+import React from 'react';
 
 /**
- * A scrollable section for a Context
+ *
  */
-class ContextSection extends Component {
+class AnswersSection extends React.Component {
+    // 
     /**
      * 
-     * @param {Context} props.context The Context to display
+     * @param {[string]} props.answers A list of answers
+     * @param {fn} props.selectAnswer A function that is called when an asnwer is clicked
+
      */
   constructor(props) {
     super(props);
     this.state = {
-      context: props.context
     };
   }
 
+  
   render() {
     return (
-        <div className="cds--col-lg-8 cds--col-md-8 context-section">
-          <div className='cds--row'>
-            <div className="context-heading horizontal-padding">Context</div>
-            {/* <div className="context-heading">{this.state.context.title}</div> */}
-          </div>
-
-            <p className="context ">{this.state.context.text} </p>
-         </div>
-    );
+        <div className="cds--col-lg-8 cds--col-md-8 ">
+            <div className="question-heading questions-left-pad">Answers</div>
+            {/* // TODO: ask another question button */}
+{/* TODO: put in question askwed */}
+            {/* Put answers here */}
+        </div>
+        );
   }
 }
-export default ContextSection;
+
+export default AnswersSection;
