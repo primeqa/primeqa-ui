@@ -19,36 +19,44 @@
 import './context-section.scss';
 
 import { Component } from "react";
+import { set } from 'lodash';
 
+const ContextMode = {
+  LOCKED: "SINGLE_LOCKED",
+  EDITABLE: "SINGLE_EDITABLE",
+};
+
+// no either pass in 1 context or a group + idx.
+// then mode 
 /**
  * A scrollable section for a Context
  */
 class ContextSection extends Component {
     /**
      * 
-     * @param {Context} props.context The Context to display
+     * @param {ContextMode} props.mode The mode of the context (either editable or locked)
+     * @param {Context} props.selectedContext A context to display.
      */
   constructor(props) {
     super(props);
-    this.state = {
-      context: props.context
-    };
   }
 
-  // selectedContent(){
-  //   <b style="font-size: 16px; background-color: rgb(5, 48, 173); color: rgb(255, 255, 255); padding: 0.2rem;">$6.99 per month</b>
-  // }
-
   render() {
+    var context_content = <div></div>
+    if (this.props.mode == ContextMode.EDITABLE || !this.props.context){
+      context_content = <div>{"edit text area"}</div>
+    }else{
+      context_content = <p className="context">{this.props.context.text} </p>
+    }
     return (
         <div className="cds--col-lg-8 cds--col-md-8 context-section">
           <div className='cds--row'>
             <div className="context-heading horizontal-padding">Context</div>
             {/* <div className="context-heading">{this.state.context.title}</div> */}
           </div>
-            <p className="context ">{this.state.context.text} </p>
+          {context_content}
          </div>
     );
   }
 }
-export default ContextSection;
+export {ContextSection, ContextMode};

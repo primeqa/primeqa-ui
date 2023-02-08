@@ -1,8 +1,8 @@
 import AnswersSection from "./AnswersSection/AnswersSection";
 import { Component } from "react";
-import ContextSection from "./ContextSection/ContextSection";
+import { ContextMode } from "./ContextSection/ContextSection";
+import {ContextSection} from "./ContextSection/ContextSection";
 import QuestionSection from "./QuestionSection/QuestionSection";
-
 class QASection extends Component{
     /**
      * 
@@ -80,7 +80,7 @@ class QASection extends Component{
                         <QuestionSection samples={this.props.context.questions} ask={this.askQuestion} />
                     )}
                     
-                <ContextSection context={this.props.context}/>
+                <ContextSection context={this.props.context} mode={ContextMode.LOCKED}/>
                 </div>
             </div>
         );

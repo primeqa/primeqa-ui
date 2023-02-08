@@ -22,14 +22,13 @@
 export class TutorialStep{
     /**
      * 
-     * @param {JSX} dialog The dialog to display to the user.
-     * @param {JSX} column1Content Content displayed in the left/top column
-     * @param {JSX} column2Content Content displayed in the right/bottom column
+     * @param {ProgressiveDialog} dialog The dialog to display to the user. There can be multiple of these per step.
+     * @param {JSX} content Content displayed in the left/top column
      */
-    constructor(dialog, column1Content, column2Content){
+    constructor(title, dialog, content){
+        this.title = title
         this.dialog = dialog
-        this.col2Content = column2Content
-        this.col1Content = column1Content
+        this.content = content
     }
 }
 
