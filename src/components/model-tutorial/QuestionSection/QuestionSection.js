@@ -37,10 +37,11 @@ class QuestionSection extends React.Component {
       questionText: ""
     };
     
+    this.sampleQuestionButton = this.sampleQuestionButton.bind(this)
+;   this.handleSampleQuestionClick = this.handleSampleQuestionClick.bind(this);
     this.setQuestionText = this.setQuestionText.bind(this);
     this.handleTextInputChange = this.handleTextInputChange.bind(this);
   }
-
 
   /**
    * 
@@ -61,6 +62,41 @@ class QuestionSection extends React.Component {
     })
   };
 
+  /**
+   * 
+   * @param {*} event The click event for a sampleQuestionButton
+   */
+  handleSampleQuestionClick = (event) => {
+    event.preventDefault();
+    if (event.target.title){
+      this.setQuestionText(event.target.title);
+    }
+  }
+
+
+  /**
+   * 
+   * @param {string} question  The text of the question
+   * @param {number} index The index of the button in the list of sample questions
+   * @returns A button that can be clicked to select the sample question 
+   */
+  sampleQuestionButton(question, index) {
+    return <div key={index} onClick={this.handleSampleQuestionClick}>
+        <Tag size="md" className="preset-question" disabled={false} >{question}</Tag>
+    </div>
+  }
+
+  askQuestionButton(){
+    // TODO: here handle if they can ask a question.
+
+    // like if the text is empty, then it should be greyed out
+    // also put in an onclick funcion
+    return <div>
+       <Button kind="ghost" label="">
+          Ask
+       </Button>
+    </div>
+  }
   
   render() {
     let sampleQuestionsHeader = this.state.sampleQuestions.length > 0 ?  <p className="sample-question-label">Sample Questions</p> : <></>
@@ -68,21 +104,14 @@ class QuestionSection extends React.Component {
     return (
         <div className="cds--col-lg-8 cds--col-md-8 questions-section accent-color-section">
             <div className="question-heading questions-left-pad">Questions</div>
-                <div className=" preset-questions-container questions-left-pad">
-                    {sampleQuestionsHeader}
-                    {this.state.sampleQuestions.map(function(question, index){
-                        return <div key={index} onClick={() => {
-                            console.log("clicked") // TODO: handle click. Set question text and submit.
-                            }}>
-                            <Tag size="md" className="preset-question" disabled={false} >{question}</Tag>
-                        </div>
-                    })}
-                 </div>
+            
             <div className="question-text-box questions-left-pad">
                 <TextInput id="text-input-1" type="text" labelText="Ask a question" value={this.state.questionText} onChange={this.handleTextInputChange} />
-                <Button kind="ghost" label="">
-                    Ask
-                </Button>
+              {this.askQuestionButton()}
+            </div>
+            <div className=" preset-questions-container questions-left-pad">
+                {sampleQuestionsHeader}
+                {this.state.sampleQuestions.map(this.sampleQuestionButton)}
             </div>
         </div>
         );

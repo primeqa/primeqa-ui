@@ -19,7 +19,7 @@
 import './model-info.scss';
 
 import { QATutorial, ReadingTutorial, RetrievalTutorial } from '../../util/tutorials';
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
+import { Tab, TabList, TabPanel, TabPanels, Tabs, Theme } from '@carbon/react';
 
 import { Component } from 'react';
 import ModelTutorial from '../model-tutorial';
@@ -38,21 +38,26 @@ class ModelInfo extends Component{
     }
     render(){
       return (
-      <div >        
-        <Tabs>
-            <TabList activation="manual"  aria-label="List of tabs" contained light={true}>
-              {Object.keys(this.tutorials).map((key, idx) => 
-                <Tab key={idx} className="bx--tabs__nav-item" disabled={false}>{this.tutorials[key].shortTitle}</Tab>
-              )}
-            </TabList> 
-            <TabPanels>
-              {Object.keys(this.tutorials).map((key, idx) => 
-                  <TabPanel key={idx} className="tab-panel-no-pad">
-                    <ModelTutorial tutorial={this.tutorials[key]} />
-                  </TabPanel> 
-              )}
-            </TabPanels>
-          </Tabs>
+      <div > 
+        <Theme theme="g90">
+          <div className="cds--grid"> 
+          <Tabs>
+              <TabList activation="manual"  aria-label="List of tabs" contained light={true}>
+                {Object.keys(this.tutorials).map((key, idx) => 
+                  <Tab key={idx} className="bx--tabs__nav-item" disabled={false}>{this.tutorials[key].shortTitle}</Tab>
+                )}
+              </TabList> 
+              <TabPanels>
+                {Object.keys(this.tutorials).map((key, idx) => 
+                    <TabPanel key={idx} className="">
+                      <ModelTutorial tutorial={this.tutorials[key]} />
+                    </TabPanel> 
+                )}
+              </TabPanels>
+            </Tabs>
+          </div>
+        </Theme>       
+        
       </div>
       );
     }

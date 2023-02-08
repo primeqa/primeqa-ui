@@ -25,7 +25,7 @@ class RetrievalTutorial extends Tutorial{
         let dialog = <p>TODO: Information about the retrieval tutorial here.</p>
         let content = <div></div>
         let infoStep = new TutorialStep(dialog, content)
-        super("Retreival", "Retrieval", [infoStep])
+        super("Retrieval", "Retrieval", [infoStep])
     }
 }
 export default RetrievalTutorial;

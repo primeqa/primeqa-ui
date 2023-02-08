@@ -35,14 +35,10 @@ class LandingPage extends Component{
         </Theme>
         
         <Theme theme="g10">
-          <Content>
-            <div className="cds--grid"> 
                 <Banner header="PrimeQA" subheader="State-of-the-art Question Answering R&D"/>
                 {/* TODO: More detailed About */}
                 <ModelInfo/>
                 {/* TODO: Resources */}
-            </div>
-          </Content>
         </Theme>
       </>
     );

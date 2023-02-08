@@ -29,9 +29,20 @@ let context = new Context(contexts[0].title, contexts[0].text, 0)
 // The dialog to show the user.
 let dialog = <p>The Reading Comprehension model can be used to quickly extract information from a <DefinitionTooltip definition={"A context is a document or text. more explanation needed"}>context</DefinitionTooltip>. <br></br><br></br>To find some information about XYZ from the sample context, try selecting one of the provided questions or write your own in the text box, then click Ask.</p>
 
+
+function col1() {
+    return <div>
+        {/* <div className="cds--col-lg-11 cds--col-md-8"> */}
+            <div className='cds--row'>
+            <QuestionSection samples={contexts[0].questions} />
+            <ContextSection context={context}/>
+            </div>
+        {/* </div> */}
+    </div>
+}
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */
-let step1 = new TutorialStep(dialog, <QuestionSection samples={contexts[0].questions} />, <ContextSection context={context}/>)
+let step1 = new TutorialStep(dialog, col1(), <div></div>)
 
 export default step1;
