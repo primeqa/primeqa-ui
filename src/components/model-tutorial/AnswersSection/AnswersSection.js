@@ -18,7 +18,7 @@
 
 import './answers-section.scss';
 
-import { Button, Tag, TextInput } from '@carbon/react';
+import { SkeletonPlaceholder, TextInput } from '@carbon/react';
 
 import React from 'react';
 
@@ -30,22 +30,40 @@ class AnswersSection extends React.Component {
     /**
      * 
      * @param {[string]} props.answers A list of answers
-     * @param {fn} props.selectAnswer A function that is called when an asnwer is clicked
-
+     * @param {string} props.question The question that was asked
+     * @param {boolean} props.loading Whether the answers are being loaded
+     * @param {fn} props.highlightAnswerInContext A function that is called when an asnwer is clicked
      */
   constructor(props) {
     super(props);
     this.state = {
+      selectedAnswer: null
     };
+    this.handleAnswerClick = this.handleAnswerClick.bind(this);
   }
 
-  
+  handleAnswerClick(answer){
+    console.log(answer);
+    if (this.props.highlightAnswerInContext){
+      this.props.highlightAnswerInContext(answer);
+    }
+  }
+
   render() {
     return (
         <div className="cds--col-lg-8 cds--col-md-8 ">
             <div className="question-heading questions-left-pad">Answers</div>
+            {/* TODO: put in question askwed */}
+            <div className="ask-question-container">
+                <TextInput type="text" label="Your Question" value={this.props.question} disabled={true} />
+                {/* {this.askQuestionButton()} */}
+            </div>
+            {this.props.loading ? (
+              <SkeletonPlaceholder className="loading-answer"/>
+              ) : (
+                <div>Done</div>
+              )}
             {/* // TODO: ask another question button */}
-{/* TODO: put in question askwed */}
             {/* Put answers here */}
         </div>
         );

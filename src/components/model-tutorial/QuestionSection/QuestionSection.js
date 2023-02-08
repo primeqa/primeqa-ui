@@ -69,7 +69,7 @@ class QuestionSection extends React.Component {
    * @param {*} event The click event for a sampleQuestionButton
    */
   handleSampleQuestionClick = (event) => {
-    event.preventDefault();
+    console.log(event.target.title)
     if (event.target.title){
       this.setQuestionText(event.target.title);
     }
@@ -92,7 +92,7 @@ class QuestionSection extends React.Component {
 
   askQuestionButton(){
     // TODO: validate that the user can ask a question.
-      // if text empty, grey out
+      // if text empty, grey out buttto
     return <div>
        <Button kind="primary"  size="md" label="" onClick={() => {
           this.props.ask(this.state.questionText)
