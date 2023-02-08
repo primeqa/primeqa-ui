@@ -26,3 +26,11 @@
 .loading-answer{
     width: 100%;
 }
+
+.asked-question-container{
+    display:flex;
+    flex-direction: row;
+    align-items:flex-end;
+    padding-bottom: $fluid-spacing-02;
+    border-bottom: 0.5px solid #6f6f6f;
+}

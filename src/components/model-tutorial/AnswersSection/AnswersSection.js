@@ -18,7 +18,7 @@
 
 import './answers-section.scss';
 
-import { SkeletonPlaceholder, TextInput } from '@carbon/react';
+import { Button, SkeletonPlaceholder, TextInput } from '@carbon/react';
 
 import React from 'react';
 
@@ -49,14 +49,26 @@ class AnswersSection extends React.Component {
     }
   }
 
+  askAnotherButton(){
+    return <div>
+       <Button kind="ghost"  size="md" label="" onClick={() => {
+          this.props.askAnother();
+       }}>
+          Ask Another
+       </Button>
+    </div>
+  }
+
   render() {
+
+    var askAnother = this.props.loading ? <div></div> : <div>{this.askAnotherButton()}</div>
     return (
         <div className="cds--col-lg-8 cds--col-md-8 ">
             <div className="question-heading questions-left-pad">Answers</div>
             {/* TODO: put in question askwed */}
-            <div className="ask-question-container">
-                <TextInput type="text" label="Your Question" value={this.props.question} disabled={true} />
-                {/* {this.askQuestionButton()} */}
+            <div className="asked-question-container">
+                <TextInput type="text" labelText="You Asked" value={this.props.question} disabled={true} />
+                {askAnother}
             </div>
             {this.props.loading ? (
               <SkeletonPlaceholder className="loading-answer"/>
