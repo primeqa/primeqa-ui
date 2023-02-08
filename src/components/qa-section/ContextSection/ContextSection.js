@@ -35,6 +35,10 @@ class ContextSection extends Component {
     };
   }
 
+  // selectedContent(){
+  //   <b style="font-size: 16px; background-color: rgb(5, 48, 173); color: rgb(255, 255, 255); padding: 0.2rem;">$6.99 per month</b>
+  // }
+
   render() {
     return (
         <div className="cds--col-lg-8 cds--col-md-8 context-section">
@@ -42,7 +46,6 @@ class ContextSection extends Component {
             <div className="context-heading horizontal-padding">Context</div>
             {/* <div className="context-heading">{this.state.context.title}</div> */}
           </div>
-
             <p className="context ">{this.state.context.text} </p>
          </div>
     );

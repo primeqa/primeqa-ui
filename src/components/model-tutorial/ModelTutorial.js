@@ -81,7 +81,7 @@ class ModelTutorial extends Component{
                 {/* Content */}
                 <div className="cds--col-lg-11 cds--col-md-8 tutorial-col2">
                     <Theme theme="g100" className="tutorial-col2 tutorial-pad">
-                        {this.state.tutorial.currentStep.col1Content}
+                        {this.state.tutorial.currentStep.content}
                     </Theme>
                 </div>                
             </div>
