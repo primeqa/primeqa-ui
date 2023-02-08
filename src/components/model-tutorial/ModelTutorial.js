@@ -57,7 +57,7 @@ class ModelTutorial extends Component{
     
     render(){
         let backButton = this.state.tutorial.isFirstStep ? <div></div> :  <Button hasIconOnly renderIcon={ArrowLeft} label="Back" kind="ghost" onClick={() => { this.updateStep(false) }}>Back</Button>
-        let nextButton = this.state.tutorial.isLastStep ? <div></div> :  <Button  renderIcon={ArrowRight} kind="ghost" onClick={() => { this.updateStep(true) }}>Next</Button>
+        let nextButton = this.state.tutorial.isLastStep ? <div></div> :   <Button  renderIcon={ArrowRight} kind="ghost" onClick={() => { this.updateStep(true) }}>{this.state.tutorial.isFirstStep ? "Demo" : "Next"}</Button>
         return(
         <>
         <Theme theme="g90">
@@ -66,23 +66,23 @@ class ModelTutorial extends Component{
                 <div className="cds--col-lg-5 cds--col-md-8 ">
                     <div className='dialog-section'>
                         <div>
-                            <div className="demo-heading">
-                                <p>{this.state.tutorial.title}</p>
-                                <p>{this.state.tutorial.currentStep.title}</p>
-
-                                <ProgressBar label="" value={this.state.tutorial.percentComplete}/>
+                            <div className="progress-header">
+                                <ProgressBar label={this.state.tutorial.title + " Demo"} value={this.state.tutorial.percentComplete}/>
                             </div>
+                            <h4>{this.state.tutorial.currentStep.title}</h4>
+
                             {this.state.tutorial.currentStep.dialog}
                         </div>
-                        <div className='demo-buttons'>
+                        <div className="dialog-buttons">
                             {backButton}
                             {nextButton}
                         </div>
                     </div>
+                  
                 </div>
                 {/* Content */}
-                <div className="cds--col-lg-11 cds--col-md-8 tutorial-col2">
-                    <Theme theme="g100" className="tutorial-col2 tutorial-pad">
+                <div className="cds--col-lg-11 cds--col-md-8">
+                    <Theme theme="g100" className="content-pad demo-height">
                         {this.state.tutorial.currentStep.content}
                     </Theme>
                 </div>                
