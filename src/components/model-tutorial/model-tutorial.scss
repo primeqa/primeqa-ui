@@ -43,6 +43,14 @@
     justify-content: space-between;
 }
 
+.dialog-header h4{
+    @include carbon--type-style('heading-02', false);
+}
+
+.dialog-body p{
+    @include carbon--type-style('body-long-02', false);
+}
+
 .content-pad{
     padding: $fluid-spacing-02;
 }

@@ -67,11 +67,15 @@ class ModelTutorial extends Component{
                     <div className='dialog-section'>
                         <div>
                             <div className="progress-header">
-                                <ProgressBar label={this.state.tutorial.title + " Demo"} value={this.state.tutorial.percentComplete}/>
+                                <ProgressBar label={this.state.tutorial.title} value={this.state.tutorial.percentComplete}/>
                             </div>
-                            <h4>{this.state.tutorial.currentStep.title}</h4>
-
+                            <div className='dialog-header'>
+                                <h4>{this.state.tutorial.currentStep.title}</h4>
+                            </div>
+                            <div className='dialog-body'>
                             {this.state.tutorial.currentStep.dialog}
+
+                            </div>
                         </div>
                         <div className="dialog-buttons">
                             {backButton}
