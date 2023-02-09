@@ -112,7 +112,7 @@ class QuestionSection extends React.Component {
                 {this.askQuestionButton()}
             </div>
            
-            <div className=" preset-questions-container">
+            <div className="preset-questions-container">
                 {this.props.samples.map(this.sampleQuestionButton)}
             </div>
         </div>
