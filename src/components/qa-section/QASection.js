@@ -72,15 +72,15 @@ class QASection extends Component{
     
     render(){
         return(
-            <div>
-                <div className='cds--row'>
+            <div className="demo-height">
+                <div className='cds--row demo-height'>
                     {this.state.showAnswers ? (
                         <AnswersSection loading={this.state.loading} question={this.state.askedQuestion} askAnother={this.resetState}/>
                     ) : (
                         <QuestionSection samples={this.props.context.questions} ask={this.askQuestion} />
                     )}
                     
-                <ContextSection selected={this.props.context} mode={ContextMode.LOCKED}/>
+                    <ContextSection selected={this.props.context} mode={ContextMode.LOCKED} className="content-pad demo-height"/>
                 </div>
             </div>
         );

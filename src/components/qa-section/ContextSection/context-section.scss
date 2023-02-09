@@ -38,7 +38,7 @@
 
 .context{
     text-align: justify;
-    max-height: 300px;
+    max-height: 100%;
     overflow: scroll;
     scroll-behavior: smooth;
     @include carbon--type-style('body-short-01', false);

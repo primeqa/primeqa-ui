@@ -62,7 +62,7 @@ class ContextSection extends Component {
       contextHeader = <div className="context-heading">Context</div>
     }
     return (
-        <div className="cds--col-lg-8 cds--col-md-8 context-section">
+        <div className="cds--col-lg-8 cds--col-md-8 demo-height">
             {contextHeader}  
             {contextBody}
          </div>
