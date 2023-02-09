@@ -16,17 +16,21 @@
 *
 */
 
-import { Context } from "../../context";
+import Context from "../../context";
 import { DefinitionTooltip } from "@carbon/react";
-import QASection from "../../../../components/qa-section";
+import QASection from "../../../../qa-section";
 import { TutorialStep } from "../../tutorial";
-import contexts from "../../sample-contexts";
+import sample_contexts from "../../sample-contexts";
 
-// Read in the context from a sample.
-let context = new Context(contexts[0].title, contexts[0].text, 0)
+var contexts = []
+for (const c in sample_contexts) {
+    console.log(c)
+    let newContext = new Context(c, sample_contexts[c].title, sample_contexts[c].text, sample_contexts[c].questions)
+    contexts.push(newContext);
+}
 
-
-const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a <DefinitionTooltip definition={"A context is a document or text. more explanation needed"}>context</DefinitionTooltip>. <br></br><br></br>To find some information about XYZ from the sample context, try selecting one of the provided questions or write your own in the text box, then click Ask.</p>
+const contextDefinition =  <DefinitionTooltip definition={"A document or piece of text that the model uses to form a response."}>context</DefinitionTooltip>;
+const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a {contextDefinition}.<br></br><br></br>Try asking a question about the example context to the right, or select one of the sample questions, then click Ask.</p>
 
 
 /**

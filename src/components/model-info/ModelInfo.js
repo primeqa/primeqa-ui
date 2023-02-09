@@ -18,7 +18,7 @@
 
 import './model-info.scss';
 
-import { QATutorial, ReadingTutorial, RetrievalTutorial } from '../../util/tutorials';
+import { QATutorial, ReadingTutorial, RetrievalTutorial } from '../model-tutorial/tutorials';
 import { Tab, TabList, TabPanel, TabPanels, Tabs, Theme } from '@carbon/react';
 
 import { Component } from 'react';
@@ -39,24 +39,26 @@ class ModelInfo extends Component{
     render(){
       return (
       <div > 
-        <Theme theme="g90">
+          <ModelTutorial tutorial={this.tutorials.reading} />
+
+        {/* <Theme theme="white">
           <div className="cds--grid"> 
-          <Tabs>
+          <Tabs >
               <TabList activation="manual"  aria-label="List of tabs" contained light={true}>
                 {Object.keys(this.tutorials).map((key, idx) => 
                   <Tab key={idx} className="bx--tabs__nav-item" disabled={false}>{this.tutorials[key].shortTitle}</Tab>
                 )}
               </TabList> 
-              <TabPanels>
+              <TabPanels className="tab-background">
                 {Object.keys(this.tutorials).map((key, idx) => 
-                    <TabPanel key={idx} className="">
+                    <TabPanel key={idx} className="tab-background">
                       <ModelTutorial tutorial={this.tutorials[key]} />
                     </TabPanel> 
                 )}
               </TabPanels>
             </Tabs>
           </div>
-        </Theme>       
+        </Theme>        */}
         
       </div>
       );

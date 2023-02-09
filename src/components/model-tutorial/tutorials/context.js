@@ -16,12 +16,23 @@
 *
 */
 
-import QATutorial from "./qa/tutorial"
-import ReadingTutorial from "./reading/tutorial";
-import RetrievalTutorial from "./retrieval/tutorial";
+/**
+ * A piece of text to be used with a model.
+ */
+class Context{
+    /**
+     * 
+     * @param {number} id The ID of the context
+     * @param {string} title The title describing the context
+     * @param {string} text The body of the context
+     * @param {[string]} questions A list of sample questions that can be asked about the context
+     */
+    constructor(id, title, text, questions){
+        this.title = title;
+        this.text = text;
+        this.id = id;
+        this.questions = questions;
+    }
+}
 
-export {
-    QATutorial, 
-    ReadingTutorial, 
-    RetrievalTutorial
-};
+export default Context;
