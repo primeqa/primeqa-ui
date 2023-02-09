@@ -50,11 +50,10 @@ class ContextSection extends Component {
     }
     return (
         <div className="cds--col-lg-8 cds--col-md-8 context-section">
-          <div className='cds--row'>
-            <div className="context-heading horizontal-padding">Context</div>
-            {/* <div className="context-heading">{this.state.context.title}</div> */}
-          </div>
-          {context_content}
+            <div className="context-heading">
+              Context
+            </div>
+            {context_content}
          </div>
     );
   }

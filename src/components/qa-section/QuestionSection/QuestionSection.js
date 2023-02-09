@@ -69,12 +69,11 @@ class QuestionSection extends React.Component {
    * @param {*} event The click event for a sampleQuestionButton
    */
   handleSampleQuestionClick = (event) => {
-    console.log(event.target.title)
     if (event.target.title){
       this.setQuestionText(event.target.title);
+      // Ask the question
+      this.props.ask(this.state.questionText);
     }
-    // Ask the question
-    this.props.ask(this.state.questionText);
   }
 
 

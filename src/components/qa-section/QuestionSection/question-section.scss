@@ -23,9 +23,8 @@
 @use '@carbon/themes';
 @import 'carbon-components/scss/globals/scss/typography.scss';
   
-
 .question-heading{
-    @include carbon--type-style('expressive-heading-03', true);
+    @include carbon--type-style('productive-heading-03', true);
     margin-bottom: $fluid-spacing-02;
 }
 

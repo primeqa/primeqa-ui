@@ -29,7 +29,7 @@
 
 .context-heading{
     @include carbon--type-style('productive-heading-01', true);
-    padding-bottom: $spacing-03;
+    padding-bottom: $spacing-02;
 }
 
 .context-title{
@@ -38,10 +38,10 @@
 
 .context{
     text-align: justify;
-    max-height: 236px;
+    max-height: 300px;
     overflow: scroll;
     scroll-behavior: smooth;
-    @include carbon--type-style('body-short-01', true);
+    @include carbon--type-style('body-short-01', false);
     color: $text-secondary;
 }
 
