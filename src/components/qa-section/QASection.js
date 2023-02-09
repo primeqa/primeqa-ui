@@ -80,7 +80,7 @@ class QASection extends Component{
                         <QuestionSection samples={this.props.context.questions} ask={this.askQuestion} />
                     )}
                     
-                <ContextSection context={this.props.context} mode={ContextMode.LOCKED}/>
+                <ContextSection selected={this.props.context} mode={ContextMode.LOCKED}/>
                 </div>
             </div>
         );

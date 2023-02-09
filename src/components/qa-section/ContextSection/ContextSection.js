@@ -19,11 +19,13 @@
 import './context-section.scss';
 
 import { Component } from "react";
+import { Dropdown } from '@carbon/react';
 import { set } from 'lodash';
 
 const ContextMode = {
   LOCKED: "SINGLE_LOCKED",
   EDITABLE: "SINGLE_EDITABLE",
+  MULTI: "MULTI"
 };
 
 // no either pass in 1 context or a group + idx.
@@ -35,25 +37,34 @@ class ContextSection extends Component {
     /**
      * 
      * @param {ContextMode} props.mode The mode of the context (either editable or locked)
-     * @param {Context} props.selectedContext A context to display.
+     * @param {Context} props.selected A context to display.
+     * @param {fn} props.selectContext A callback function that is invoked when a context is selected
+     * @param {[Context]} props.contexts A callback function that is invoked when a context is selected
      */
   constructor(props) {
     super(props);
   }
 
+  
+
   render() {
-    var context_content = <div></div>
-    if (this.props.mode == ContextMode.EDITABLE || !this.props.context){
-      context_content = <div>{"edit text area"}</div>
+    var contextBody = <div></div>
+    if (this.props.mode == ContextMode.EDITABLE || !this.props.selected){
+      contextBody = <div>{"edit text area"}</div>
     }else{
-      context_content = <p className="context">{this.props.context.text} </p>
+      contextBody = <p className="context">{this.props.selected.text} </p>
+    }
+
+    var contextHeader = <div></div>
+    if (this.props.mode == ContextMode.MULTI) {
+      contextHeader = <Dropdown id="inline" titleText="Context" label="Context Options" initialSelectedItem={this.props.selected} size="sm" type="inline" items={this.props.contexts} itemToString={(c) => (c ? c.title : "" )} onChange={this.props.selectContext}/>
+    }else{
+      contextHeader = <div className="context-heading">Context</div>
     }
     return (
         <div className="cds--col-lg-8 cds--col-md-8 context-section">
-            <div className="context-heading">
-              Context
-            </div>
-            {context_content}
+            {contextHeader}  
+            {contextBody}
          </div>
     );
   }

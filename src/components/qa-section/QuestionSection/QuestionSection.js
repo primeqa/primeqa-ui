@@ -35,7 +35,6 @@ class QuestionSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sampleQuestions: props.samples,
       questionText: ""
     };
     
@@ -102,7 +101,7 @@ class QuestionSection extends React.Component {
   }
   
   render() {
-    let sampleQuestionsHeader = this.state.sampleQuestions.length > 0 ?  <p className="sample-question-label">Sample Questions</p> : <></>
+    let sampleQuestionsHeader = this.props.samples.length > 0 ?  <p className="sample-question-label">Sample Questions</p> : <></>
 
     return (
         <div className="cds--col-lg-8 cds--col-md-8">
@@ -114,7 +113,7 @@ class QuestionSection extends React.Component {
             </div>
            
             <div className=" preset-questions-container">
-                {this.state.sampleQuestions.map(this.sampleQuestionButton)}
+                {this.props.samples.map(this.sampleQuestionButton)}
             </div>
         </div>
         );
