@@ -30,7 +30,7 @@ let sample_contexts = {
 		"title": "Another Context",
 		"text" : "This is the text of another context",
 		"questions" : [
-			"What is this exaample"
+			"This is an example question"
 		]
 	}
 }

@@ -26,11 +26,11 @@ var contexts = []
 for (const c in sample_contexts) {
     console.log(c)
     let newContext = new Context(c, sample_contexts[c].title, sample_contexts[c].text, sample_contexts[c].questions)
-    contexts.push(newContext);
+    contexts.push(newContext)
 }
 
 const contextDefinition =  <DefinitionTooltip definition={"A document or piece of text that the model uses to form a response."}>context</DefinitionTooltip>;
-const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a {contextDefinition}.<br></br><br></br>Try asking a question about the example context to the right, or select one of the sample questions, then click Ask.</p>
+const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a {contextDefinition}.<br></br><br></br>Try it out by asking question about the example context to the right, or select one of the sample questions, then click Ask.</p>
 
 
 /**

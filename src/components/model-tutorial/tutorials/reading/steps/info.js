@@ -16,14 +16,20 @@
 *
 */
 
+import { Tag } from "@carbon/react";
 import { TutorialStep } from "../../tutorial";
 
-let info = <p>The Reading Comprehension model intelligently extracts answers from documents and text.</p>
+let info = <div>
+        <p>This model intelligently extracts answers from documents and text.<br></br></p>
+
+        <Tag className="some-class" type="teal" size="sm" title="Multi-Lingual">{"Multi-Lingual"}</Tag>
+        <Tag className="some-class" type="cyan" size="sm" title="Diverse Contexts">{"Diverse Contexts"}</Tag>
+    </div>
 
 /**
  * Information for the Reading model. Describes an overview of the model.
  */
-let infoStep = new TutorialStep("Model", info)
+let infoStep = new TutorialStep("Machine Reading Comprehension Model", info)
 export default infoStep;
 
 

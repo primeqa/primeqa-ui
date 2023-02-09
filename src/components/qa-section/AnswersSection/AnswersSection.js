@@ -20,6 +20,7 @@ import './answers-section.scss';
 
 import { Button, SkeletonPlaceholder, TextInput } from '@carbon/react';
 
+import AnswerTile from './AnswerTile/AnswerTile';
 import React from 'react';
 
 /**
@@ -73,7 +74,9 @@ class AnswersSection extends React.Component {
             {this.props.loading ? (
               <SkeletonPlaceholder className="loading-answer"/>
               ) : (
-                <div>Done</div>
+                <div>
+                  <AnswerTile/>
+                </div>
               )}
             {/* // TODO: ask another question button */}
             {/* Put answers here */}

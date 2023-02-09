@@ -23,7 +23,9 @@ import QASectionTest from "../../../../qa-section/MultiSelectContext";
 import { TutorialStep } from "../../tutorial";
 import sample_contexts from "../../sample-contexts";
 
-const dialog = <p>The Reading Comprehension model works across a diverse range of contexts without requiring additional training.<br></br><br></br> Try selecting one of the following unique contexts to try this out.</p>
+const trainingDefinition =  <DefinitionTooltip definition={"Training is...."}>training</DefinitionTooltip>;
+
+const dialog = <p>The Reading Comprehension model works across a diverse range of contexts without requiring additional {trainingDefinition}.<br></br><br></br> Try selecting a different context from the dropdown above the context text and ask some questions about it.</p>
 
 var contexts = []
 for (const c in sample_contexts) {
