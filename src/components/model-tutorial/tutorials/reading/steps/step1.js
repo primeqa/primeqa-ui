@@ -17,11 +17,11 @@
 */
 
 import Context from "../../context";
+import { ContextMode } from "../../../../qa-section/ContextSection/ContextSection";
 import { DefinitionTooltip } from "@carbon/react";
 import QASection from "../../../../qa-section";
 import { TutorialStep } from "../../tutorial";
-import sample_contexts from "../../sample-contexts";
-
+import {sample_contexts} from "../../sample-contexts";
 var contexts = []
 for (const c in sample_contexts) {
     console.log(c)
@@ -36,6 +36,6 @@ const dialog = <p>The Reading Comprehension model can be used to quickly extract
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */
-let step1 = new TutorialStep("Asking Questions", dialog, <QASection context={contexts[0]}/>)
+let step1 = new TutorialStep("Asking Questions", dialog, <QASection context={contexts[0]} contextMode={ContextMode.LOCKED}/>)
 
 export default step1;

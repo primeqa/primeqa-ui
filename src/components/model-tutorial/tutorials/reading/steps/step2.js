@@ -17,11 +17,12 @@
 */
 
 import Context from "../../context";
+import { ContextMode } from "../../../../qa-section/ContextSection/ContextSection";
 import { DefinitionTooltip } from "@carbon/react";
 import QASection from "../../../../qa-section";
 import QASectionTest from "../../../../qa-section/MultiSelectContext";
 import { TutorialStep } from "../../tutorial";
-import sample_contexts from "../../sample-contexts";
+import {sample_contexts} from "../../sample-contexts";
 
 const trainingDefinition =  <DefinitionTooltip definition={"Training is...."}>training</DefinitionTooltip>;
 
@@ -34,10 +35,9 @@ for (const c in sample_contexts) {
     contexts.push(newContext);
 }
 console.log(contexts);
-
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */
-let diverse_contexts = new TutorialStep("Diverse contexts", dialog, <QASectionTest contexts={contexts} context={contexts[0]}/>)
+let diverse_contexts = new TutorialStep("Diverse contexts", dialog, <QASection contexts={contexts} context={contexts[0]} contextMode={ContextMode.MULTI} showAnswers={false} question={null} loading={false}/>)
 
 export default diverse_contexts;
