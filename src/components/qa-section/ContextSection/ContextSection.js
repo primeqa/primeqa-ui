@@ -20,39 +20,63 @@ import './context-section.scss';
 
 import { Component } from "react";
 import { Dropdown } from '@carbon/react';
-import { set } from 'lodash';
 
+/** 
+ * The mode in which to display a Context. Can be MULTI, EDITABLE, or LOCKED
+*/
 const ContextMode = {
   LOCKED: "SINGLE_LOCKED",
   EDITABLE: "SINGLE_EDITABLE",
   MULTI: "MULTI"
 };
 
-// no either pass in 1 context or a group + idx.
-// then mode 
 /**
- * A scrollable section for a Context
+ * A scrollable component that displays a context. Highlights a subsection of text for answers, if desired.
  */
 class ContextSection extends Component {
     /**
      * 
-     * @param {ContextMode} props.mode The mode of the context (either editable or locked)
-     * @param {Context} props.selected A context to display.
+     * @param {ContextMode} props.mode The mode of the context (either multi, editable, or locked)
+     * @param {Context} props.selected The selected context to display.
      * @param {fn} props.selectContext A callback function that is invoked when a context is selected
-     * @param {[Context]} props.contexts A callback function that is invoked when a context is selected
+     * @param {[Context]} props.contexts An optional lists of contexts that can be selecte
+     * @param {Answer} props.selectedAnswer The currently selected answer, if any
+
      */
   constructor(props) {
     super(props);
+    this.highlightContext = this.highlightContext.bind(this);
   }
 
-  
+  /**
+   * 
+   * @param {string} text The text to highlight in the context
+   * @returns a div of the highlighted text
+   */
+  highlightContext(text){
+    const firstIndex = this.props.selected.text.indexOf(text)
+    const lastIndex = firstIndex + text.length;
+
+    const highlightedText = <p className="context">
+      {this.props.selected.text.slice(0, firstIndex)}
+      <mark className='highlighted-answer'> {this.props.selected.text.slice(firstIndex, lastIndex)}</mark>
+      {this.props.selected.text.slice(lastIndex+1)}
+    </p>
+
+    return highlightedText
+  }
+
 
   render() {
     var contextBody = <div></div>
     if (this.props.mode == ContextMode.EDITABLE || !this.props.selected){
       contextBody = <div>{"edit text area"}</div>
     }else{
-      contextBody = <p className="context">{this.props.selected.text} </p>
+      if(this.props.selectedAnswer){
+        contextBody = this.highlightContext(this.props.selectedAnswer); 
+      }else{
+        contextBody = <p className="context">{this.props.selected.text} </p>
+      }
     }
 
     var contextHeader = <div></div>
@@ -61,6 +85,7 @@ class ContextSection extends Component {
     }else{
       contextHeader = <div className="context-heading">Context</div>
     }
+        
     return (
         <div className="cds--col-lg-8 cds--col-md-8 demo-height context-section">
             {contextHeader}  
