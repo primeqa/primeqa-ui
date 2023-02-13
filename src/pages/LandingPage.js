@@ -35,10 +35,10 @@ class LandingPage extends Component{
         </Theme>
         
         <Theme theme="g10">
-                <Banner header="PrimeQA" subheader="State-of-the-art Question Answering R&D"/>
-                {/* TODO: More detailed About */}
-                <ModelInfo/>
-                {/* TODO: Resources */}
+            <Banner header="PrimeQA" subheader="State-of-the-art Question Answering R&D"/>
+            {/* TODO: More detailed About */}
+            <ModelInfo/>
+            {/* TODO: Resources */}
         </Theme>
       </>
     );
