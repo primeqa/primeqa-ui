@@ -4,6 +4,9 @@ import { ContextMode } from "./ContextSection/ContextSection";
 import {ContextSection} from "./ContextSection/ContextSection";
 import QuestionSection from "./QuestionSection/QuestionSection";
 
+/**
+ * A component that renders a side-by side Question/Answers and Context components. Manages updates between the two.
+ */
 class QASection extends Component{
     /**
      * @param {Context} props.contexts A list of contexts that can be chosen.
@@ -15,8 +18,6 @@ class QASection extends Component{
      * @param {ContextMode} props.contextMode The mode that the contexts are in. 
      */
     constructor(props){
-        console.log("QAsection construcot");
-        console.log(props);
         super(props);
         this.state = {
             context: props.context || null,
@@ -25,12 +26,13 @@ class QASection extends Component{
             answers: [],
             showAnswers: props.showAnswers || false,
             loading: props.loading || false,
-            selectedAnswerString: props.selectedAnswer || null,
+            selectedAnswer: props.selectedAnswer || null,
             contextMode: props.contextMode || ContextMode.EDITABLE,
         }
         this.askQuestion = this.askQuestion.bind(this);
         this.resetState = this.resetState.bind(this);
         this.selectContext = this.selectContext.bind(this);
+        this.selectAnswer = this.selectAnswer.bind(this);
     }
 
     /**
@@ -40,14 +42,17 @@ class QASection extends Component{
         this.setState({
             askedQuestion: null,
             showAnswers: false,
+            answers: [],
             loading: false,
-            selectedAnswerString: null
+            selectedAnswer: null
         });
     }
 
-
+    /**
+     * 
+     * @param {string} question Submits the provided question to the API then calls the handler.
+     */
     askQuestion (question) {
-        console.log("ask question")
         if (question && this.state.context){
             this.setState({
                 showAnswers: true,
@@ -61,43 +66,60 @@ class QASection extends Component{
     }
 
     /**
-     * Executed when the API is done loading
+     * Calls the Reading API, then handles the returned answers.
      * @param {*} answers 
      */
     apiHandler = async (answers) => {
         // TODO: handle if there are answers returned
         await setTimeout(()=> {
-            const answers = ["A", "B", "C", "D", "E"]; 
+            // TODO: replace with real answers
+            const answers = ["A", "B", "C"]; 
+
+            // Select the first answer
+            var selectedAnswer = null;
+            if(answers && answers.length > 0){
+                selectedAnswer = answers[0];
+            }
             this.setState({
                 loading:false,
-                answers: answers
+                answers: answers,
+                selectedAnswer: selectedAnswer
             }); 
          }
          ,3000);
     }
 
+    /**
+     * 
+     * @param {} event Handles an event that selects a context from a dropdown and sets state.
+     */
     selectContext = (event) =>{
-        console.log(event.selectedItem);
         this.setState({
             context: event.selectedItem
         });
     }
 
-    selectAnswer(answerString){
-        // TODO: set selected answer string. this gets passed to the context section
+    /**
+     * 
+     * @param {Answer} answer Sets the state with the provided answer
+     */
+    selectAnswer(answer){
+        this.setState({
+            selectedAnswer: answer
+        });
     }
-    
+     
     render(){
         return( 
             <div className="demo-height">
                 <div className='cds--row demo-height'>
                     {this.state.showAnswers ? (
-                        <AnswersSection loading={this.state.loading} question={this.state.askedQuestion} askAnother={this.resetState} answers={this.state.answers}/>
+                        <AnswersSection loading={this.state.loading} question={this.state.askedQuestion} askAnother={this.resetState} answers={this.state.answers} selectAnswer={this.selectAnswer} selectedAnswer={this.state.selectedAnswer}/>
                     ) : (
-                        <QuestionSection samples={this.props.context.questions} ask={this.askQuestion} />
+                        <QuestionSection samples={this.state.context.questions} ask={this.askQuestion} />
                     )}
                     
-                    <ContextSection contexts={this.props.contexts} selected={this.props.context} mode={this.props.contextMode} selectContext={this.selectContext} className="content-pad demo-height"/>
+                    <ContextSection contexts={this.state.contexts} selected={this.state.context} mode={this.state.contextMode} selectContext={this.selectContext} selectedAnswer={this.state.selectedAnswer} className="content-pad demo-height"/>
                 </div>
             </div>
         );
