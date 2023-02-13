@@ -59,8 +59,11 @@ class QuestionSection extends React.Component {
    */
   setQuestionText(text) {
     this.setState({
-        questionText: text
-    })
+      questionText: text
+    }, () => {
+      // Ask the question
+      this.props.ask(this.state.questionText);
+    });
   };
 
   /**
@@ -70,8 +73,6 @@ class QuestionSection extends React.Component {
   handleSampleQuestionClick = (event) => {
     if (event.target.title){
       this.setQuestionText(event.target.title);
-      // Ask the question
-      this.props.ask(this.state.questionText);
     }
   }
 
@@ -108,7 +109,7 @@ class QuestionSection extends React.Component {
             <div className="question-heading ">Question</div>
             
             <div className="ask-question-container">
-                <TextInput className="" id="text-input-1" placeholder="Ask a question" type="text"  value={this.state.questionText} onChange={this.handleTextInputChange} />
+                <TextInput className="" id="text-input-1" placeholder="Ask a question" type="text" labelText="" value={this.state.questionText} onChange={this.handleTextInputChange} />
                 {this.askQuestionButton()}
             </div>
            

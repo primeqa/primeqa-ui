@@ -33,20 +33,19 @@ class AnswersSection extends React.Component {
      * @param {[string]} props.answers A list of answers
      * @param {string} props.question The question that was asked
      * @param {boolean} props.loading Whether the answers are being loaded
-     * @param {fn} props.highlightAnswerInContext A function that is called when an asnwer is clicked
+     * @param {fn} props.selectAnswer A function that is called when an asnwer is clicked
+     * @param {fn} props.askAnother A function that is called to ask another question
      */
   constructor(props) {
     super(props);
-    this.state = {
-      selectedAnswer: null
-    };
+    console.log(props);
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
   }
 
   handleAnswerClick(answer){
     console.log(answer);
-    if (this.props.highlightAnswerInContext){
-      this.props.highlightAnswerInContext(answer);
+    if (this.props.selectAnswer){
+      this.props.selectAnswer(answer);
     }
   }
 
@@ -61,21 +60,21 @@ class AnswersSection extends React.Component {
   }
 
   render() {
-
     var askAnother = this.props.loading ? <div></div> : <div>{this.askAnotherButton()}</div>
     return (
         <div className="cds--col-lg-8 cds--col-md-8 ">
             <div className="question-heading questions-left-pad">Answers</div>
-            {/* TODO: put in question askwed */}
             <div className="asked-question-container">
-                <TextInput type="text" labelText="You Asked" value={this.props.question} disabled={true} />
+                <TextInput type="text" id={"question-asked-disabled"} labelText="You Asked" value={this.props.question} disabled={true} />
                 {askAnother}
             </div>
             {this.props.loading ? (
               <SkeletonPlaceholder className="loading-answer"/>
               ) : (
-                <div>
-                  <AnswerTile/>
+                <div className='answers-container'>
+                  {this.props.answers.map((answer, index) => (
+                      <AnswerTile  answer={answer}/>
+                  ))}
                 </div>
               )}
             {/* // TODO: ask another question button */}

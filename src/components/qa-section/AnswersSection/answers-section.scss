@@ -34,3 +34,11 @@
     padding-bottom: $fluid-spacing-02;
     border-bottom: 0.5px solid #6f6f6f;
 }
+
+.answers-container{
+    display:flex;
+    flex-direction: column;
+    gap: $fluid-spacing-02;
+    overflow-y: scroll;
+    max-height: 600px;
+}
