@@ -38,7 +38,6 @@ class AnswersSection extends React.Component {
      */
   constructor(props) {
     super(props);
-    console.log(props);
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
     this.isSelectedAnswer = this.isSelectedAnswer.bind(this);
   }

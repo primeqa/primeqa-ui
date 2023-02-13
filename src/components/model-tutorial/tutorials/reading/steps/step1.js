@@ -24,7 +24,6 @@ import { TutorialStep } from "../../tutorial";
 import {sample_contexts} from "../../sample-contexts";
 var contexts = []
 for (const c in sample_contexts) {
-    console.log(c)
     let newContext = new Context(c, sample_contexts[c].title, sample_contexts[c].text, sample_contexts[c].questions)
     contexts.push(newContext)
 }
@@ -32,10 +31,13 @@ for (const c in sample_contexts) {
 const contextDefinition =  <DefinitionTooltip definition={"A document or piece of text that the model uses to form a response."}>context</DefinitionTooltip>;
 const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a {contextDefinition}.<br></br><br></br>Try it out by asking question about the example context to the right, or select one of the sample questions, then click Ask.</p>
 
+let content =  <div>
+    <QASection context={contexts[0]} contextMode={ContextMode.LOCKED}/>
+</div>
 
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */
-let step1 = new TutorialStep("Asking Questions", dialog, <QASection context={contexts[0]} contextMode={ContextMode.LOCKED}/>)
+let step1 = new TutorialStep("Asking Questions", dialog, content)
 
 export default step1;

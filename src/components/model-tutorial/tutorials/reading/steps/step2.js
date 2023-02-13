@@ -20,7 +20,6 @@ import Context from "../../context";
 import { ContextMode } from "../../../../qa-section/ContextSection/ContextSection";
 import { DefinitionTooltip } from "@carbon/react";
 import QASection from "../../../../qa-section";
-import QASectionTest from "../../../../qa-section/MultiSelectContext";
 import { TutorialStep } from "../../tutorial";
 import {sample_contexts} from "../../sample-contexts";
 
@@ -30,11 +29,9 @@ const dialog = <p>The Reading Comprehension model works across a diverse range o
 
 var contexts = []
 for (const c in sample_contexts) {
-    console.log(c)
     let newContext = new Context(c, sample_contexts[c].title, sample_contexts[c].text, sample_contexts[c].questions)
     contexts.push(newContext);
 }
-console.log(contexts);
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */

@@ -27,13 +27,14 @@ const dialog = <p>The Reading Comprehension model has built-in multi-language su
 
 var contexts = []
 for (const c in sample_multilingual_contexts) {
-    console.log(c)
     let newContext = new Context(c, sample_multilingual_contexts[c].title, sample_multilingual_contexts[c].text, sample_multilingual_contexts[c].questions)
     contexts.push(newContext);
 }
 console.log(contexts);
 
-let content =  <QASection contexts={contexts} context={contexts[0]} contextMode={ContextMode.MULTI}/>;
+let content =  <div>
+        <QASection contexts={contexts} context={contexts[0]} contextMode={ContextMode.MULTI}/>
+    </div>
 
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
