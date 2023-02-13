@@ -35,10 +35,11 @@ class ModelTutorial extends Component{
         super(props);
         this.state = {
             tutorial: props.tutorial,
-            currentStep: props.tutorial.currentStepIndex
+            currentStep: props.tutorial.currentStepIndex,
+            currentStepContent: props.tutorial.currentStep.content
         }
+        this.updateStep = this.updateStep.bind(this);
     }
-
 
     /**
      * Increments or decrements the current step that the tutorial is on. 
@@ -51,14 +52,17 @@ class ModelTutorial extends Component{
             this.state.tutorial.decrementStep();
         }
         this.setState({
-            currentStep: this.state.tutorial.currentStepIndex
-        });
+            currentStep: this.state.tutorial.currentStepIndex,
+            currentStepContent: this.state.tutorial.currentStep.content
+        });  
     }
-    
-    render(){
+     
+    render(){  
         let backButton = this.state.tutorial.isFirstStep ? <div></div> :  <Button hasIconOnly renderIcon={ArrowLeft} label="Back" kind="ghost" onClick={() => { this.updateStep(false) }}>Back</Button>
         let nextButton = this.state.tutorial.isLastStep ? <div></div> :   <Button  renderIcon={ArrowRight} kind="ghost" onClick={() => { this.updateStep(true) }}>{this.state.tutorial.isFirstStep ? "Demo" : "Next"}</Button>
-        return(
+        const qa_content = this.state.tutorial.currentStep.content;
+
+        return(   
         <>
         <Theme theme="g90">
             <div className="cds--row">
@@ -81,13 +85,13 @@ class ModelTutorial extends Component{
                             {backButton}
                             {nextButton}
                         </div>
-                    </div>
+                    </div> 
                   
                 </div>
                 {/* Content */}
                 <div className="cds--col-lg-11 cds--col-md-8">
                     <Theme theme="g100" className="content-pad demo-height">
-                        {this.state.tutorial.currentStep.content}
+                        {qa_content}
                     </Theme>
                 </div>                
             </div>
