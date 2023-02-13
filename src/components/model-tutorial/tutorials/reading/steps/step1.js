@@ -16,23 +16,17 @@
 *
 */
 
-import Context from "../../context";
 import { ContextMode } from "../../../../qa-section/ContextSection/ContextSection";
 import { DefinitionTooltip } from "@carbon/react";
 import QASection from "../../../../qa-section";
 import { TutorialStep } from "../../tutorial";
 import {sample_contexts} from "../../sample-contexts";
-var contexts = []
-for (const c in sample_contexts) {
-    let newContext = new Context(c, sample_contexts[c].title, sample_contexts[c].text, sample_contexts[c].questions)
-    contexts.push(newContext)
-}
 
 const contextDefinition =  <DefinitionTooltip definition={"A document or piece of text that the model uses to form a response."}>context</DefinitionTooltip>;
 const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a {contextDefinition}.<br></br><br></br>Try it out by asking question about the example context to the right, or select one of the sample questions, then click Ask.</p>
 
 let content =  <div>
-    <QASection context={contexts[0]} contextMode={ContextMode.LOCKED}/>
+    <QASection context={sample_contexts[0]} contextMode={ContextMode.LOCKED}/>
 </div>
 
 /**

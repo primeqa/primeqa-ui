@@ -16,7 +16,6 @@
 *
 */
 
-import Context from "../../context";
 import { ContextMode } from "../../../../qa-section/ContextSection/ContextSection";
 import { DefinitionTooltip } from "@carbon/react";
 import QASection from "../../../../qa-section";
@@ -27,14 +26,10 @@ const trainingDefinition =  <DefinitionTooltip definition={"Training is...."}>tr
 
 const dialog = <p>The Reading Comprehension model works across a diverse range of contexts without requiring additional {trainingDefinition}.<br></br><br></br> Try selecting a different context from the dropdown above the context text and ask some questions about it.</p>
 
-var contexts = []
-for (const c in sample_contexts) {
-    let newContext = new Context(c, sample_contexts[c].title, sample_contexts[c].text, sample_contexts[c].questions)
-    contexts.push(newContext);
-}
+
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */
-let diverse_contexts = new TutorialStep("Diverse contexts", dialog, <QASection contexts={contexts} context={contexts[0]} contextMode={ContextMode.MULTI} showAnswers={false} question={null} loading={false}/>)
+let diverse_contexts = new TutorialStep("Diverse contexts", dialog, <QASection contexts={sample_contexts} context={sample_contexts[0]} contextMode={ContextMode.MULTI} showAnswers={false} question={null} loading={false}/>)
 
 export default diverse_contexts;

@@ -16,29 +16,20 @@
 *
 */
 
-import Context from "../../context";
 import { ContextMode } from "../../../../qa-section/ContextSection/ContextSection";
-import { DefinitionTooltip } from "@carbon/react";
 import QASection from "../../../../qa-section";
 import { TutorialStep } from "../../tutorial";
 import {sample_multilingual_contexts} from "../../sample-contexts";
 
 const dialog = <p>The Reading Comprehension model has built-in multi-language support. Without requiring  additional training, the model can ask intelligently can return answers from a context that is in a different language from the question. To try this out, try asking some of the questions on this context. You can toggle the language of questions to try this out.</p>
 
-var contexts = []
-for (const c in sample_multilingual_contexts) {
-    let newContext = new Context(c, sample_multilingual_contexts[c].title, sample_multilingual_contexts[c].text, sample_multilingual_contexts[c].questions)
-    contexts.push(newContext);
-}
-console.log(contexts);
-
 let content =  <div>
-        <QASection contexts={contexts} context={contexts[0]} contextMode={ContextMode.MULTI}/>
-    </div>
+    <QASection contexts={sample_multilingual_contexts} context={sample_multilingual_contexts[0]} contextMode={ContextMode.MULTI}/>
+</div>
 
 /**
  * The first step in the demo for the Reading tutorial. Explains what the context is and has the user ask a question.
  */
-let multilingualStep = new TutorialStep("Multi-Lingual Suppport", dialog, content)
+let multilingualStep = new TutorialStep("Multilingual Capabilities", dialog, content)
 
 export default multilingualStep;
