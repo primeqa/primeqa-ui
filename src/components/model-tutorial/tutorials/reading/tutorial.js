@@ -19,6 +19,7 @@
 import { Tutorial } from "../tutorial"
 import diverse_contexts from "./steps/step2";
 import infoStep from "./steps/info";
+import multilingualStep from "./steps/multilingual";
 import step1 from "./steps/step1";
 
 // Steps of the Reading tutorial
@@ -29,7 +30,7 @@ import step1 from "./steps/step1";
  */
 class ReadingTutorial extends Tutorial{
     constructor(){
-        super("Reading Comprehension", "Reading", [infoStep, step1, diverse_contexts])
+        super("Reading Comprehension", "Reading", [infoStep, step1, diverse_contexts, multilingualStep])
     }
 }
 
