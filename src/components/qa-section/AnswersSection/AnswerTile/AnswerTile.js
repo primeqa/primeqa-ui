@@ -21,6 +21,11 @@ import './answer-tile.scss';
 import { Component } from "react";
 import { Tile } from "@carbon/react";
 
+/**
+ * * @param {number} props.key The identifier of the answer tile
+ * * @param {Answer} props.answer The answer object that is being displayed in the tile
+ * * @param {boolean} props.isSelected Whether the answer is selected
+ */
 class AnswerTile extends Component{
     constructor(props){
         super(props);
@@ -34,19 +39,21 @@ class AnswerTile extends Component{
         // which is layer-02
         // that has score (confidence score)
     render(){
+        var answerText = <div className='answer-tile-answer'>{this.props.answer}</div>
+        if(this.props.isSelected){
+            answerText =  <div className='answer-tile-answer selected-answer'>{this.props.answer}</div>
+        }
         return (
-            <div>
-            <div id="0" className="answer-tile-top-layer">
-                <div className='answer-tile-answer'>
-                    {"Answer here"}
+            <div onClick={this.props.onClick}>
+                <div id="0" className="answer-tile-top-layer">
+                    {answerText}
                 </div>
-            </div>
-            <div className="answer-tile-bottom-layer">
-                <div className="answer-tile-content">
-                    {"Confidence here"}
+                <div className="answer-tile-bottom-layer">
+                    <div className="answer-tile-content">
+                        {"Confidence %"}
+                    </div>
                 </div>
-            </div>
-                
+                    
             </div>
         );
     }

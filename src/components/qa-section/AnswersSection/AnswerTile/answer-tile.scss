@@ -35,6 +35,13 @@
     padding-left: $spacing-04;
 }
 
+.selected-answer{
+    // @include carbon--type-style('productive-heading-05', true);
+    text-decoration-color: blue;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 .answer-tile-bottom-layer{
     @include themes.theme($g100);
     background-color: themes.$layer-02;
