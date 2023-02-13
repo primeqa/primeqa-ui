@@ -15,13 +15,5 @@
 * limitations under the License.
 *
 */
-
-@use "@carbon/react/scss/spacing" as *;
-@use '@carbon/type';
-@use '@carbon/motion';
-@use '@carbon/themes/scss/themes' as *;
-@use '@carbon/themes';
-@import 'carbon-components/scss/globals/scss/typography.scss';
-  
 import AnswerTile from "./AnswerTile";
 export default AnswerTile;

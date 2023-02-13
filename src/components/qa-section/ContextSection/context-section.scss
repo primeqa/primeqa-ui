@@ -37,6 +37,13 @@
     padding-bottom: $spacing-03;
 }
 
+.highlighted-answer{
+    background-color: rgb(5, 48, 173);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 0.2rem;
+}
+
 .context{
     text-align: justify;
     max-height: 100%;
