@@ -39,7 +39,7 @@ class ModelInfo extends Component{
     render(){
       return (
       <div > 
-          <ModelTutorial tutorial={this.tutorials.reading} />
+        <ModelTutorial tutorial={this.tutorials.reading} />
 
         {/* <Theme theme="white">
           <div className="cds--grid"> 
