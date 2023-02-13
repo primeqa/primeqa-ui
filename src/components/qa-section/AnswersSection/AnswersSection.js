@@ -24,31 +24,39 @@ import AnswerTile from './AnswerTile/AnswerTile';
 import React from 'react';
 
 /**
- *
+ * A component that displays a clickable list of answers 
  */
 class AnswersSection extends React.Component {
-    // 
     /**
      * 
-     * @param {[string]} props.answers A list of answers
+     * @param {[Answer]} props.answers A list of answers
      * @param {string} props.question The question that was asked
      * @param {boolean} props.loading Whether the answers are being loaded
-     * @param {fn} props.selectAnswer A function that is called when an asnwer is clicked
-     * @param {fn} props.askAnother A function that is called to ask another question
+     * @param {fn} props.selectAnswer A function that is called when an answer is clicked
+     * @param {fn} props.askAnother A function that is called to ask another question.
+     * @param {Answer} props.selectedAnswer The answer that is currently selected, if any
      */
   constructor(props) {
     super(props);
     console.log(props);
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
+    this.isSelectedAnswer = this.isSelectedAnswer.bind(this);
   }
 
+  /**
+   * 
+   * @param {*} answer The answer that was selected
+   */
   handleAnswerClick(answer){
-    console.log(answer);
     if (this.props.selectAnswer){
       this.props.selectAnswer(answer);
     }
-  }
+  } 
 
+  /**
+   * 
+   * @returns A button that allows the user to ask another question
+   */
   askAnotherButton(){
     return <div>
        <Button kind="ghost"  size="md" label="" onClick={() => {
@@ -57,6 +65,16 @@ class AnswersSection extends React.Component {
           Ask Another
        </Button>
     </div>
+  }
+
+  /**
+   * 
+   * @param {Answer} answer The answer to check if is selected
+   * @returns True if the answer is selected, false otherwise.
+   */
+  isSelectedAnswer(answer) {
+    const isSelected = answer === this.props.selectedAnswer;
+    return isSelected;
   }
 
   render() {
@@ -71,14 +89,14 @@ class AnswersSection extends React.Component {
             {this.props.loading ? (
               <SkeletonPlaceholder className="loading-answer"/>
               ) : (
-                <div className='answers-container'>
+                <div className='answers-container demo-height'>
                   {this.props.answers.map((answer, index) => (
-                      <AnswerTile  answer={answer}/>
+                      <AnswerTile key={index} answer={answer} isSelected={this.isSelectedAnswer(answer)}onClick={() => {
+                          this.props.selectAnswer(answer);
+                      }}/>
                   ))}
                 </div>
               )}
-            {/* // TODO: ask another question button */}
-            {/* Put answers here */}
         </div>
         );
   }
