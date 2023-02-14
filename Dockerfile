@@ -7,8 +7,10 @@
 # Image with build folder
 FROM node:18-alpine as builder
 ENV NODE_ENV production
-# Create application user
-RUN useradd -c "Application User" -U -u 2000 -d /app -m app
+
+# Create application user to fix appscan issues
+# RUN useradd -c "Application User" -U -u 2000 -d /app -m app
+
 # Set the working directory to /app inside the container
 WORKDIR /app
 # Copy app files
@@ -38,4 +40,5 @@ EXPOSE 82
 # ==== START SERVER =====
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
-USER 2000
+# Fails with permission denied
+# USER 2000
