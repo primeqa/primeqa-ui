@@ -23,6 +23,7 @@ import React, { Component } from 'react';
 import AboutSection from '../../components/about-section/AboutSection';
 import ApplicationCardGrid from '../../components/application-card/ApplicationCardGrid';
 import Banner from '../../components/banner';
+import ModelInfo from '../../components/model-info/ModelInfo';
 import SiteHeader from '../../components/header';
 import { Theme } from '@carbon/react';
 import about_information from '../../util/about-text';
@@ -48,8 +49,13 @@ class LandingPage extends Component{
               <div className="about-section">
                 <ApplicationCardGrid models={models}/>
               </div>
+              <div>
+                <ModelInfo />
+              </div>
+                {/* TODO: Resources */}
+                {/* TODO: Footer */}
+
             </Theme>
-            {/* TODO: Resources */}
         </Theme>
       </>
     );
