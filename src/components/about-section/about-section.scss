@@ -24,8 +24,9 @@
   
 
 .about-section-header{
-    @include carbon--type-style('productive-heading-03', true);
-    margin-bottom: $fluid-spacing-02;
+    @include carbon--type-style('productive-heading-02', true);
+    margin-bottom: $fluid-spacing-01;
+    margin-top: $fluid-spacing-02;
 }
 
 .about-section-description{

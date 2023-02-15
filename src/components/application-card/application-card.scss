@@ -35,6 +35,6 @@
 }
 
 .application-card-description{
-    @include carbon--type-style('body-short-01', true);
-    padding-top: $spacing-04;
+    @include carbon--type-style('body-short-02', true);
+    margin-top: $fluid-spacing-02;
 }
