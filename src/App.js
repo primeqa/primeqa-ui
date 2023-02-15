@@ -22,13 +22,16 @@ import { Route, Routes } from "react-router-dom";
 
 import Application from "./components/application";
 import Applications from "./components/applications";
-import LandingPage from "./pages/LandingPage";
+import DemoPage from "./pages/DemoPage/DemoPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import React from "react";
 
 function App() {
   return (
     <Routes>
       <Route exact path="/" element={<LandingPage />} />
+      <Route exact path="/playground" element={<DemoPage/>} />
+
       {/* <Route exact path="/:applicationID" element={<Application />} /> */}
     </Routes>
   );
