@@ -45,7 +45,7 @@ const SiteHeader = () => (
         <HeaderMenuButton
           aria-label="Open menu"
           onClick={onClickSideNavExpand}
-          isActive={isSideNavExpanded}
+          // isActive={isSideNavExpanded}
         />
         <HeaderName element={Link} to="/" prefix="IBM">
             PrimeQA
@@ -53,15 +53,15 @@ const SiteHeader = () => (
         <HeaderNavigation aria-label="Carbon Tutorial">
           <HeaderMenuItem isCurrentPage href="/">About</HeaderMenuItem>
           <HeaderMenuItem href="#">Models</HeaderMenuItem>
-          <HeaderMenu aria-label="Playgrounds" menuLinkName="Playgrounds">
-             <HeaderMenuItem href="#one">Reading</HeaderMenuItem>
+          <HeaderMenu aria-label="Playgrounds"  menuLinkName="Playgrounds">
+             <HeaderMenuItem href="/playground">Reading</HeaderMenuItem>
               <HeaderMenuItem href="#two">Retrieval</HeaderMenuItem>
               <HeaderMenuItem href="#three">QA</HeaderMenuItem>
           </HeaderMenu>
           <HeaderMenuItem href="#">Resources</HeaderMenuItem>
 
         </HeaderNavigation>
-        <SideNav
+        {/* <SideNav
           aria-label="Side navigation"
           expanded={isSideNavExpanded}
           isPersistent={false}
@@ -78,7 +78,7 @@ const SiteHeader = () => (
               <HeaderMenuItem href="#">Resources</HeaderMenuItem>
             </HeaderSideNavItems>
           </SideNavItems>
-        </SideNav>
+        </SideNav> */}
       </Header>
     )}
   />
