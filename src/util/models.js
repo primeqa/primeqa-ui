@@ -1,6 +1,6 @@
 import { IbmWatsonNaturalLanguageUnderstanding, Query, SearchLocate } from "@carbon/icons-react";
 
-import Model from "./model";
+import {Model} from "./model";
 
 const models = [
     new Model("reading", "Machine Reading Comprehension", "Extract and/or generate answers given the source document or passage.", <SearchLocate size={32}/>, "#", []),
