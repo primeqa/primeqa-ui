@@ -16,12 +16,15 @@
 *
 */
 
+import './landing-page.scss';
+
 import { Content, Theme } from '@carbon/react';
 import React, { Component } from 'react';
 
+import ApplicationCardGrid from '../components/application-card/ApplicationCardGrid';
 import Banner from '../components/banner';
-import ModelInfo from '../components/model-info';
 import SiteHeader from '../components/header';
+import models from '../util/models';
 
 /**
  * Landing page for the PrimeQA site. Currently consists of banner and model information.
@@ -35,9 +38,10 @@ class LandingPage extends Component{
         </Theme>
         
         <Theme theme="g10">
-            <Banner header="PrimeQA" subheader="State-of-the-art Question Answering R&D"/>
-            {/* TODO: More detailed About */}
-            <ModelInfo/>
+            <Banner header="PrimeQA" subheader="PrimeQA is a public open source repository that enables researchers and developers to train state-of-the-art models for question answering (QA)."/>
+            <Theme theme="g90" className="model-information-section">
+              <ApplicationCardGrid models={models}/>
+            </Theme>
             {/* TODO: Resources */}
         </Theme>
       </>
