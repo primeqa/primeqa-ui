@@ -41,7 +41,9 @@ class LandingPage extends Component{
         </Theme>
         
         <Theme theme="g10">
-            <Banner header="PrimeQA" subheader="PrimeQA is a public open source repository that enables researchers and developers to train state-of-the-art models for question answering (QA)."/>
+            <div className='banner-section'>
+              <Banner header="PrimeQA" subheader="PrimeQA is a public open source repository that enables researchers and developers to train state-of-the-art models for question answering (QA)."/>
+            </div>
             <Theme theme="white" className="model-information-section">
               <div className="about-section">
                 <AboutSection info={about_information} />
