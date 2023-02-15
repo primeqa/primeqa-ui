@@ -19,19 +19,25 @@
 import './application-card.scss';
 import './application-card-grid.scss';
 
-import { Book24, IbmWatsonDiscovery, IbmWatsonNaturalLanguageUnderstanding, Query, SearchLocate } from '@carbon/icons-react';
-import { Column, Grid, Tile } from '@carbon/react';
+import { Button, Column, Grid } from '@carbon/react';
 
 import ApplicationCard from './ApplicationCard';
+import Model from '../../util/model';
 import React from 'react';
 
 class ApplicationCardGrid extends React.Component {
     /**
      * 
-     * @param {[Application]} props.application The applications to display
+     * @param {[Model]} props.models The model information cards to display
      */
   constructor(props) {
     super(props);
+  }
+
+  footer(demoLink, sourceCodeLink){
+    return <div>
+      
+    </div>
   }
 
   render() {
@@ -39,13 +45,16 @@ class ApplicationCardGrid extends React.Component {
         <Grid>
           <Column lg={4} md={2} sm={4} className="application-card-grid-text">
             <h3 className='application-card-grid-header'>Models</h3>
-            <p className='application-card-grid-description'>These PrimeQA models support End-to-end Question Answering across a variety of contexts and languages.</p>
+            <p className='application-card-grid-description'>PrimeQA models support End-to-end Question Answering across a variety of contexts and languages.</p>
+            <Button kind="secondary" href="https://huggingface.co/PrimeQA" iconDescription="Download Models">
+              More Models
+            </Button>
           </Column>
-          {/* TODO: for each application, render card. */}
-         <ApplicationCard title="Machine Reading Comprehension" description="Extract and/or generate answers given the source document or passage." footer={"Link here"} icon={<SearchLocate size="32" />}/>
-         <ApplicationCard title="Information Retrieval" description="Retrieving documents and passages using both traditional (e.g. BM25) and neural (e.g. ColBERT) models" icon={<IbmWatsonNaturalLanguageUnderstanding size="32"/>}/>
-         <ApplicationCard title="Question Generation" description="Supports generation of questions for effective domain adaptation over tables and multilingual text." icon={<Query size="32"/>}/>
-        </Grid>
+          
+          {this.props.models.map(function(model, index){
+            return <ApplicationCard key={model.id} title={model.title} description={model.description} icon={model.icon}/>
+          })}
+         </Grid>
     </div>
     
   }
