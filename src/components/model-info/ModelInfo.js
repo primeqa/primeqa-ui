@@ -18,8 +18,8 @@
 
 import './model-info.scss';
 
+import { Column, Grid, Tab, TabList, TabPanel, TabPanels, Tabs, Theme } from '@carbon/react';
 import { QATutorial, ReadingTutorial, RetrievalTutorial } from '../model-tutorial/tutorials';
-import { Tab, TabList, TabPanel, TabPanels, Tabs, Theme } from '@carbon/react';
 
 import { Component } from 'react';
 import ModelTutorial from '../model-tutorial';
@@ -39,26 +39,32 @@ class ModelInfo extends Component{
     render(){
       return (
       <div > 
-        <ModelTutorial tutorial={this.tutorials.reading} />
-
-        {/* <Theme theme="white">
+        <Grid>
+            <Column lg={8} md={8} sm={4} className="">
+                <h3 className=''>Demos</h3>
+                <div className='demos-description'>
+                  Explore the capabilities of state-of-the art PrimeQA models without any technical expertise or setup required. To get started, select a demo for one of the below models to try out below.
+                </div>
+            </Column>         
+        </Grid>
+        <Theme theme="white">
           <div className="cds--grid"> 
           <Tabs >
-              <TabList activation="manual"  aria-label="List of tabs" contained light={true}>
+              <TabList activation="manual"  aria-label="List of tabs"  light={true}>
                 {Object.keys(this.tutorials).map((key, idx) => 
                   <Tab key={idx} className="bx--tabs__nav-item" disabled={false}>{this.tutorials[key].shortTitle}</Tab>
                 )}
               </TabList> 
               <TabPanels className="tab-background">
                 {Object.keys(this.tutorials).map((key, idx) => 
-                    <TabPanel key={idx} className="tab-background">
+                    <TabPanel key={idx} className="tab-panel-no-pad">
                       <ModelTutorial tutorial={this.tutorials[key]} />
                     </TabPanel> 
                 )}
               </TabPanels>
             </Tabs>
           </div>
-        </Theme>        */}
+        </Theme>       
         
       </div>
       );
