@@ -10,12 +10,12 @@ class AboutSection extends React.Component {
   }
 
   card(information){
-    return <Column lg={4} md={2} sm={4}>
+    return <Column lg={4} md={2} sm={4} className="about-section-card">
         <div >
             <div>
                 <div>{information.icon || ""}</div>
-                <div className=''>{information.title || ""}</div>
-                <div className=''>{information.description || ""}</div>
+                <div className='about-section-header'>{information.title || ""}</div>
+                <div className='about-section-description'>{information.description || ""}</div>
             </div>
         </div>
     </Column>
