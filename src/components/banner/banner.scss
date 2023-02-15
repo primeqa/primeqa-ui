@@ -32,11 +32,11 @@
 
 .primeqa-text-title{
     @include carbon--type-style('display-03', true);
-    font-weight: bold;
+    margin-bottom: $fluid-spacing-02;
 }
 
 .primeqa-text-description{
-    @include carbon--type-style('expressive-heading-03', true);
+    @include carbon--type-style('body-short-02', true);
 }
 
 .banner-img-container{

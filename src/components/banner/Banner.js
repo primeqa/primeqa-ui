@@ -40,10 +40,9 @@ class Banner extends Component{
                 <div className="cds--row ">
                     {/* Left column - Title and blurb */}
                     <div className="cds--col-lg-6 cds--col-md-4 primeQA-text">
-                            <div className="cds--row">
-                                <img src={logoImage} alt={"PrimeQA Logo"} />
+                            <div className="cds--row  primeqa-text-title">
+                                {this.state.title}
                             </div>
-                            <div className="cds--row  primeqa-text-title">{this.state.title}</div>
                             <div className="cds--row primeqa-text-description">{this.state.blurb}</div> 
                         </div>
                     {/* Right column - banner image */}
