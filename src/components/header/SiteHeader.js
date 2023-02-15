@@ -53,13 +53,13 @@ const SiteHeader = () => (
         <HeaderNavigation aria-label="Carbon Tutorial">
           <HeaderMenuItem isCurrentPage href="/">About</HeaderMenuItem>
           <HeaderMenuItem href="#">Models</HeaderMenuItem>
+          <HeaderMenuItem href="#">Demos</HeaderMenuItem>
+          <HeaderMenuItem href="#">Resources</HeaderMenuItem>
           <HeaderMenu aria-label="Playgrounds"  menuLinkName="Playgrounds">
              <HeaderMenuItem href="/playground">Reading</HeaderMenuItem>
               <HeaderMenuItem href="#two">Retrieval</HeaderMenuItem>
               <HeaderMenuItem href="#three">QA</HeaderMenuItem>
           </HeaderMenu>
-          <HeaderMenuItem href="#">Resources</HeaderMenuItem>
-
         </HeaderNavigation>
         {/* <SideNav
           aria-label="Side navigation"
