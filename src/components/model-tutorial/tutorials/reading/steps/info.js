@@ -22,8 +22,8 @@ import { TutorialStep } from "../../tutorial";
 let info = <div>
         <p>This model intelligently extracts answers from documents and text.<br></br></p>
 
-        <Tag className="some-class" type="teal" size="sm" title="Multi-Lingual">{"Multi-Lingual"}</Tag>
-        <Tag className="some-class" type="cyan" size="sm" title="Diverse Contexts">{"Diverse Contexts"}</Tag>
+        <Tag className="some-class" type="teal" size="sm" title="Multi-Lingual">{"Multilingual"}</Tag>
+        <Tag className="some-class" type="cyan" size="sm" title="Diverse Contexts">{"Specialized Contexts"}</Tag>
     </div>
 
 /**
