@@ -49,7 +49,7 @@ class Banner extends Component{
                     {/* Right column - banner image */}
                     <div className="cds--col-lg-10 cds--col-md-4">
                         <div className="banner-img-container">
-                            {/* <img src={bannerImage} alt={"Banner"} className="banner-img"/> */}
+                            <img src={bannerImage} alt={"Banner"} className="banner-img"/>
                         </div>
                     </div>
                 </div>
