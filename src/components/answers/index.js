@@ -35,222 +35,7 @@ import {
   ThumbsDownFilled,
 } from "@carbon/react/icons";
 
-import { generateUUID } from "../../util/uuid";
-import {
-  getFeedbacks as getFeedbacksAPI,
-  postFeedback as postFeedbackAPI,
-  updateFeedback as updateFeedbackAPI,
-} from "../../api/feedbacks";
-import { addNotification } from "../../components/notifications/notificationsSlice";
-
 import "./styles.scss";
-
-async function buildAnswersWithFeedback(
-  question,
-  answers,
-  setAnswersWithFeedback,
-  dispatch
-) {
-  // Step 1: Build feedbackIdToAnswerIndex map and answersWithFeedback list
-  let feedbackIdToAnswerIndexMap = new Map();
-  let answersWithFeedback = [];
-
-  // Step 1.a: Iterate over each answer
-  answers.forEach((answer, answerIndex) => {
-    // Step 1.a.i: Generate feedback_id
-    const feedback_id = generateUUID(
-      question +
-        "::" +
-        answer.context.replace(/\s/g, "") +
-        "::" +
-        answer.text.replace(/\s/g, "") +
-        "::" +
-        answer.startCharOffset +
-        "::" +
-        answer.endCharOffset
-    );
-
-    // Step 1.a.ii: Update feedbackIdToAnswerIndexMap
-    feedbackIdToAnswerIndexMap.set(feedback_id, answerIndex);
-
-    // Step 1.a.iii: Copy answer over and add feedback information
-    answersWithFeedback.push({
-      ...answer,
-      feedback: { feedback_id: feedback_id },
-    });
-  });
-
-  // Step 2: Trigger [GET] /feedbacks API call for all identified feedback_ids
-  let feedbacks = [];
-  if (!_.isEmpty(feedbackIdToAnswerIndexMap)) {
-    try {
-      feedbacks = await getFeedbacksAPI([...feedbackIdToAnswerIndexMap.keys()]);
-    } catch (err) {
-      // Step 1: Dispatch appropriate add error notification event
-      if (Object.hasOwn(err, "name") && err.name === "AxiosError") {
-        dispatch(
-          addNotification({
-            notification: {
-              notification: {
-                id: "get_feedbacks--error",
-                type: "Toast",
-                kind: "error",
-                title: err.name + " : " + err.message,
-                subtitle: "Feedbacks may not be up-to-date.",
-              },
-            },
-          })
-        );
-      } else {
-        dispatch(
-          addNotification({
-            notification: {
-              id: "get_feedbacks--error",
-              type: "Toast",
-              kind: "error",
-              title: err.detail.code + " : " + err.detail.message,
-              subtitle: "Feedbacks may not be up-to-date.",
-            },
-          })
-        );
-      }
-    }
-  }
-
-  // Step 3: If feedbacks exist, update feedback information in answersWithFeedback for appropriate answer
-  if (!_.isEmpty(feedbacks)) {
-    // Step 3.a: Iterate over each feedback
-    feedbacks.forEach((feedback) => {
-      const answerIndex = feedbackIdToAnswerIndexMap.get(feedback.feedback_id);
-      if (!_.isNil(answerIndex)) {
-        answersWithFeedback[answerIndex].feedback = { ...feedback };
-      }
-    });
-  }
-
-  // Step 4: Set answersWithFeedback
-  setAnswersWithFeedback(answersWithFeedback);
-}
-
-async function updateFeedback(
-  feedbackId,
-  update,
-  answersWithFeedback,
-  setAnswersWithFeedback,
-  dispatch
-) {
-  try {
-    // Step 1: Trigger [PATCH] /feedbacks/{feedback_id} API call
-    const updatedFeedback = await updateFeedbackAPI(feedbackId, update);
-
-    // Step 2: Copy existing answer index to feedback map
-    let updatedAnswersWithFeedback = answersWithFeedback.map(
-      (answerWithFeedback) => {
-        // Step 2.a: If feedback_id of new feedback matches with answerWithFeedback's feedback.feedback_id, update that answersWithFeedback
-        if (
-          answerWithFeedback.feedback.feedback_id ===
-          updatedFeedback.feedback_id
-        ) {
-          return { ...answerWithFeedback, feedback: updatedFeedback };
-        } else {
-          // Step 2.b: Return existing answerWithFeedback
-          return answerWithFeedback;
-        }
-      }
-    );
-
-    // Step 3: Set AnswersWithFeedback to new value
-    setAnswersWithFeedback(updatedAnswersWithFeedback);
-  } catch (err) {
-    // Step 1: Dispatch appropriate add error notification event
-    if (Object.hasOwn(err, "name") && err.name === "AxiosError") {
-      dispatch(
-        addNotification({
-          notification: {
-            notification: {
-              id: "update_feedback--error",
-              type: "Toast",
-              kind: "error",
-              title: err.name + " : " + err.message,
-              subtitle: "Refer: contact us in README.",
-            },
-          },
-        })
-      );
-    } else {
-      dispatch(
-        addNotification({
-          notification: {
-            id: "update_feedback--error",
-            type: "Toast",
-            kind: "error",
-            title: err.detail.code + " : " + err.detail.message,
-            subtitle: "Refer: contact us in README.",
-          },
-        })
-      );
-    }
-  }
-}
-
-async function postFeedback(
-  feedback,
-  answersWithFeedback,
-  setAnswersWithFeedback,
-  dispatch
-) {
-  try {
-    // Step 1: Trigger [POST] /feedbacks API call
-    const newFeedback = await postFeedbackAPI(feedback);
-
-    // Step 2: Copy existing answer index to feedback map
-    let updatedAnswersWithFeedback = answersWithFeedback.map(
-      (answerWithFeedback) => {
-        // Step 2.a: If feedback_id of new feedback matches with answerWithFeedback's feedback.feedback_id, update that answersWithFeedback
-        if (
-          answerWithFeedback.feedback.feedback_id === newFeedback.feedback_id
-        ) {
-          return { ...answerWithFeedback, feedback: newFeedback };
-        } else {
-          // Step 2.b: Return existing answerWithFeedback
-          return answerWithFeedback;
-        }
-      }
-    );
-
-    // Step 3: Set AnswersWithFeedback to new value
-    setAnswersWithFeedback(updatedAnswersWithFeedback);
-  } catch (err) {
-    // Step 1: Dispatch appropriate add error notification event
-    if (Object.hasOwn(err, "name") && err.name === "AxiosError") {
-      dispatch(
-        addNotification({
-          notification: {
-            notification: {
-              id: "post_feedback--error",
-              type: "Toast",
-              kind: "error",
-              title: err.name + " : " + err.message,
-              subtitle: "Refer: contact us in README.",
-            },
-          },
-        })
-      );
-    } else {
-      dispatch(
-        addNotification({
-          notification: {
-            id: "post_feedback--error",
-            type: "Toast",
-            kind: "error",
-            title: err.detail.code + " : " + err.detail.message,
-            subtitle: "Refer: contact us in README.",
-          },
-        })
-      );
-    }
-  }
-}
 
 function Answers({ question, answers, loading, source }) {
   const [answersWithFeedback, setAnswersWithFeedback] = useState([]);
@@ -262,11 +47,13 @@ function Answers({ question, answers, loading, source }) {
     if (_.isNil(answers) || _.isEmpty(answers)) {
       setAnswersWithFeedback([]);
     } else {
-      buildAnswersWithFeedback(
-        question,
-        answers,
-        setAnswersWithFeedback,
-        dispatch
+      setAnswersWithFeedback(
+        answers.map((answer) => {
+          return {
+            ...answer,
+            feedback: { thumbs_up: false, thumbs_down: false },
+          };
+        })
       );
     }
   }, [question, answers, dispatch]);
@@ -358,43 +145,27 @@ function Answers({ question, answers, loading, source }) {
                           }
                           iconDescription="Yes"
                           onClick={() => {
-                            // Step 1: If existing feedback exist, update with new information
-                            if (
-                              !_.isNil(answerWithFeedback.feedback.thumbs_up) ||
-                              !_.isNil(answerWithFeedback.feedback.thumbs_down)
-                            ) {
-                              updateFeedback(
-                                answerWithFeedback.feedback.feedback_id,
-                                {
-                                  thumbs_up: true,
-                                  thumbs_down: false,
-                                },
-                                answersWithFeedback,
-                                setAnswersWithFeedback,
-                                dispatch
-                              );
-                            } else {
-                              // Step 2: Create new feedback
-                              postFeedback(
-                                {
-                                  feedback_id:
-                                    answerWithFeedback.feedback.feedback_id,
-                                  question: question,
-                                  context: answerWithFeedback.context,
-                                  thumbs_up: true,
-                                  thumbs_down: false,
-                                  answer: answerWithFeedback.text,
-                                  start_char_offset:
-                                    answerWithFeedback.startCharOffset,
-                                  end_char_offset:
-                                    answerWithFeedback.endCharOffset,
-                                  application: source,
-                                },
-                                answersWithFeedback,
-                                setAnswersWithFeedback,
-                                dispatch
-                              );
-                            }
+                            setAnswersWithFeedback(
+                              answersWithFeedback.map((entry, entry_idx) => {
+                                if (entry_idx === index) {
+                                  // Step 1.a.i: Create deep copy of the answerWithFeeback object to be updated
+                                  let updatedAnswerWithFeedback =
+                                    _.cloneDeep(entry);
+
+                                  // Step 1.a.ii: Update "feedback" value
+                                  updatedAnswerWithFeedback.feedback = {
+                                    thumbs_up: true,
+                                    thumbs_down: false,
+                                  };
+
+                                  // Step 1.a.iii: Return updated answerWithFeeback object
+                                  return updatedAnswerWithFeedback;
+                                } else {
+                                  // Step 1.b: Return other answerWithFeeback objects as it is
+                                  return entry;
+                                }
+                              })
+                            );
                           }}
                         ></Button>
                         <Button
@@ -407,43 +178,27 @@ function Answers({ question, answers, loading, source }) {
                           }
                           iconDescription="Yes"
                           onClick={() => {
-                            // Step 1: If existing feedback exist, update with new information
-                            if (
-                              !_.isNil(answerWithFeedback.feedback.thumbs_up) ||
-                              !_.isNil(answerWithFeedback.feedback.thumbs_down)
-                            ) {
-                              updateFeedback(
-                                answerWithFeedback.feedback.feedback_id,
-                                {
-                                  thumbs_up: false,
-                                  thumbs_down: true,
-                                },
-                                answersWithFeedback,
-                                setAnswersWithFeedback,
-                                dispatch
-                              );
-                            } else {
-                              // Step 2: Create new feedback
-                              postFeedback(
-                                {
-                                  feedback_id:
-                                    answerWithFeedback.feedback.feedback_id,
-                                  question: question,
-                                  context: answerWithFeedback.context,
-                                  thumbs_up: false,
-                                  thumbs_down: true,
-                                  answer: answerWithFeedback.text,
-                                  start_char_offset:
-                                    answerWithFeedback.startCharOffset,
-                                  end_char_offset:
-                                    answerWithFeedback.endCharOffset,
-                                  application: source,
-                                },
-                                answersWithFeedback,
-                                setAnswersWithFeedback,
-                                dispatch
-                              );
-                            }
+                            setAnswersWithFeedback(
+                              answersWithFeedback.map((entry, entry_idx) => {
+                                if (entry_idx === index) {
+                                  // Step 1.a.i: Create deep copy of the answerWithFeeback object to be updated
+                                  let updatedAnswerWithFeedback =
+                                    _.cloneDeep(entry);
+
+                                  // Step 1.a.ii: Update "feedback" value
+                                  updatedAnswerWithFeedback.feedback = {
+                                    thumbs_up: false,
+                                    thumbs_down: true,
+                                  };
+
+                                  // Step 1.a.iii: Return updated answerWithFeeback object
+                                  return updatedAnswerWithFeedback;
+                                } else {
+                                  // Step 1.b: Return other answerWithFeeback objects as it is
+                                  return entry;
+                                }
+                              })
+                            );
                           }}
                         ></Button>
                       </div>

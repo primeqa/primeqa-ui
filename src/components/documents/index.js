@@ -29,217 +29,7 @@ import {
   ThumbsDownFilled,
 } from "@carbon/react/icons";
 
-import { generateUUID } from "../../util/uuid";
-import {
-  getFeedbacks as getFeedbacksAPI,
-  postFeedback as postFeedbackAPI,
-  updateFeedback as updateFeedbackAPI,
-} from "../../api/feedbacks";
-import { addNotification } from "../../components/notifications/notificationsSlice";
 import "./styles.scss";
-
-async function buildDocumentsWithFeedback(
-  question,
-  documents,
-  setDocumentsWithFeedback,
-  dispatch
-) {
-  // Step 1: Build feedbackIdToAnswerIndex map and answersWithFeedback list
-  let feedbackIdToDocumentIndexMap = new Map();
-  let documentsWithFeedback = [];
-
-  // Step 1.a: Iterate over each answer
-  documents.forEach((document, documentIndex) => {
-    // Step 1.a.i: Generate feedback_id
-    const feedback_id = generateUUID(
-      question + "::" + document.text.replace(/\s/g, "")
-    );
-
-    // Step 1.a.ii: Update feedbackIdToAnswerIndexMap
-    feedbackIdToDocumentIndexMap.set(feedback_id, documentIndex);
-
-    // Step 1.a.iii: Copy answer over and add feedback information
-    documentsWithFeedback.push({
-      ...document,
-      feedback: { feedback_id: feedback_id },
-    });
-  });
-
-  // Step 2: Trigger [GET] /feedbacks API call for all identified feedback_ids
-  let feedbacks = [];
-  if (!_.isEmpty(feedbackIdToDocumentIndexMap)) {
-    try {
-      feedbacks = await getFeedbacksAPI([
-        ...feedbackIdToDocumentIndexMap.keys(),
-      ]);
-    } catch (err) {
-      // Step 1: Dispatch appropriate add error notification event
-      if (Object.hasOwn(err, "name") && err.name === "AxiosError") {
-        dispatch(
-          addNotification({
-            notification: {
-              notification: {
-                id: "get_feedbacks--error",
-                type: "Toast",
-                kind: "error",
-                title: err.name + " : " + err.message,
-                subtitle: "Feedbacks may not be up-to-date.",
-              },
-            },
-          })
-        );
-      } else {
-        dispatch(
-          addNotification({
-            notification: {
-              id: "get_feedbacks--error",
-              type: "Toast",
-              kind: "error",
-              title: err.detail.code + " : " + err.detail.message,
-              subtitle: "Feedbacks may not be up-to-date.",
-            },
-          })
-        );
-      }
-    }
-  }
-
-  // Step 3: If feedbacks exist, update feedback information in answersWithFeedback for appropriate answer
-  if (!_.isEmpty(feedbacks)) {
-    // Step 3.a: Iterate over each feedback
-    feedbacks.forEach((feedback) => {
-      const answerIndex = feedbackIdToDocumentIndexMap.get(
-        feedback.feedback_id
-      );
-      if (!_.isNil(answerIndex)) {
-        documentsWithFeedback[answerIndex].feedback = { ...feedback };
-      }
-    });
-  }
-
-  // Step 4: Set answersWithFeedback
-  setDocumentsWithFeedback(documentsWithFeedback);
-}
-
-async function updateFeedback(
-  feedbackId,
-  update,
-  documentsWithFeedback,
-  setDocumentsWithFeedback,
-  dispatch
-) {
-  try {
-    // Step 1: Trigger [PATCH] /feedbacks/{feedback_id} API call
-    const updatedFeedback = await updateFeedbackAPI(feedbackId, update);
-
-    // Step 2: Build updatedDocumentWithFeedback
-    let updatedDocumentsWithFeedback = documentsWithFeedback.map(
-      (documentWithFeedback) => {
-        // Step 2.a: If feedback_id of new feedback matches with answerWithFeedback's feedback.feedback_id, update that answersWithFeedback
-        if (
-          documentWithFeedback.feedback.feedback_id ===
-          updatedFeedback.feedback_id
-        ) {
-          return { ...documentWithFeedback, feedback: updatedFeedback };
-        } else {
-          // Step 2.b: Return existing answerWithFeedback
-          return documentWithFeedback;
-        }
-      }
-    );
-
-    // Step 3: Set AnswersWithFeedback to new value
-    setDocumentsWithFeedback(updatedDocumentsWithFeedback);
-  } catch (err) {
-    // Step 1: Dispatch appropriate add error notification event
-    if (Object.hasOwn(err, "name") && err.name === "AxiosError") {
-      dispatch(
-        addNotification({
-          notification: {
-            notification: {
-              id: "update_feedback--error",
-              type: "Toast",
-              kind: "error",
-              title: err.name + " : " + err.message,
-              subtitle: "Refer: contact us in README.",
-            },
-          },
-        })
-      );
-    } else {
-      dispatch(
-        addNotification({
-          notification: {
-            id: "update_feedback--error",
-            type: "Toast",
-            kind: "error",
-            title: err.detail.code + " : " + err.detail.message,
-            subtitle: "Refer: contact us in README.",
-          },
-        })
-      );
-    }
-  }
-}
-
-async function postFeedback(
-  feedback,
-  documentsWithFeedback,
-  setDocumentsWithFeedback,
-  dispatch
-) {
-  try {
-    // Step 1: Trigger [POST] /feedbacks API call
-    const newFeedback = await postFeedbackAPI(feedback);
-
-    // Step 2: Build updatedDocumentWithFeedback
-    let updatedDocumentWithFeedback = documentsWithFeedback.map(
-      (documentWithFeedback) => {
-        // Step 2.a: If feedback_id of new feedback matches with documentWithFeedback's feedback.feedback_id, update that documentWithFeedback
-        if (
-          documentWithFeedback.feedback.feedback_id === newFeedback.feedback_id
-        ) {
-          return { ...documentWithFeedback, feedback: newFeedback };
-        } else {
-          // Step 2.b: Return existing documentWithFeedback
-          return documentWithFeedback;
-        }
-      }
-    );
-
-    // Step 3: Set AnswersWithFeedback to new value
-    setDocumentsWithFeedback(updatedDocumentWithFeedback);
-  } catch (err) {
-    // Step 1: Dispatch appropriate add error notification event
-    if (Object.hasOwn(err, "name") && err.name === "AxiosError") {
-      dispatch(
-        addNotification({
-          notification: {
-            notification: {
-              id: "post_feedback--error",
-              type: "Toast",
-              kind: "error",
-              title: err.name + " : " + err.message,
-              subtitle: "Refer: contact us in README.",
-            },
-          },
-        })
-      );
-    } else {
-      dispatch(
-        addNotification({
-          notification: {
-            id: "post_feedback--error",
-            type: "Toast",
-            kind: "error",
-            title: err.detail.code + " : " + err.detail.message,
-            subtitle: "Refer: contact us in README.",
-          },
-        })
-      );
-    }
-  }
-}
 
 function Documents({ question, documents, loading, source }) {
   const [documentsWithFeedback, setDocumentsWithFeedback] = useState([]);
@@ -251,11 +41,13 @@ function Documents({ question, documents, loading, source }) {
     if (_.isNil(documents) || _.isEmpty(documents)) {
       setDocumentsWithFeedback([]);
     } else {
-      buildDocumentsWithFeedback(
-        question,
-        documents,
-        setDocumentsWithFeedback,
-        dispatch
+      setDocumentsWithFeedback(
+        documents.map((document) => {
+          return {
+            ...document,
+            feedback: { thumbs_up: false, thumbs_down: false },
+          };
+        })
       );
     }
   }, [question, documents, dispatch]);
@@ -289,18 +81,18 @@ function Documents({ question, documents, loading, source }) {
                       </div>
                     </div>
                     <div className="documents--item__content--right">
-                      {!_.isNil(documentWithFeedback.confidence) ? (
-                        <div className="documents--item__confidence">
-                          Score (out of 100):
-                          <span>
-                            {Math.round(documentWithFeedback.confidence * 100)}
-                          </span>
-                        </div>
-                      ) : null}
-                      {!_.isNil(documentWithFeedback.confidence) ? (
+                      {!_.isNil(documentWithFeedback.score) ? (
                         <div className="documents--item__score">
                           Score:
-                          <span>{documentWithFeedback.score}</span>
+                          <span>
+                            {documentWithFeedback.score.toLocaleString(
+                              "en-US",
+                              {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }
+                            )}
+                          </span>
                         </div>
                       ) : null}
                       <div className="documents--item__feedback">
@@ -315,42 +107,27 @@ function Documents({ question, documents, loading, source }) {
                           }
                           iconDescription="Yes"
                           onClick={() => {
-                            // Step 1: If existing feedback exist, update with new information
-                            if (
-                              !_.isNil(
-                                documentWithFeedback.feedback.thumbs_up
-                              ) ||
-                              !_.isNil(
-                                documentWithFeedback.feedback.thumbs_down
-                              )
-                            ) {
-                              updateFeedback(
-                                documentWithFeedback.feedback.feedback_id,
-                                {
-                                  thumbs_up: true,
-                                  thumbs_down: false,
-                                },
-                                documentsWithFeedback,
-                                setDocumentsWithFeedback,
-                                dispatch
-                              );
-                            } else {
-                              // Step 2: Create new feedback
-                              postFeedback(
-                                {
-                                  feedback_id:
-                                    documentWithFeedback.feedback.feedback_id,
-                                  question: question,
-                                  answer: documentWithFeedback.text,
-                                  thumbs_up: true,
-                                  thumbs_down: false,
-                                  application: source,
-                                },
-                                documentsWithFeedback,
-                                setDocumentsWithFeedback,
-                                dispatch
-                              );
-                            }
+                            setDocumentsWithFeedback(
+                              documentsWithFeedback.map((entry, entry_idx) => {
+                                if (entry_idx === index) {
+                                  // Step 1.a.i: Create deep copy of the documentWithFeedback object to be updated
+                                  let updatedDocumentWithFeedback =
+                                    _.cloneDeep(entry);
+
+                                  // Step 1.a.ii: Update "feedback" value
+                                  updatedDocumentWithFeedback.feedback = {
+                                    thumbs_up: true,
+                                    thumbs_down: false,
+                                  };
+
+                                  // Step 1.a.iii: Return updated documentWithFeedback object
+                                  return updatedDocumentWithFeedback;
+                                } else {
+                                  // Step 1.b: Return other documentWithFeedback objects as it is
+                                  return entry;
+                                }
+                              })
+                            );
                           }}
                         ></Button>
                         <Button
@@ -364,42 +141,27 @@ function Documents({ question, documents, loading, source }) {
                           }
                           iconDescription="Yes"
                           onClick={() => {
-                            // Step 1: If existing feedback exist, update with new information
-                            if (
-                              !_.isNil(
-                                documentWithFeedback.feedback.thumbs_up
-                              ) ||
-                              !_.isNil(
-                                documentWithFeedback.feedback.thumbs_down
-                              )
-                            ) {
-                              updateFeedback(
-                                documentWithFeedback.feedback.feedback_id,
-                                {
-                                  thumbs_up: false,
-                                  thumbs_down: true,
-                                },
-                                documentsWithFeedback,
-                                setDocumentsWithFeedback,
-                                dispatch
-                              );
-                            } else {
-                              // Step 2: Create new feedback
-                              postFeedback(
-                                {
-                                  feedback_id:
-                                    documentWithFeedback.feedback.feedback_id,
-                                  question: question,
-                                  answer: documentWithFeedback.text,
-                                  thumbs_up: false,
-                                  thumbs_down: true,
-                                  application: source,
-                                },
-                                documentsWithFeedback,
-                                setDocumentsWithFeedback,
-                                dispatch
-                              );
-                            }
+                            setDocumentsWithFeedback(
+                              documentsWithFeedback.map((entry, entry_idx) => {
+                                if (entry_idx === index) {
+                                  // Step 1.a.i: Create deep copy of the documentWithFeedback object to be updated
+                                  let updatedDocumentWithFeedback =
+                                    _.cloneDeep(entry);
+
+                                  // Step 1.a.ii: Update "feedback" value
+                                  updatedDocumentWithFeedback.feedback = {
+                                    thumbs_up: false,
+                                    thumbs_down: true,
+                                  };
+
+                                  // Step 1.a.iii: Return updated documentWithFeedback object
+                                  return updatedDocumentWithFeedback;
+                                } else {
+                                  // Step 1.b: Return other documentWithFeedback objects as it is
+                                  return entry;
+                                }
+                              })
+                            );
                           }}
                         ></Button>
                       </div>
