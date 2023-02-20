@@ -61,7 +61,9 @@ function Notifications() {
               closeOnEscape={false}
               actionButtonLabel={"Resolve"}
               onActionButtonClick={() => {
-                window.open(notification.url, "_blank", "noopener,noreferrer");
+                /* Disable this to comply with appscan */
+                /* window.open(notification.url, "_blank", "noopener,noreferrer");
+                */
               }}
               onClose={() => {
                 dispatch(dismissNotification({ id: notification.id }));
