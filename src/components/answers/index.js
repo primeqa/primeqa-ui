@@ -257,16 +257,16 @@ async function postFeedback(
 function YesNoAnswer({boolean_answer_prediction}) {
   return (
     <React.Fragment>
-      {boolean_answer_prediction.toLowerCase()=="yes" ? 
+      {boolean_answer_prediction.toLowerCase()=="yes" ?
         <b className="answers--item__context--yesanswer">
           {boolean_answer_prediction}
-        </b> 
+        </b>
         :
         <b className="answers--item__context--noanswer">
           {boolean_answer_prediction}
         </b>
       }
-    </React.Fragment> 
+    </React.Fragment>
   )
 }
 
@@ -275,10 +275,10 @@ function AnswersSummary({answersWithFeedback}) {
     <React.Fragment>
       <div className="answers--details">
         <h6>
-        {answersWithFeedback[0].question_type_prediction==null && 
-          <p>Found {answersWithFeedback.length} answers matching your question..</p>                  
+        {answersWithFeedback[0].question_type_prediction==null &&
+          <p>Found {answersWithFeedback.length} answers matching your question..</p>
         }
-        {answersWithFeedback[0].question_type_prediction!=null && 
+        {answersWithFeedback[0].question_type_prediction!=null &&
           <div>
             <p> Your question is a <b className="answers--item__context--highlight">
               {answersWithFeedback[0].question_type_prediction}
@@ -286,7 +286,7 @@ function AnswersSummary({answersWithFeedback}) {
             </p>
             {answersWithFeedback[0].question_type_prediction!='boolean' &&
               <p>Found {answersWithFeedback.length} answers matching your question..</p>
-            }                
+            }
             {answersWithFeedback[0].question_type_prediction=='boolean' &&
               <div>
                 <p>Found {answersWithFeedback.length} evidence spans answering your question..</p>
@@ -295,7 +295,7 @@ function AnswersSummary({answersWithFeedback}) {
                   </YesNoAnswer>
                   )} .
                 </p>
-              </div>               
+              </div>
             }
           </div>
         }
@@ -341,10 +341,10 @@ function Answers({ question, answers, loading, source }) {
                   className="answers--item"
                 >
                 <h6>
-                  {answersWithFeedback[0].question_type_prediction=="boolean" && 
+                  {answersWithFeedback[0].question_type_prediction=="boolean" &&
                   <div>
-                    <p>Evidence span: {answerWithFeedback.display_each_boolean_answer && 
-                    <div>{(<YesNoAnswer boolean_answer_prediction={answerWithFeedback.boolean_answer_prediction}> 
+                    <p>Evidence span: {answerWithFeedback.display_each_boolean_answer &&
+                    <div>{(<YesNoAnswer boolean_answer_prediction={answerWithFeedback.boolean_answer_prediction}>
                           </YesNoAnswer>
                         )}
                       </div>
@@ -353,7 +353,7 @@ function Answers({ question, answers, loading, source }) {
                   }
                   {answersWithFeedback[0].question_type_prediction!="boolean" && <div><p>Answer</p></div>}
                 </h6>
-                  
+
 
                   <div className="answers--item__content">
                     <div className="answers--item__content--left">
