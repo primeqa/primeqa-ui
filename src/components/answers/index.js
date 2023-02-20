@@ -290,8 +290,8 @@ function AnswersSummary({answersWithFeedback}) {
             {answersWithFeedback[0].question_type_prediction=='boolean' &&
               <div>
                 <p>Found {answersWithFeedback.length} evidence spans answering your question..</p>
-                <p>The best answer is {" "} 
-                  {(<YesNoAnswer boolean_answer_prediction={answersWithFeedback[0].boolean_answer_prediction}> 
+                <p>The best answer is {" "}
+                  {(<YesNoAnswer boolean_answer_prediction={answersWithFeedback[0].boolean_answer_prediction}>
                   </YesNoAnswer>
                   )} .
                 </p>
