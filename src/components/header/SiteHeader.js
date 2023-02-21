@@ -29,6 +29,7 @@ import {
   SideNavItems,
   SkipToContent
 } from '@carbon/react';
+import { QA_PLAYGROUND_URL, READING_PLAYROUND_URL, RETRIEVAL_PLAYGROUND_URL } from '../../api/config';
 
 import { Link } from 'react-router-dom';
 import React from 'react';
@@ -37,7 +38,9 @@ import React from 'react';
  * 
  * The navigation header for the site.
  */
-const SiteHeader = () => (
+const SiteHeader = () => {
+
+  return (
   <HeaderContainer
     render={({ isSideNavExpanded, onClickSideNavExpand }) => (
       <Header aria-label="PrimeQA">
@@ -45,23 +48,23 @@ const SiteHeader = () => (
         <HeaderMenuButton
           aria-label="Open menu"
           onClick={onClickSideNavExpand}
-          // isActive={isSideNavExpanded}
+          isActive={isSideNavExpanded}
         />
         <HeaderName element={Link} to="/" prefix="IBM">
             PrimeQA
         </HeaderName>
         <HeaderNavigation aria-label="Carbon Tutorial">
-          <HeaderMenuItem isCurrentPage href="/">About</HeaderMenuItem>
-          <HeaderMenuItem href="#">Models</HeaderMenuItem>
-          <HeaderMenuItem href="#">Demos</HeaderMenuItem>
+          <HeaderMenuItem isCurrentPage href="#about">About</HeaderMenuItem>
+          <HeaderMenuItem href="#models">Models</HeaderMenuItem>
+          <HeaderMenuItem href="#demos">Demos</HeaderMenuItem>
           <HeaderMenuItem href="#">Resources</HeaderMenuItem>
           <HeaderMenu aria-label="Playgrounds"  menuLinkName="Playgrounds">
-             <HeaderMenuItem href="/playground">Reading</HeaderMenuItem>
-              <HeaderMenuItem href="#two">Retrieval</HeaderMenuItem>
-              <HeaderMenuItem href="#three">QA</HeaderMenuItem>
+             <HeaderMenuItem href={READING_PLAYROUND_URL}>Reading</HeaderMenuItem>
+              <HeaderMenuItem href={RETRIEVAL_PLAYGROUND_URL}>Retrieval</HeaderMenuItem>
+              <HeaderMenuItem href={QA_PLAYGROUND_URL}>QA</HeaderMenuItem>
           </HeaderMenu>
         </HeaderNavigation>
-        {/* <SideNav
+        <SideNav
           aria-label="Side navigation"
           expanded={isSideNavExpanded}
           isPersistent={false}
@@ -69,7 +72,7 @@ const SiteHeader = () => (
           <SideNavItems>
             <HeaderSideNavItems>
               <HeaderMenuItem isCurrentPage href="/">About</HeaderMenuItem>
-              <HeaderMenuItem href="#">Models</HeaderMenuItem>
+              <HeaderMenuItem href="#models">Models</HeaderMenuItem>
               <HeaderMenu aria-label="Playgrounds" menuLinkName="Playgrounds">
              <HeaderMenuItem href="#one">Reading</HeaderMenuItem>
               <HeaderMenuItem href="#two">Retrieval</HeaderMenuItem>
@@ -78,10 +81,10 @@ const SiteHeader = () => (
               <HeaderMenuItem href="#">Resources</HeaderMenuItem>
             </HeaderSideNavItems>
           </SideNavItems>
-        </SideNav> */}
+        </SideNav>
       </Header>
     )}
   />
-);
+)};
 
 export default SiteHeader;

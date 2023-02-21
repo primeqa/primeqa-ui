@@ -45,13 +45,13 @@ class LandingPage extends Component{
               <Banner header="PrimeQA" subheader="PrimeQA is a public open source repository that enables researchers and developers to train state-of-the-art models for question answering (QA)."/>
             </div>
             <Theme theme="white" className="model-information-section">
-              <div className="about-section">
+              <div id="about" className="about-section">
                 <AboutSection info={about_information} />
               </div>
-              <div className="about-section">
+              <div id="models" className="about-section">
                 <ApplicationCardGrid models={models}/>
               </div>
-              <div>
+              <div id="demos">
                 <ModelInfo />
               </div>
                 {/* TODO: Resources */}

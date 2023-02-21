@@ -20,3 +20,16 @@ export const BASE_URL =
   process.env.NODE_ENV === "production"
     ? window.env.API_URL
     : process.env.REACT_APP_API_URL;
+
+export const READING_PLAYROUND_URL = process.env.NODE_ENV === "production"
+? window.env.READING_PLAYROUND_URL
+: process.env.REACT_APP_READING_PLAYROUND_URL;
+
+
+export const RETRIEVAL_PLAYGROUND_URL = process.env.NODE_ENV === "production"
+? window.env.RETRIEVAL_PLAYGROUND_URL
+: process.env.REACT_APP_RETRIEVAL_PLAYGROUND_URL;
+
+export const QA_PLAYGROUND_URL = process.env.NODE_ENV === "production"
+? window.env.REACT_APP_QA_PLAYGROUND_URL
+: process.env.REACT_APP_QA_PLAYGROUND_URL;
