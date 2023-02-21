@@ -35,7 +35,7 @@
 }
 
 .application-card-grid-description{
-    @include carbon--type-style('body-short-01', true);
+    @include carbon--type-style('body-short-02', true);
     margin-top: $spacing-04;
     margin-bottom: $spacing-04;
 }
