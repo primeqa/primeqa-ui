@@ -19,7 +19,7 @@
 import './application-card.scss';
 import './application-card-grid.scss';
 
-import { Button, Column, Grid } from '@carbon/react';
+import { Button, Column, Grid, Tag } from '@carbon/react';
 
 import ApplicationCard from './ApplicationCard';
 import { ArrowRight } from '@carbon/icons-react';
@@ -58,10 +58,19 @@ class ApplicationCardGrid extends React.Component {
 
 function cardFooter(model){
   var sourceButton = <div></div>
+  var tagList = <div></div>
   console.log(model)
   if (model){
     if(model.sourceLink){
       sourceButton = <Button kind="ghost" renderIcon={Code} iconDescription="Model Source" hasIconOnly href={model.sourceLink}/>
+    }
+    if(model.tags){
+      console.log(model.tags)
+      tagList = <div>
+          {model.tags.map(function(tag, i){
+            return <Tag key={i} type="cyan" size="sm" title={tag}>{tag}</Tag>
+        })}
+      </div>
     }
   }
   return <div>
