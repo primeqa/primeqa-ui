@@ -28,11 +28,12 @@
     margin-top: $fluid-spacing-04;
     margin-bottom: $fluid-spacing-04;
     text-align: left;
+    padding-left: $fluid-spacing-02;
 }
 
 .primeqa-text-title{
     @include carbon--type-style('display-03', true);
-    margin-bottom: $fluid-spacing-03;
+    margin-bottom: $fluid-spacing-02;
 }
 
 .primeqa-text-description{
