@@ -25,7 +25,7 @@ RUN yarn run build
 
 # ==== SET ENV NGINX =====
 # Bundle static assets with nginx
-FROM nginxinc/nginx-unprivileged:1.23.0-alpine as production
+FROM nginxinc/nginx-unprivileged:1.23.3-alpine as production
 ENV NODE_ENV production
 # Copy built assets from `builder` image
 COPY --from=builder /app/build /usr/share/nginx/html
@@ -43,7 +43,14 @@ CMD ["nginx", "-g", "daemon off;"]
 
 # needed for chmod
 USER root
+
 # needed for write access for deployment.sh
 RUN mkdir /tmp/proxy_temp && chmod 0757 /usr/share/nginx/html/
+
+# needed to mitigate CVE-2023-23914, CVE-2023-23915 and CVE-2023-23916
+RUN apk update && \
+    apk upgrade && \
+    apk add libcurl>=7.87.0-r2 curl>=7.87.0-r2
+
 # reinstate the user
 USER nginx
