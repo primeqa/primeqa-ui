@@ -36,7 +36,7 @@ class AnswerTile extends Component{
         if(this.props.isSelected){
             answerText =  <div className='answer-tile-answer selected-answer'>{this.props.answer.text}</div>
         }
-        let confidence = <div>{this.props.answer.confidence_score}</div>
+        let confidence = <div>{Math.round(this.props.answer.confidence_score * 100) + "%"}</div>
         return (
             <div onClick={this.props.onClick}>
                 <div id="0" className="answer-tile-top-layer">
