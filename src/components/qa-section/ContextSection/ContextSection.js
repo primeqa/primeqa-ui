@@ -50,15 +50,14 @@ class ContextSection extends Component {
 
   /**
    * 
-   * @param {string} text The text to highlight in the context
+   * @param {Answer} answer The answer to highlight in the context
    * @returns a div of the highlighted text
    */
-  highlightContext(text){
-    const firstIndex = this.props.selected.text.indexOf(text)
-    const lastIndex = firstIndex + text.length;
-
+  highlightContext(answer){
+    const firstIndex = this.props.selectedAnswer.start_char_offset;
+    const lastIndex = this.props.selectedAnswer.end_char_offset;
     const highlightedText = <p className="context">
-      {this.props.selected.text.slice(0, firstIndex)}
+      {this.props.selected.text.slice(0,firstIndex )}
       <mark className='highlighted-answer'> {this.props.selected.text.slice(firstIndex, lastIndex)}</mark>
       {this.props.selected.text.slice(lastIndex+1)}
     </p>
