@@ -31,9 +31,9 @@ class ModelInfo extends Component{
     constructor(){
         super();
         this.tutorials = {
-          reading: new ReadingTutorial(),
-          retrieval: new RetrievalTutorial(),
-          qa: new QATutorial()
+          reading: new ReadingTutorial()
+          // retrieval: new RetrievalTutorial(),
+          // qa: new QATutorial()
         };
     }
     render(){
