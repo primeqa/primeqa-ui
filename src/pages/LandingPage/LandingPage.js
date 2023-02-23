@@ -56,7 +56,7 @@ class LandingPage extends Component{
               </div>
                 {/* TODO: Resources */}
                 {/* TODO: Footer */}
-
+            
             </Theme>
         </Theme>
       </>

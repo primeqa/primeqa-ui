@@ -74,7 +74,7 @@ class ContextSection extends Component {
       if(this.props.selectedAnswer){
         contextBody = this.highlightContext(this.props.selectedAnswer); 
       }else{
-        contextBody = <p className="context">{this.props.selected.text} </p>
+        contextBody = <p className="context demo-height">{this.props.selected.text} </p>
       }
     }
 
