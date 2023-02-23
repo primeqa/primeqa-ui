@@ -16,14 +16,16 @@
 *
 */
 
-import { Tag } from "@carbon/react";
+import { Button, Tag } from "@carbon/react";
+
+import { ArrowRight } from "@carbon/icons-react";
 import { TutorialStep } from "../../tutorial";
 
 let text = <div>
-        <p>Thanks for trying out the Reading Comprehension model.<br></br></p>
+        <p>Thanks for trying out the Reading Comprehension model!<br></br><br></br>To explore more or try using your own custom contexts, visit the Playground site.</p>
     </div>
 
-let lastStep = new TutorialStep("All Done", text)
+let lastStep = new TutorialStep("Demo Complete", text)
 export default lastStep;
 
 
