@@ -19,6 +19,8 @@
 import {
   Header,
   HeaderContainer,
+  HeaderGlobalAction,
+  HeaderGlobalBar,
   HeaderMenu,
   HeaderMenuButton,
   HeaderMenuItem,
@@ -29,6 +31,7 @@ import {
   SideNavItems,
   SkipToContent
 } from '@carbon/react';
+import { LogoGithub, LogoSlack } from '@carbon/icons-react';
 import { QA_PLAYGROUND_URL, READING_PLAYROUND_URL, RETRIEVAL_PLAYGROUND_URL } from '../../api/config';
 
 import { Link } from 'react-router-dom';
@@ -71,17 +74,28 @@ const SiteHeader = () => {
         >
           <SideNavItems>
             <HeaderSideNavItems>
-              <HeaderMenuItem isCurrentPage href="/">About</HeaderMenuItem>
+            <HeaderMenuItem isCurrentPage href="#about">About</HeaderMenuItem>
               <HeaderMenuItem href="#models">Models</HeaderMenuItem>
-              <HeaderMenu aria-label="Playgrounds" menuLinkName="Playgrounds">
-             <HeaderMenuItem href="#one">Reading</HeaderMenuItem>
-              <HeaderMenuItem href="#two">Retrieval</HeaderMenuItem>
-              <HeaderMenuItem href="#three">QA</HeaderMenuItem>
-              </HeaderMenu>
+              <HeaderMenuItem href="#demos">Demos</HeaderMenuItem>
               <HeaderMenuItem href="#">Resources</HeaderMenuItem>
+              <HeaderMenu aria-label="Playgrounds"  menuLinkName="Playgrounds">
+                <HeaderMenuItem href={READING_PLAYROUND_URL}>Reading</HeaderMenuItem>
+                  <HeaderMenuItem href={RETRIEVAL_PLAYGROUND_URL}>Retrieval</HeaderMenuItem>
+                  <HeaderMenuItem href={QA_PLAYGROUND_URL}>QA</HeaderMenuItem>
+              </HeaderMenu>
             </HeaderSideNavItems>
           </SideNavItems>
         </SideNav>
+          
+
+        <HeaderGlobalBar>
+          <HeaderGlobalAction aria-label="GitHub" href="https://github.com/primeqa">
+            <LogoGithub size={20} />
+          </HeaderGlobalAction>
+          <HeaderGlobalAction aria-label="Slack" href="https://join.slack.com/t/primeqaworkspace/shared_invite/zt-1edc4fn7n-6aUO0CCvDOMOLb0drROwSw">
+            <LogoSlack size={20} />
+          </HeaderGlobalAction>
+        </HeaderGlobalBar>
       </Header>
     )}
   />
