@@ -28,7 +28,6 @@ class ApplicationCard extends React.Component {
      * @param {string} props.footer An optional footer to display on the card
      */
    constructor(props) {
-    console.log(props);
     super(props);
   }
 

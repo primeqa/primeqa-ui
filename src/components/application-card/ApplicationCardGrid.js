@@ -61,7 +61,6 @@ function cardFooter(model){
   var demoButton = <div></div>
 
   var tagList = <div></div>
-  console.log(model)
   if (model){
     if(model.sourceLink){
       sourceButton = <Button kind="ghost" renderIcon={Code} iconDescription="Source" hasIconOnly href={model.sourceLink}/>
@@ -73,8 +72,6 @@ function cardFooter(model){
         })}
       </div>
     }
-    console.log(model.demoLink)
-
     if(model.demoLink){
       demoButton = <Button kind="ghost" href={model.demoLink} renderIcon={ArrowRight} iconDescription="Try it out">Demo</Button>
     }
