@@ -79,6 +79,7 @@ class AnswersSection extends React.Component {
 
   render() {
     var askAnother = this.props.loading ? <div></div> : <div>{this.askAnotherButton()}</div>
+    const noAnswersFoundText = this.props.answers.length > 0 ? <div></div> : <div>No answers found.</div>;
     return (
         <div className="cds--col-lg-8 cds--col-md-8 ">
             <div className="question-heading questions-left-pad">Answers</div>
@@ -95,6 +96,7 @@ class AnswersSection extends React.Component {
                           this.props.selectAnswer(answer);
                       }}/>
                   ))}
+                  {noAnswersFoundText}
                 </div>
               )}
         </div>
