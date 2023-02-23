@@ -1,3 +1,6 @@
+import { askQuestion, demo_ask } from "../../api/ask";
+
+import Answer from "../../util/answer";
 import AnswersSection from "./AnswersSection/AnswersSection";
 import { Component } from "react";
 import { ContextMode } from "./ContextSection/ContextSection";
@@ -60,7 +63,7 @@ class QASection extends Component{
                 askedQuestion: question
             }, () => {
                 // TODO: Call API
-                this.apiHandler();
+                this.apiHandler(question);
             });            
         }
     }
@@ -69,24 +72,38 @@ class QASection extends Component{
      * Calls the Reading API, then handles the returned answers.
      * @param {*} answers 
      */
-    apiHandler = async (answers) => {
-        // TODO: handle if there are answers returned
-        await setTimeout(()=> {
-            // TODO: replace with real answers
-            const answers = ["A", "B", "C"]; 
+    apiHandler = async (question) => {
+        try{
+            const response = await demo_ask(question, [this.state.context.text])
+            console.log(response);
+            // const response = await askQuestion(question, null, this.state.context, null);
+            let answers= [];
+
+            if (response && response.length > 0){
+                response.forEach((res) => {
+                    answers.push(Answer.fromResponse(res));
+                })
+            }
 
             // Select the first answer
             var selectedAnswer = null;
             if(answers && answers.length > 0){
                 selectedAnswer = answers[0];
             }
+
             this.setState({
                 loading:false,
                 answers: answers,
                 selectedAnswer: selectedAnswer
             }); 
-         }
-         ,3000);
+        } catch (err){
+            console.log(err);
+            this.setState({
+                loading:false,
+                answers: [],
+                selectedAnswer: null
+            }); 
+        }
     }
 
     /**

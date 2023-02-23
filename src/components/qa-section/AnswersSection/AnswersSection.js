@@ -20,6 +20,7 @@ import './answers-section.scss';
 
 import { Button, SkeletonPlaceholder, TextInput } from '@carbon/react';
 
+import Answer from '../../../util/answer';
 import AnswerTile from './AnswerTile/AnswerTile';
 import React from 'react';
 

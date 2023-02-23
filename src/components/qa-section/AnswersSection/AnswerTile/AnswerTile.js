@@ -18,6 +18,7 @@
 
 import './answer-tile.scss';
 
+import Answer from '../../../../util/answer';
 import { Component } from "react";
 import { Tile } from "@carbon/react";
 
@@ -30,19 +31,12 @@ class AnswerTile extends Component{
     constructor(props){
         super(props);
     }
-
-    // so we have top layer - todo: set answer id 
-        // which looks like layer-01
-        // + text (link)
-            // clicking on link changes selected text
-    // then bottom layer
-        // which is layer-02
-        // that has score (confidence score)
     render(){
-        var answerText = <div className='answer-tile-answer'>{this.props.answer}</div>
+        var answerText = <div className='answer-tile-answer'>{this.props.answer.text}</div>
         if(this.props.isSelected){
-            answerText =  <div className='answer-tile-answer selected-answer'>{this.props.answer}</div>
+            answerText =  <div className='answer-tile-answer selected-answer'>{this.props.answer.text}</div>
         }
+        let confidence = <div>{this.props.answer.confidence_score}</div>
         return (
             <div onClick={this.props.onClick}>
                 <div id="0" className="answer-tile-top-layer">
@@ -50,7 +44,7 @@ class AnswerTile extends Component{
                 </div>
                 <div className="answer-tile-bottom-layer">
                     <div className="answer-tile-content">
-                        {"Confidence %"}
+                        {confidence}
                     </div>
                 </div>
                     
