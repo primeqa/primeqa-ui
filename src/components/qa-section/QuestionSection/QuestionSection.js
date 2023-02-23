@@ -114,10 +114,14 @@ class QuestionSection extends React.Component {
                 <TextInput className="" id="text-input-1" placeholder="Ask a question" type="text" labelText="" value={this.state.questionText} onChange={this.handleTextInputChange} />
                 {this.askQuestionButton()}
             </div>
-           
-            <div className="preset-questions-container">
-                {this.props.samples.map(this.sampleQuestionButton)}
+            
+            <div className='preset-question-title'>
+              {sampleQuestionsHeader}
+              <div className="preset-questions-container">
+                  {this.props.samples.map(this.sampleQuestionButton)}
+              </div>
             </div>
+            
         </div>
         );
   }

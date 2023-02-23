@@ -34,13 +34,16 @@
     margin-bottom: $spacing-02;
 }
 
+.preset-question-title{
+    margin-top: $fluid-spacing-02;
+}
+
 .preset-questions-container{
     display: flex;
     overflow: auto;
     align-items: flex-start;
     flex-wrap: wrap;
     margin-bottom: $fluid-spacing-02;
-    margin-top: $fluid-spacing-02;
 }
 
 .preset-question{
