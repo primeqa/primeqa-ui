@@ -16,23 +16,14 @@
 *
 */
 
-import { Tutorial } from "../tutorial"
-import diverse_contexts from "./steps/step2";
-import infoStep from "./steps/info";
-import lastStep from "./steps/lastStep";
-import multilingualStep from "./steps/multilingual";
-import step1 from "./steps/step1";
+import { Tag } from "@carbon/react";
+import { TutorialStep } from "../../tutorial";
 
-// Steps of the Reading tutorial
+let text = <div>
+        <p>Thanks for trying out the Reading Comprehension model.<br></br></p>
+    </div>
+
+let lastStep = new TutorialStep("All Done", text)
+export default lastStep;
 
 
-/**
- * Information and tutorial for the Reading comprehension model
- */
-class ReadingTutorial extends Tutorial{
-    constructor(){
-        super("Reading Comprehension", "Reading", [infoStep, step1, diverse_contexts, multilingualStep, lastStep])
-    }
-}
-
-export default ReadingTutorial;

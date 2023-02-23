@@ -22,7 +22,7 @@ import { TutorialStep } from "../../tutorial";
 import {sample_multilingual_contexts} from "../../sample-contexts";
 
 // const selectLanguageDropdown
-const dialog = <p>Without requiring  additional training, the model can intelligently can return answers from a context that is in a different language from the question.<br></br><br></br>Try asking questions in a language of your choice, or select one of the pre-populated questions.</p>
+const dialog = <p>The model can intelligently can return answers from a context that is in a different language from the question without requiring  additional training.<br></br><br></br>Try asking questions in a language of your choice, or select one of the pre-populated questions.</p>
 
 let content =  <div>
     <QASection contexts={sample_multilingual_contexts} context={sample_multilingual_contexts[0]} contextMode={ContextMode.MULTI}/>

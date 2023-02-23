@@ -77,7 +77,7 @@ export class Tutorial{
      * Returns the percent complete that the tutorial currently is
      */
     get percentComplete(){
-        return 100*(this.currentStepIndex/this.totalSteps)
+        return 100*((this.currentStepIndex+1)/this.totalSteps)
     }
 
     /**
