@@ -50,7 +50,9 @@ class QuestionSection extends React.Component {
    */
   handleTextInputChange = (event) => {
     let newText = event.target.value;
-    this.setQuestionText(newText);
+    this.setState({
+      questionText: newText
+    });
   };
 
   /**
