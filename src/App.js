@@ -30,9 +30,6 @@ function App() {
   return (
     <Routes>
       <Route exact path="/" element={<LandingPage />} />
-      <Route exact path="/playground" element={<DemoPage/>} />
-
-      {/* <Route exact path="/:applicationID" element={<Application />} /> */}
     </Routes>
   );
 }

@@ -25,7 +25,6 @@ export const READING_PLAYROUND_URL = process.env.NODE_ENV === "production"
 ? window.env.READING_PLAYROUND_URL
 : process.env.REACT_APP_READING_PLAYROUND_URL;
 
-
 export const RETRIEVAL_PLAYGROUND_URL = process.env.NODE_ENV === "production"
 ? window.env.RETRIEVAL_PLAYGROUND_URL
 : process.env.REACT_APP_RETRIEVAL_PLAYGROUND_URL;
