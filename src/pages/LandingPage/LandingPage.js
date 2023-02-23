@@ -51,7 +51,7 @@ class LandingPage extends Component{
               <div id="models" className="about-section">
                 <ApplicationCardGrid models={models}/>
               </div>
-              <div id="demos">
+              <div id="demos" className='about-section'>
                 <ModelInfo />
               </div>
                 {/* TODO: Resources */}

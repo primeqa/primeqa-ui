@@ -59,7 +59,7 @@ class ModelTutorial extends Component{
      
     render(){  
         let backButton = this.state.tutorial.isFirstStep ? <div></div> :  <Button hasIconOnly renderIcon={ArrowLeft} label="Back" kind="ghost" onClick={() => { this.updateStep(false) }}>Back</Button>
-        let nextButton = this.state.tutorial.isLastStep ? <div></div> :   <Button  renderIcon={ArrowRight} kind="ghost" onClick={() => { this.updateStep(true) }}>{this.state.tutorial.isFirstStep ? "Demo" : "Next"}</Button>
+        let nextButton = this.state.tutorial.isLastStep ? <div></div> :   <Button  renderIcon={ArrowRight} kind="ghost" onClick={() => { this.updateStep(true) }}>{this.state.tutorial.isFirstStep ? "Start" : "Next"}</Button>
         const qa_content = this.state.tutorial.currentStep.content;
 
         return(   
