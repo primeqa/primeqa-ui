@@ -24,10 +24,13 @@ class Model extends Information{
      * @param {JSX} icon The icon of the card
      * @param {string} sourceLink A link to the source for the model
      * @param {*} tags A list of tags, if any
+     * @param {string} demoLink A link to the demo for the model, if any
+
      */
-    constructor(id, title, description, icon, sourceLink, tags ){
+    constructor(id, title, description, icon, sourceLink, tags, demoLink ){
         super(id, title,description,icon,sourceLink)
         this.tags = tags
+        this.demoLink = demoLink
     }
 }
 
