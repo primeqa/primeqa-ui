@@ -21,11 +21,11 @@ import { Tutorial, TutorialStep } from "../tutorial"
  * Information and tutorial for the retrieval model
  */
 class RetrievalTutorial extends Tutorial{
-    constructor(){
+    constructor(enabled){
         let dialog = <p>TODO: Information about the retrieval tutorial here.</p>
         let content = <div></div>
         let infoStep = new TutorialStep(dialog, content)
-        super("Retrieval", "Retrieval", [infoStep])
+        super("Retrieval", "Retrieval", [infoStep], enabled)
     }
 }
 export default RetrievalTutorial;

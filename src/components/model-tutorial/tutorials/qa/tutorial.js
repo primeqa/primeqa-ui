@@ -22,11 +22,11 @@ import { Tutorial, TutorialStep } from "../tutorial"
  * Information and tutorial for the QA model.
  */
 class QATutorial extends Tutorial{
-    constructor(){
+    constructor(enabled){
         let dialog = <p>TODO: Information about the QA tutorial here.</p>
         let content = <div></div>
         let infoStep = new TutorialStep(dialog, content)
-        super("Question Answering", "QA", [infoStep])
+        super("Question Answering", "QA", [infoStep], enabled)
     }
 }
 export default QATutorial;

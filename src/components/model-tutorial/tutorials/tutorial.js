@@ -41,12 +41,14 @@ export class Tutorial{
      * @param {string} title The title of the tutorial
      * @param {string} shortTitle A shortened version of the tutorial, if needed
      * @param {[TutorialStep]} steps The steps of the tutorial, in order.
+     * @param {boolean} enabled Whether the tutorial is enabled or not.
      */
-    constructor(title, shortTitle, steps){
+    constructor(title, shortTitle, steps, enabled){
         this.title = title
         this.shortTitle = shortTitle
         this.currentStepIndex = 0
         this.steps = steps
+        this.enabled = enabled ? true : false
 
         this.incrementStep = this.incrementStep.bind(this);
         this.decrementStep = this.decrementStep.bind(this);

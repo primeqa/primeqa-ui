@@ -30,8 +30,8 @@ import step1 from "./steps/step1";
  * Information and tutorial for the Reading comprehension model
  */
 class ReadingTutorial extends Tutorial{
-    constructor(){
-        super("Reading Comprehension", "Reading", [infoStep, step1, diverse_contexts, multilingualStep, lastStep])
+    constructor(enabled){
+        super("Reading Comprehension", "Reading", [infoStep, step1, diverse_contexts, multilingualStep, lastStep], enabled)
     }
 }
 

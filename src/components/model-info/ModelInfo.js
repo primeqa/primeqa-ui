@@ -31,9 +31,9 @@ class ModelInfo extends Component{
     constructor(){
         super();
         this.tutorials = {
-          reading: new ReadingTutorial()
-          // retrieval: new RetrievalTutorial(),
-          // qa: new QATutorial()
+          reading: new ReadingTutorial(true),
+          retrieval: new RetrievalTutorial(false),
+          qa: new QATutorial(false)
         };
     }
     render(){
@@ -43,7 +43,7 @@ class ModelInfo extends Component{
             <Column lg={8} md={8} sm={4} className="">
                 <h3 className=''>Demos</h3>
                 <div className='demos-description'>
-                  Explore the capabilities of state-of-the art PrimeQA models without any technical expertise or setup required. To get started, select a demo for one of the below models to try out below.
+                  Explore the capabilities of state-of-the art PrimeQA models without any technical expertise or setup required.
                 </div>
             </Column>         
         </Grid>
@@ -52,8 +52,8 @@ class ModelInfo extends Component{
           <Tabs >
               <TabList activation="manual"  aria-label="List of tabs"  light={true}>
                 {Object.keys(this.tutorials).map((key, idx) => 
-                  <Tab key={idx} className="bx--tabs__nav-item" disabled={false}>{this.tutorials[key].shortTitle}</Tab>
-                )}
+                  <Tab key={idx} className="bx--tabs__nav-item" disabled={!this.tutorials[key].enabled}>{this.tutorials[key].shortTitle}</Tab>
+                  )}
               </TabList> 
               <TabPanels className="tab-background">
                 {Object.keys(this.tutorials).map((key, idx) => 
