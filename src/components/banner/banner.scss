@@ -33,6 +33,7 @@
 
 .primeqa-text-title{
     @include carbon--type-style('display-03', true);
+    font-weight: bold;
     margin-bottom: $fluid-spacing-02;
 }
 

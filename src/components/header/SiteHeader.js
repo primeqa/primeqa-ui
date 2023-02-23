@@ -57,7 +57,7 @@ const SiteHeader = () => {
             PrimeQA
         </HeaderName>
         <HeaderNavigation aria-label="Carbon Tutorial">
-          <HeaderMenuItem isCurrentPage href="#about">About</HeaderMenuItem>
+          <HeaderMenuItem href="#about">About</HeaderMenuItem>
           <HeaderMenuItem href="#models">Models</HeaderMenuItem>
           <HeaderMenuItem href="#demos">Demos</HeaderMenuItem>
           <HeaderMenuItem href="#">Resources</HeaderMenuItem>
