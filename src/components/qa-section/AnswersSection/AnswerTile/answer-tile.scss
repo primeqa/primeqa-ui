@@ -29,14 +29,14 @@
 }
 
 .answer-tile-answer{
-    @include carbon--type-style('productive-heading-04', true);
+    @include carbon--type-style('productive-heading-02', true);
     padding-top: $spacing-07;
     padding-bottom: $spacing-07;
     padding-left: $spacing-04;
 }
 
 .selected-answer{
-    // @include carbon--type-style('productive-heading-05', true);
+    @include carbon--type-style('productive-heading-04', true);
     text-decoration-color: blue;
     text-decoration: underline;
     font-weight: bold;
