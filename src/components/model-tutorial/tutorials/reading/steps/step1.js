@@ -22,8 +22,8 @@ import QASection from "../../../../qa-section";
 import { TutorialStep } from "../../tutorial";
 import {sample_contexts} from "../../sample-contexts";
 
-const contextDefinition =  <DefinitionTooltip definition={"A document or piece of text that the model uses to form a response."}>context</DefinitionTooltip>;
-const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a {contextDefinition}.<br></br><br></br>Try it out by asking question about the example context to the right, or select one of the sample questions, then click Ask.</p>
+const contextDefinition =  <DefinitionTooltip definition={"A document or piece of text that the model uses to extract a response."}>context</DefinitionTooltip>;
+const dialog = <p>The Reading Comprehension model can be used to quickly extract information from a {contextDefinition}.<br></br><br></br>Try it out by entering a question about the context to the right, or select one of the sample questions, then click Ask.</p>
 
 let content =  <div>
     <QASection context={sample_contexts[0]} contextMode={ContextMode.LOCKED}/>

@@ -22,9 +22,8 @@ import QASection from "../../../../qa-section";
 import { TutorialStep } from "../../tutorial";
 import {sample_contexts} from "../../sample-contexts";
 
-const trainingDefinition =  <DefinitionTooltip definition={"Training is...."}>training</DefinitionTooltip>;
-
-const dialog = <p>The Reading Comprehension model works across a multitude of context types without requiring additional {trainingDefinition}.<br></br><br></br> The model can evem extract information from highly-specialized contexts like legal documents, technical documentation, and fantasy novels out of the box. Try selecting a new context from the dropdown on the right and try it out.</p>
+const trainingDefinition =  <DefinitionTooltip definition={"The process of adjusting the combination of weights and bias to minimize a loss function over the prediction range."}>training</DefinitionTooltip>;
+const dialog = <p>The model can extract information from highly-specialized contexts like legal documents, technical documentation, and fantasy novels without requiring additional {trainingDefinition}. <br></br><br></br>Try selecting one of the specialized contexts from the context dropdown on the right and ask some questions.</p>
 
 
 /**
