@@ -126,6 +126,16 @@
         background-color: $blue-20;
       }
 
+      &--yesanswer {
+        font-weight: 600;
+        background-color: $green-20;
+      }
+
+      &--noanswer {
+        font-weight: 600;
+        background-color: $yellow-20;
+      }
+
       .cds--accordion__item {
         border-top: none;
         margin-top: 10px;

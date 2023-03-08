@@ -63,6 +63,9 @@ async function ask(
           title: entry.document.title,
           url: entry.document.url,
           confidenceScore: entry.answer.confidence_score,
+          question_type_prediction: entry.answer.question_type_prediction,
+          boolean_answer_prediction: entry.answer.boolean_answer_prediction,
+          display_each_boolean_answer: true
         });
       });
     }
