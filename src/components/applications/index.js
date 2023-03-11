@@ -22,6 +22,12 @@ import _ from "lodash";
 
 import { Search, Book, SearchLocate, Application } from "@carbon/react/icons";
 
+import { 
+  DESCRIPTION_RETRIEVAL, 
+  DESCRIPTION_READING, 
+  DESCRIPTION_QA, 
+} from "../../api/config";
+
 import HeaderContent from "../header/index";
 import Notifications from "../notifications";
 import Navigation from "../navigation";
@@ -52,7 +58,7 @@ export async function listApplicationsIfRequired(applications, dispatch) {
           applicationId: "retrieval",
           name: "Retrieval",
           description:
-            "Search a document collection using dense and sparse information retrieval techniques",
+            DESCRIPTION_RETRIEVAL || "Search a document collection using dense and sparse information retrieval techniques",
           githubLink: "https://github.com/primeqa/primeqa",
           feedbackLink: "https://github.com/primeqa/primeqa/issues/new",
           settings: settings,
@@ -60,7 +66,8 @@ export async function listApplicationsIfRequired(applications, dispatch) {
         {
           applicationId: "reading",
           name: "Reading",
-          description: "Find answer to questions based on a given context",
+          description:
+            DESCRIPTION_READING || "Find answer to questions based on a given context",
           githubLink: "https://github.com/primeqa/primeqa",
           feedbackLink: "https://github.com/primeqa/primeqa/issues/new",
           settings: settings,
@@ -69,7 +76,7 @@ export async function listApplicationsIfRequired(applications, dispatch) {
           applicationId: "qa",
           name: "Question Answering",
           description:
-            "Find answers to question from retrieved evidence blocks",
+            DESCRIPTION_QA || "Find answers to question from retrieved evidence blocks",
           githubLink: "https://github.com/primeqa/primeqa",
           feedbackLink: "https://github.com/primeqa/primeqa/issues/new",
           settings: settings,
