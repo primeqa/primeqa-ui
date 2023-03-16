@@ -17,11 +17,11 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 
-import { Search, Button } from "@carbon/react";
+import { Search, Form, Button } from "@carbon/react";
 
 import Collections from "../../components/collections";
 import Retrievers from "../../components/retrievers";
@@ -125,6 +125,8 @@ function QuestionAnswering({ application, showSettings }) {
   const readers = useSelector((state) => state.readers);
   const dispatch = useDispatch();
 
+  const searchRef = useRef(null);
+
   return (
     <div className="application">
       <div className="application__body">
@@ -133,10 +135,32 @@ function QuestionAnswering({ application, showSettings }) {
         </div>
         <div className="application__content">
           <h4>What would you like to know?</h4>
-          <div className="qa__input">
+          <Form className="qa__input"
+            onSubmit={evt => {
+              evt.preventDefault();
+
+              // Step 1: Set processing to true
+              setProcessing(true);
+
+              // Step 2: Trigger ask function
+              ask(
+                questionText,
+                retrievers.selectedRetriever,
+                selectedCollection,
+                readers.selectedReader,
+                setAnswers,
+                setProcessing,
+                setProcessed,
+                dispatch
+              );
+
+              searchRef.current.focus();
+            }}
+          >
             <div className="qa__input--box">
               <Search
                 id="qa__question"
+                ref={searchRef}
                 labelText={questionText}
                 placeholder={strings.PLACEHOLDER_QUESTION}
                 disabled={
@@ -154,20 +178,6 @@ function QuestionAnswering({ application, showSettings }) {
                   setShowSuggestedQuestions(false);
                   setProcessed(false);
                   setQuestionText(event.target.value);
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    ask(
-                      questionText,
-                      retrievers.selectedRetriever,
-                      selectedCollection,
-                      readers.selectedReader,
-                      setAnswers,
-                      setProcessing,
-                      setProcessed,
-                      dispatch
-                    );
-                  }
                 }}
                 onClick={() => {
                   setShowSuggestedQuestions(true);
@@ -205,40 +215,8 @@ function QuestionAnswering({ application, showSettings }) {
               ) : null}
             </div>
             <Button
-              className="qa__question--submit-btn"
               kind="primary"
-              onClick={() => {
-                // Step 1: Set processing to true
-                setProcessing(true);
-
-                // Step 2: Trigger ask function
-                ask(
-                  questionText,
-                  retrievers.selectedRetriever,
-                  selectedCollection,
-                  readers.selectedReader,
-                  setAnswers,
-                  setProcessing,
-                  setProcessed,
-                  dispatch
-                );
-              }}
-              onKeyDown={() => {
-                // Step 1: Set processing to true
-                setProcessing(true);
-
-                // Step 2: Trigger ask function
-                ask(
-                  questionText,
-                  retrievers.selectedRetriever,
-                  selectedCollection,
-                  readers.selectedReader,
-                  setAnswers,
-                  setProcessing,
-                  setProcessed,
-                  dispatch
-                );
-              }}
+              type="submit"
               disabled={
                 disabled ||
                 !retrievers.selectedRetriever ||
@@ -249,7 +227,7 @@ function QuestionAnswering({ application, showSettings }) {
             >
               Ask
             </Button>
-          </div>
+          </Form>
           {questionText !== strings.PLACEHOLDER_QUESTION ? (
             <div className="answers">
               {(processing || processed) && questionText ? (
