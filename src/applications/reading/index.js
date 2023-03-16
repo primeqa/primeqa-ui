@@ -17,11 +17,11 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 
-import { TextArea, TextInput, Button } from "@carbon/react";
+import { TextArea, TextInput, Form, Button } from "@carbon/react";
 
 import Readers from "../../components/readers";
 import Answers from "../../components/answers";
@@ -117,6 +117,8 @@ function Reading({ application, showSettings }) {
   const readers = useSelector((state) => state.readers);
   const dispatch = useDispatch();
 
+  const questionRef = useRef(null);
+
   return (
     <div className="application">
       <div className="application__body">
@@ -137,9 +139,30 @@ function Reading({ application, showSettings }) {
                 setContext(event.target.value);
               }}
             ></TextArea>
-            <div className="reading__input--box">
+            <Form className="reading__input--box"
+              onSubmit={evt => {
+                evt.preventDefault();
+
+                // Step 1: Set processing to true
+                setProcessing(true);
+
+                // Step 2: Trigger read function
+                read(
+                  questionText,
+                  context,
+                  readers.selectedReader,
+                  setAnswers,
+                  setProcessing,
+                  setProcessed,
+                  dispatch
+                );
+
+                questionRef.current.focus();
+              }}
+            >
               <TextInput
                 id="reading__question"
+                ref={questionRef}
                 labelText={"Question"}
                 placeholder={strings.PLACEHOLDER_QUESTION}
                 disabled={disabled || !context || !readers.selectedReader}
@@ -152,53 +175,10 @@ function Reading({ application, showSettings }) {
                   setProcessed(false);
                   setQuestionText(event.target.value);
                 }}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    read(
-                      questionText,
-                      context,
-                      readers.selectedReader,
-                      setAnswers,
-                      setProcessing,
-                      setProcessed,
-                      dispatch
-                    );
-                  }
-                }}
               ></TextInput>
               <Button
-                className="reading__question--submit-btn"
                 kind="primary"
-                onClick={() => {
-                  // Step 1: Set processing to true
-                  setProcessing(true);
-
-                  // Step 2: Trigger ask function
-                  read(
-                    questionText,
-                    context,
-                    readers.selectedReader,
-                    setAnswers,
-                    setProcessing,
-                    setProcessed,
-                    dispatch
-                  );
-                }}
-                onKeyDown={() => {
-                  // Step 1: Set processing to true
-                  setProcessing(true);
-
-                  // Step 2: Trigger ask function
-                  read(
-                    questionText,
-                    context,
-                    readers.selectedReader,
-                    setAnswers,
-                    setProcessing,
-                    setProcessed,
-                    dispatch
-                  );
-                }}
+                type="submit"
                 disabled={
                   disabled ||
                   !context ||
@@ -208,7 +188,7 @@ function Reading({ application, showSettings }) {
               >
                 Ask
               </Button>
-            </div>
+            </Form>
           </div>
           {questionText !== strings.PLACEHOLDER_QUESTION ? (
             <div className="answers">
