@@ -125,6 +125,7 @@ function QuestionAnswering({ application, showSettings }) {
   const readers = useSelector((state) => state.readers);
   const dispatch = useDispatch();
 
+  // Reference for search input
   const searchRef = useRef(null);
 
   return (
@@ -154,6 +155,7 @@ function QuestionAnswering({ application, showSettings }) {
                 dispatch
               );
 
+              // Sets the focus on search input, accessing it through its reference
               searchRef.current.focus();
             }}
           >

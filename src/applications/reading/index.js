@@ -117,6 +117,7 @@ function Reading({ application, showSettings }) {
   const readers = useSelector((state) => state.readers);
   const dispatch = useDispatch();
 
+  // Reference for question input
   const questionRef = useRef(null);
 
   return (
@@ -157,6 +158,7 @@ function Reading({ application, showSettings }) {
                   dispatch
                 );
 
+                // Sets the focus on question input, accessing it through its reference
                 questionRef.current.focus();
               }}
             >
