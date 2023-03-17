@@ -17,10 +17,10 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Search, Button } from "@carbon/react";
+import { Search, Form, Button } from "@carbon/react";
 
 import Collections from "../../components/collections";
 import Retrievers from "../../components/retrievers";
@@ -103,6 +103,9 @@ function Retrieval({ application, showSettings }) {
   const retrievers = useSelector((state) => state.retrievers);
   const dispatch = useDispatch();
 
+  // Reference for search input
+  const searchRef = useRef(null);
+
   return (
     <div className="application">
       <div className="application__body">
@@ -111,10 +114,32 @@ function Retrieval({ application, showSettings }) {
         </div>
         <div className="application__content">
           <h4>What would you like to know?</h4>
-          <div className="qa__input">
+          <Form className="qa__input"
+            onSubmit={evt => {
+              evt.preventDefault();
+
+              // Step 1: Set processing to true
+              setProcessing(true);
+
+              // Step 2: Trigger ask function
+              ask(
+                questionText,
+                retrievers.selectedRetriever,
+                selectedCollection,
+                setDocuments,
+                setProcessing,
+                setProcessed,
+                dispatch
+              );
+
+              // Sets the focus on search input, accessing it through its reference
+              searchRef.current.focus();
+            }}
+          >
             <div className="qa__input--box">
               <Search
                 id="qa__question"
+                ref={searchRef}
                 labelText={questionText}
                 placeholder={strings.PLACEHOLDER_QUESTION}
                 disabled={
@@ -181,38 +206,8 @@ function Retrieval({ application, showSettings }) {
               ) : null}
             </div>
             <Button
-              className="qa__question--submit-btn"
               kind="primary"
-              onClick={() => {
-                // Step 1: Set processing to true
-                setProcessing(true);
-
-                // Step 2: Trigger ask function
-                ask(
-                  questionText,
-                  retrievers.selectedRetriever,
-                  selectedCollection,
-                  setDocuments,
-                  setProcessing,
-                  setProcessed,
-                  dispatch
-                );
-              }}
-              onKeyDown={() => {
-                // Step 1: Set processing to true
-                setProcessing(true);
-
-                // Step 2: Trigger ask function
-                ask(
-                  questionText,
-                  retrievers.selectedRetriever,
-                  selectedCollection,
-                  setDocuments,
-                  setProcessing,
-                  setProcessed,
-                  dispatch
-                );
-              }}
+              type="submit"
               disabled={
                 disabled ||
                 !retrievers.selectedRetriever ||
@@ -222,7 +217,7 @@ function Retrieval({ application, showSettings }) {
             >
               Ask
             </Button>
-          </div>
+          </Form>
           {questionText !== strings.PLACEHOLDER_QUESTION ? (
             <div className="documents">
               {(processing || processed) && questionText ? (
