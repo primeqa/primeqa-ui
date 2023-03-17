@@ -103,6 +103,7 @@ function Retrieval({ application, showSettings }) {
   const retrievers = useSelector((state) => state.retrievers);
   const dispatch = useDispatch();
 
+  // Reference for search input
   const searchRef = useRef(null);
 
   return (
@@ -131,6 +132,7 @@ function Retrieval({ application, showSettings }) {
                 dispatch
               );
 
+              // Sets the focus on search input, accessing it through its reference
               searchRef.current.focus();
             }}
           >
