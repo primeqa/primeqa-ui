@@ -54,30 +54,21 @@ async function ask(
     let answers = [];
     if (resp && !_.isEmpty(resp)) {
       // Step 2.a: Iterate over each entry in response to build answer's object
-      resp.forEach((entry) => {
-        // Step 2.a.i: Mandator fields
-        let answer = {
-          text: entry.answer.text,
-          confidenceScore: entry.answer.confidence_score,
-        };
+      if (resp.answers) {
+        resp.answers.forEach((entry) => {
+          // Step 2.a.i: Mandator fields
+          let answer = {
+            text: entry.text,
+            confidenceScore: entry.confidence_score,
+          };
 
-        // Step 2.a.ii: Optional fields
-        if (entry.document) {
-          answer.context = entry.document.text;
-          answer.title = entry.document.title;
-          answer.url = entry.document.url;
-        }
-
-        if (entry.answer.start_char_offset) {
-          answer.startCharOffset = entry.answer.start_char_offset;
-        }
-
-        if (entry.answer.end_char_offset) {
-          answer.endCharOffset = entry.answer.end_char_offset;
-        }
-
-        answers.push(answer);
-      });
+          // Step 2.a.ii: Optional fields
+          if (entry.evidences && !_.isEmpty(entry.evidences)) {
+            answer.evidences = entry.evidences;
+          }
+          answers.push(answer);
+        });
+      }
     }
 
     setAnswers(answers);
@@ -149,8 +140,9 @@ function QuestionAnswering({ application, showSettings }) {
         </div>
         <div className="application__content">
           <h4>What would you like to know?</h4>
-          <Form className="qa__input"
-            onSubmit={evt => {
+          <Form
+            className="qa__input"
+            onSubmit={(evt) => {
               evt.preventDefault();
 
               // Step 1: Set processing to true

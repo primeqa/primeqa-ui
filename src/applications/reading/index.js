@@ -50,14 +50,18 @@ async function read(
     // Step 2: Verify response came with "text" response type
     let answers = [];
     if (resp && !_.isEmpty(resp)) {
-      resp.forEach((answer) => {
-        answers.push({
-          text: answer.text,
-          context: context,
-          startCharOffset: answer.start_char_offset,
-          endCharOffset: answer.end_char_offset,
-          confidenceScore: answer.confidence_score,
-        });
+      resp.forEach((entry) => {
+        // Mandatory fields
+        let answer = {
+          text: entry.text,
+          confidenceScore: entry.confidence_score,
+        };
+
+        // Optional fields
+        if (entry.evidences && !_.isEmpty(entry.evidences)) {
+          answer.evidences = entry.evidences;
+        }
+        answers.push(answer);
       });
     }
 
@@ -140,8 +144,9 @@ function Reading({ application, showSettings }) {
                 setContext(event.target.value);
               }}
             ></TextArea>
-            <Form className="reading__input--box"
-              onSubmit={evt => {
+            <Form
+              className="reading__input--box"
+              onSubmit={(evt) => {
                 evt.preventDefault();
 
                 // Step 1: Set processing to true
