@@ -36,6 +36,7 @@ import {
 } from "@carbon/react/icons";
 
 import { generateUUID } from "../../util/uuid";
+import Evidence from "../evidence";
 import {
   getFeedbacks as getFeedbacksAPI,
   postFeedback as postFeedbackAPI,
@@ -58,17 +59,47 @@ async function buildAnswersWithFeedback(
   // Step 1.a: Iterate over each answer
   answers.forEach((answer, answerIndex) => {
     // Step 1.a.i: Generate feedback_id
-    const feedback_id = generateUUID(
-      question +
-        "::" +
-        answer.context.replace(/\s/g, "") +
-        "::" +
-        answer.text.replace(/\s/g, "") +
-        "::" +
-        answer.startCharOffset +
-        "::" +
-        answer.endCharOffset
-    );
+    // FIXME: Need to come up with improved logic to generate unique feedback ID based on evidences
+    let feedback_id = null;
+    if (answer.evidences) {
+      let evidenceContent = "";
+      answer.evidences.forEach((evidence) => {
+        // Step 1.a.i.*: If evidence is of "text" type, use "text" field
+        if (evidence.evidence_type === "text") {
+          evidenceContent += evidence.text.replace(/\s/g, "") + ":::";
+        }
+        // Step 1.a.i.**: If evidence is of "document" type, use "document_id" field if present (fall back on "text" field)
+        else if (evidence.evidence_type === "document") {
+          if (evidence.document_id) {
+            evidenceContent += evidence.document_id.replace(/\s/g, "") + ":::";
+          } else {
+            evidenceContent += evidence.text.replace(/\s/g, "") + ":::";
+          }
+        }
+
+        // Step 1.a.i.***: Add offsets information, if present
+        if (evidence.offsets) {
+          let offsetsContent = "[";
+          evidence.offsets.forEach((offset) => {
+            offsetsContent += "(" + offset.start + "," + offset.end + "), ";
+          });
+          evidenceContent += offsetsContent.slice(0, -2) + "]:::";
+        }
+      });
+
+      // Use question, answer's text and answer's evidence information
+      feedback_id = generateUUID(
+        question +
+          "::" +
+          answer.text.replace(/\s/g, "") +
+          "::" +
+          evidenceContent.slice(0, -3)
+      );
+    } else {
+      feedback_id = generateUUID(
+        question + "::" + answer.text.replace(/\s/g, "")
+      );
+    }
 
     // Step 1.a.ii: Update feedbackIdToAnswerIndexMap
     feedbackIdToAnswerIndexMap.set(feedback_id, answerIndex);
@@ -292,30 +323,31 @@ function Answers({ question, answers, loading, source }) {
                   <div className="answers--item__content">
                     <div className="answers--item__content--left">
                       <span>{answerWithFeedback.text}</span>
-                      {Object.hasOwn(answerWithFeedback, "context") &&
-                      answerWithFeedback.context ? (
+                      {Object.hasOwn(answerWithFeedback, "evidences") &&
+                      answerWithFeedback.evidences ? (
                         <Accordion
                           align="start"
                           size="md"
-                          className="answers--item__context"
+                          className="answers--item__evidence"
                         >
-                          <AccordionItem title="Evidence">
-                            <p>
-                              {answerWithFeedback.context.slice(
-                                0,
-                                answerWithFeedback.startCharOffset
-                              )}
-                              <b className="answers--item__context--highlight">
-                                {answerWithFeedback.context.slice(
-                                  answerWithFeedback.startCharOffset,
-                                  answerWithFeedback.endCharOffset
-                                )}
-                              </b>
-                              {answerWithFeedback.context.slice(
-                                answerWithFeedback.endCharOffset
-                              )}
-                            </p>
-                          </AccordionItem>
+                          {answerWithFeedback.evidences.length > 1 ? (
+                            answerWithFeedback.evidences.map(
+                              (evidence, evidence_index) => (
+                                <AccordionItem
+                                  title={"Evidence " + (evidence_index + 1)}
+                                  key={"Evidence " + (evidence_index + 1)}
+                                >
+                                  <Evidence evidence={evidence}></Evidence>
+                                </AccordionItem>
+                              )
+                            )
+                          ) : (
+                            <AccordionItem title={"Evidence"} key={"Evidence"}>
+                              <Evidence
+                                evidence={answerWithFeedback.evidences[0]}
+                              ></Evidence>
+                            </AccordionItem>
+                          )}
                         </Accordion>
                       ) : null}
                     </div>

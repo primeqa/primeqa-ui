@@ -117,27 +117,5 @@
       display: flex;
       align-items: center;
     }
-
-    &__context {
-      padding-top: 1%;
-
-      &--highlight {
-        font-weight: 600;
-        background-color: $blue-20;
-      }
-
-      .cds--accordion__item {
-        border-top: none;
-        margin-top: 10px;
-
-        &:last-child {
-          border-bottom: none;
-        }
-
-        .cds--accordion__heading {
-          color: $blue-60;
-        }
-      }
-    }
   }
 }
