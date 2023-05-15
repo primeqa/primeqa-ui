@@ -26,6 +26,7 @@ import HeaderContent from "../header/index";
 import Notifications from "../notifications";
 import Navigation from "../navigation";
 import ApplicationCard from "../application-card/index";
+import AuxiliaryContent from "../auxiliary-content/index";
 
 import * as settingsAPI from "../../api/settings";
 import {
@@ -50,7 +51,7 @@ export async function listApplicationsIfRequired(applications, dispatch) {
       const fetchedApplications = [
         {
           applicationId: "retrieval",
-          name: "Retrieval",
+          name: "primeqa.retrieve",
           description:
             "Search a document collection using dense and sparse information retrieval techniques",
           githubLink: "https://github.com/primeqa/primeqa",
@@ -59,7 +60,7 @@ export async function listApplicationsIfRequired(applications, dispatch) {
         },
         {
           applicationId: "reading",
-          name: "Reading",
+          name: "primeqa.read",
           description: "Find answer to questions based on a given context",
           githubLink: "https://github.com/primeqa/primeqa",
           feedbackLink: "https://github.com/primeqa/primeqa/issues/new",
@@ -67,7 +68,7 @@ export async function listApplicationsIfRequired(applications, dispatch) {
         },
         {
           applicationId: "qa",
-          name: "Question Answering",
+          name: "primeqa.answer",
           description:
             "Find answers to question from retrieved evidence blocks",
           githubLink: "https://github.com/primeqa/primeqa",
@@ -178,6 +179,11 @@ function Applications() {
               })
             : null}
         </div>
+        <AuxiliaryContent>
+          <p>
+            PrimeQA is a public open source repository that enables researchers and developers to train state-of-the-art models for question answering (QA). This page lets you try out sample demos of PrimeQA capabilities. Check out PrimeQA here: <a href="https://github.com/primeqa/primeqa">https://github.com/primeqa/primeqa</a>
+          </p>
+        </AuxiliaryContent>
       </div>
     </React.Fragment>
   );

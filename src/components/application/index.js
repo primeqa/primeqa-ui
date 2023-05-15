@@ -157,7 +157,7 @@ function Application() {
             {!application || !application.name ? (
               <SkeletonText heading={true} />
             ) : (
-              <h4>{application.name}</h4>
+              <h3>{application.name}</h3>
             )}
             <div className="container__application__tools">
               <Button

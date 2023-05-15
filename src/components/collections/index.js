@@ -143,7 +143,11 @@ function Collections({
           <Select
             id="select-corpus"
             labelText="Corpus"
-            helperText="Select a corpus"
+            helperText={
+              selectedCollection
+                ? selectedCollection.description
+                : 'Select a corpus'
+            }
             value={
               selectedCollection
                 ? selectedCollection.collection_id
